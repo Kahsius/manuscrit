@@ -6,7 +6,8 @@
 \usepackage{amsmath}
 \usepackage[utf8]{inputenc}
 \usepackage{array}
-\usepackage{algorithm2e}
+\usepackage[titlenumbered, ruled]{algorithm2e}
+\SetKwRepeat{Do}{do}{while}
 
 \begin{document}
 \chapter{State of the Art}
@@ -194,9 +195,7 @@ DB = \frac{1}{|C]}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
 
     This kind of algorithm is the first to appear in 1963 with the method presented in \cite{ward1963hierarchical}. Its core idea is to build a hierarchy of clusters by joining existing clusters (agglomerative methods, each data point starts in its own cluster) or by separating them (divise methods, all the dataset belongs to the same initial cluster). The point of the method is to iteratively build a dendrogram by looking at a specific criterion. A method is defined both by the way the dendrogram is built and by the criterion used to pair or divise the clusters. One can either apply the method until all points belong to the same cluster and graphically determining the best number of clusters, or apply the method until a specific criterion is reached (number of cluster or inter-cluster distance for example).
 
-    The first most commonly met hierarchical clustering method is the Agglomerative method presented in \cite{ward1963hierarchical} which pairs clusters by considering a criterion to optimize. The way the dendrogram is built being specified, the variations of the algorithm depends on the criterion which is used to pair the clusters. The most used criterions are the Ward's function (defined in \cite{ward1963hierarchical}) which aims at minimizing the intra-cluster variance at each step, and the linkage functions which consider a specific distance inter-cluster to minimize. These latter can be either the maximum or the minimum or the mean distance between points of two clusters (respectively called the complete-linkage, the single-linkage and the average linkage clusterings). There exists some other criterion which are not detailed here, however the interested reader can refer to \cite{murtagh1983survey} which establishes a detailed survey on the criterion used for Agglomerative clustering. A general framework for an agglomerative hierarchical clustering algorithm is presented in Algorithm \ref{alg:hierarch}.
-
-\rule{\textwidth}{0.4pt}
+    The first most commonly met hierarchical clustering method is the Agglomerative method presented in \cite{ward1963hierarchical} which pairs clusters by considering a criterion to optimize. The way the dendrogram is built being specified, the variations of the algorithm depends on the criterion which is used to pair the clusters. The most used criterions are the Ward's function (defined in \cite{ward1963hierarchical}) which aims at minimizing the intra-cluster variance at each step, and the linkage functions which consider a specific distance inter-cluster to minimize. These latter can be either the maximum or the minimum or the mean distance between points of two clusters (respectively called the complete-linkage, the single-linkage and the average linkage clusterings). There exists some other criterion which are not detailed here, however the interested reader can refer to \cite{murtagh1983survey} which establishes a detailed survey on the criterion used for Agglomerative clustering. A general framework for an agglomerative hierarchical clustering algorithm is presented in Algorithm \ref{alg:hierarch}.\\
 
     \begin{algorithm}[H]
         \caption{General framework of a hierarchical agglomerative clustering algorithm}
@@ -211,6 +210,8 @@ DB = \frac{1}{|C]}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
         \label{alg:hierarch}
     \end{algorithm}
 
+    ~\\
+
     The second most commonly met Hierarchical method is the Balanced Iterative Reducing and Clustering using Hierarchies (BIRCH) one \cite{zhang1997birch}. This method has been defined in a context of growing interest for data mining of large dataset, and its main claim is to reduce the consumption of ressources used during the clustering, as it presents a compact representation of a dataset and only requires a single path through the dataset to create the tree.
 
     \subsection{Vector quantization methods}
@@ -218,11 +219,50 @@ DB = \frac{1}{|C]}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
 
     Vector quantization methods are based on the idea that a clustering can be summarized by a set of prototype vectors, thus the belonging of a datum to one cluster is determined by comparing it to the set of existing prototypes. There are two main kinds of Vector Quantization methods: these based on deterministic belongings for which a data point belong to one and only one cluster, and these based on stochastic belongings for which belongings are expressed as a set of probabilities, one per prototype. 
 
-    The Deterministic Vector Quantization methods are historically the first ones that have been created. The very first method, still used today, is the K-means algorithm \cite{macqueen1967some}. This method is based on a pair of steps done iteratively until convergence of the prototypes. First a set of $K$ prototypes is randomly generated in the feature space, then each data point is associated with its closest prototype. When all the belongings have been determined, the prototypes are updated as the means of their associated data points : they become the ``center'' of the cluster they represent. The last two steps are repeated until the prototypes updates norms are sufficiently small to be considered as negligeable. The initial method has allowed the emergence of many variations such as k-medians clustering \cite{jain1988algorithms}, k-medoids clustering \cite{kaufman1987clustering} depending on the prototype update rule. An extension to this algorithm has been proposed in \cite{kohonen1998self} in which the authors define the Self-Organizing Maps (SOM). This methods is based on the same idea than K-means, except that the prototypes are generally organized as a map in which each node update will also impact its neighbors, depending on a neighboring function based on the Manhattan distance between two nodes in the map. This allows to not only capture prototypes, but also to organize them following a possible underlying structure in the dataset. This methods also make it possible to get a two or three dimensions representation of a possibily high feature space. Indeed in a supervised case, by assigning to each node the class of the majority of its associated data points, it it possible to graphically see the underlying proximity structure in the dataset.
+    The Deterministic Vector Quantization methods are historically the first ones that have been created. The very first method, still used today, is the K-means algorithm \cite{macqueen1967some}. This method is based on a pair of steps done iteratively until convergence of the prototypes. First a set of $K$ prototypes is randomly generated in the feature space, then each data point is associated with its closest prototype. When all the belongings have been determined, the prototypes are updated as the means of their associated data points : they become the ``center'' of the cluster they represent. The last two steps are repeated until the prototypes updates norms are sufficiently small to be considered as negligeable. The initial method has allowed the emergence of many variations such as k-medians clustering \cite{jain1988algorithms}, k-medoids clustering \cite{kaufman1987clustering} depending on the prototype update rule. An extension to this algorithm has been proposed in \cite{kohonen1998self} in which the authors define the Self-Organizing Maps (SOM). This methods is based on the same idea than K-means, except that the prototypes are generally organized as a map in which each node update will also impact its neighbors, depending on a neighboring function based on the Manhattan distance between two nodes in the map. This allows to not only capture prototypes, but also to organize them following a possible underlying structure in the dataset. This methods also make it possible to get a two or three dimensions representation of a possibily high feature space. Indeed in a supervised case, by assigning to each node the class of the majority of its associated data points, it it possible to graphically see the underlying proximity structure in the dataset. The k-means algorithm is illustrated in Algorithm \ref{alg:kmeans}.
+
+    \begin{algorithm}
+        \caption{K-Means algorithm}
+        \label{alg:kmeans}
+        \textbf{Initialization :} Choose a value for $K$\\
+        Randomly initialize the $K$ centroids $\mu_i$\\
+        \While{a stopping criterion is not met}{
+            \ForAll{$x_n \in X$}{
+                Assign $x_n$ to the cluster $c_i$ with the closest centroid\\
+                $s_{n,i} = 
+                    \begin{cases}
+                        1 \quad \text{if} \quad i = argmin_i\|x_n - \mu_i\|^2\\
+                        0 \quad \text{otherwise}
+                    \end{cases}$
+            }
+            \ForAll{$\mu_i$}{
+                $\mu_i = \frac{\sum_n x_n \cdot s_{n,i}}{\sum_n s_{n,i} }$
+            }
+        }
+    \end{algorithm}
 
     Deterministic Vector Quantization ideas have been adapted in a stochastic context: now, a data point does not belong to a single cluster, but rather is defined by a set of $K$ belonging probabilities, with $K$ the total number of clusters. A comparision can be made between the two step algorithm used by K-means and the Expectation-Maximization (EM) algorithm defined in \cite{dempster1977maximum} for which the update of parameters are performed using the likelihood of data being generated by the model using these parameters. In the first case, the method optimizes the variance of the distance between the prototypes and its associated points, in the second case the method optimizes the likelihood of the dataset being generated by the clustering model. The EM method thus makes it possible to define a stochastic counterpart to K-means called Gaussian Mixture Model. For this method, one considers that the data have been generated by a set of Gaussian functions. The EM method here make it possible to learn the the mean, the variance and, in the multidimensional case, the covariance matrix of the functions.
     
-    Considering stochastic belongings, it is also possible to draw some links between deterministic clustering methods and their stochastic variants. Thus, Fuzzy C-Means \cite{bezdek1984fcm} can be viewed as the stochastic variant of K-means for which the optimized criterion uses weighting coefficients equals to the stochastics belongings defined by the method. Beside, the Generative Topographic Maps (GTM) \cite{bishop1998gtm} can be viewed as the SOM stochastic variant. However, while Fuzzy C-Means only added the stochastic belongings to the initial model, GTM uses the concept of latent space to define the prototype map, map which is then mapped into the feature space using a transformation which parameters are trained using the EM method.
+    Considering stochastic belongings, it is also possible to draw some links between deterministic clustering methods and their stochastic variants. Thus, Fuzzy C-Means \cite{bezdek1984fcm} can be viewed as the stochastic variant of K-means for which the optimized criterion uses weighting coefficients equals to the stochastics belongings defined by the method. Beside, the Generative Topographic Maps (GTM) \cite{bishop1998gtm} can be viewed as the SOM stochastic variant. However, while Fuzzy C-Means only added the stochastic belongings to the initial model, GTM uses the concept of latent space to define the prototype map, map which is then mapped into the feature space using a transformation which parameters are trained using the EM method. A detailed description of the FCM algorithm can be found in Algorithm \ref{alg:fcm}
+    
+    \begin{algorithm}
+        \caption{Fuzzy C-Means algorithm}
+        \label{alg:fcm}
+        \textbf{Initialization :} Choose a value for $C$ and $m$\\
+        Randomly initialize $s^0_{n,i}$ such that $\forall i, ~ s_{n,i} \in [0,1], \quad \forall n ~ \sum\limits_{i=1}^C s_{n,i} = 1$
+        r = 0
+        \Do{a stopping criterion is not met}{
+            \ForAll{$\mu_i$}{
+                $\mu_i = \frac{\sum_n x_n (s_{n,i}^{r-1})^m}{\sum_n x_n (s_{n,i}^{r-1})^m}$
+            }
+            \For{$n\in [1..N]$}{
+                \For{$i \in [1..C]$}{
+                    $s_{n,i}^r = \sum_{j=1}^C\Big( \frac{d(x_n, \mu_i)^2}{d(x_n, \mu_j)^2} \Big)^{-\frac{2}{m-1}}$
+                }
+            }
+            $r = r+1$
+        }
+    \end{algorithm}
 
     A specific emphasis has to be made on this subsection because the methods defined here are later used in Section \ref{sec:soa_cc} when Collaborative Clustering is presented.
 
@@ -230,7 +270,56 @@ DB = \frac{1}{|C]}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
 
     Even though hierarchical and vector quantization methods have been investigated since the emergence of clustering, the problem of the initialy defined number of cluster remains because it has to be defined manually by the user. The density-based methods presented in this section present alternative solutions to this problem by using the density of data points in the feature space to automatically determine the optimal number of clusters during the learning process (w.r.t. the optimized criterion). 
 
-    The most commonly met density based method is called Density-based spatial clustering of applications with noise (DBSCAN) \cite{ester1996density}. Its core idea is to consider the density around each data point, namely their numbers of neigbors, because a cluster can also be seen as a densely populated point in the feature space. To do so, the method requires two parameters: a distance $eps$ which determines if two points are neighbors, and $minPts$ which determine if a data point should be considered as a core sample (intuitively, a sample in the near the cluster center) or a non-core sample (at the fringe of the cluster, where the space is less densely populated). Starting from a random point, then iteratively: if it has at least $minPts$ neighbors, it is considered as a core point and all data points such as their distances to the original point is less than $eps$ are analyzed. If it has less than $minPts$ neighbors: either it has a core sample in its neighborhood, in which case it is considered a non-core sample belonging to the same cluster as its core neighbor, or in the opposite case, it is considered as an outlier belonging to no cluster. By doing so, the method defines its own number of cluster depending on $eps$ and $minPts$. 
+    The most commonly met density based method is called Density-based spatial clustering of applications with noise (DBSCAN) \cite{ester1996density}. Its core idea is to consider the density around each data point, namely their numbers of neigbors, because a cluster can also be seen as a densely populated point in the feature space. To do so, the method requires two parameters: a distance $varepsilon$ which determines if two points are neighbors, and $minPts$ which determine if a data point should be considered as a core sample (intuitively, a sample in the near the cluster center) or a non-core sample (at the fringe of the cluster, where the space is less densely populated). Starting from a random point, then iteratively: if it has at least $minPts$ neighbors, it is considered as a core point and all data points such as their distances to the original point is less than $varepsilon$ are analyzed. If it has less than $minPts$ neighbors: either it has a core sample in its neighborhood, in which case it is considered a non-core sample belonging to the same cluster as its core neighbor, or in the opposite case, it is considered as an outlier belonging to no cluster. By doing so, the method defines its own number of cluster depending on $varepsilon$ and $minPts$. A description of the DBSCAN algorithm can be found in Algorithm \ref{alg:dbscan}. 
+
+    \begin{algorithm}
+        \caption{DBSCAN algorithm}
+        \label{alg:dbscan}
+        \SetKwProg{Fn}{Function}{:}{}
+        \SetKwFunction{FDBSCAN}{DBSCAN}
+        \SetKwFunction{FexpandCluster}{expandCluster}
+        \SetKwFunction{FregionQuery}{regionQuery}
+
+        \Fn{\FDBSCAN{$X$,$\varepsilon$,minPts}}{
+            $C=0$\\
+            \ForAll{$x_n\in X$}{
+                \If{$x_n$ has not been visited yet}{
+                    mark $x_n$ as $visited$
+                }
+                $V_n$ = regionQuery($x_n$,$\varepsilon$)\\
+                \If{sizeOf($V_n$) $\geq$ minPts}{
+                    $C = C + 1$\\
+                    expandCluster($x_n$, $V_n$, $C$, $\varepsilon$, minPts)
+                }
+                \Else{
+                    mark $x_n$ as noise
+                }
+            }
+        }
+        \Fn{\FexpandCluster{$x_n$, $V_n$, $C$, $\varepsilon$, minPts}}{
+            Add $x_n$ to cluster $C$\\
+            \ForAll{$x_i \in V_n$}{
+                \If{$x_i$ has not been visited}{
+                    $V_i$ = regionQuery($x_i$, $\varepsilon$)\\
+                    \If{sizeOf($V_i > minPts$)}{
+                        $V_n = V_n \cup V_i$
+                    }
+                }
+                \If{$x_i$ does not belong to any cluster yet}{
+                    Add $x_i$ to cluster $C$
+                }
+            }
+        }
+        \Fn{\FregionQuery{$x_n$, $\varepsilon$}}{
+            list = $\emptyset$
+            \ForAll{$x_i \in X$}{
+                \If{$i \neq n$ and $d(x_n, x_i) \leq \varepsilon$}{
+                    list = list $\cup ~ \{x_i\} $
+                }
+            }
+            \KwRet list
+        }
+    \end{algorithm}
 
     The second most commonly met density based algorithm is the Mean-shift method defined in \cite{cheng1995mean}. The core idea of the method is to consider data points has mobile points which will then be attracted iteratively by high-density zones in the feature space. It is based on a kernel function $K$ which will define the attraction of a point on its neighborhood. At each iteration, each data point will be update as the mean of its neighbors weighted by their respective attractions (defined by $K$). By definition, the method is entirely defined by the kernel function and by its parameters.
 

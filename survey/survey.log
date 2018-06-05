@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.12)  5 JUN 2018 14:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.12)  5 JUN 2018 17:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -460,25 +460,25 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 ) (./survey.aux)
 \openout1 = `survey.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
 
 Chapter 1.
 [1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
-Overfull \hbox (23.58282pt too wide) in paragraph at lines 126--127
+Overfull \hbox (23.58282pt too wide) in paragraph at lines 127--128
 \OT1/cmr/m/n/10 The Wemmert-Gancarski (WG) in-dex is an-other in-dex based on t
 he pair compactness-
  []
@@ -487,70 +487,77 @@ he pair compactness-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 184.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 185.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 184.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 185.
  [6]
-Overfull \hbox (15.0pt too wide) in paragraph at lines 199--200
-[][] 
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
+
  []
 
-[7] [8] [9]
-Overfull \hbox (2.16725pt too wide) in paragraph at lines 262--263
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
+
+ []
+
+[7] [8] [9] [10] [11]
+Overfull \hbox (2.16725pt too wide) in paragraph at lines 351--352
 []\OT1/cmr/m/n/10 Cooperative Clus-ter-ing aims at mak-ing sev-eral clus-ter-in
 gs of the same dataset
  []
 
-[10] [11] [12] [13] (./survey.bbl [14]
+[12] [13] [14] [15] (./survey.bbl [16]
 Underfull \hbox (badness 1953) in paragraph at lines 16--19
 \OT1/cmr/m/n/10 Gtm: The gen-er-a-tive to-po-graphic map-ping.  \OT1/cmr/m/it/1
 0 Neu-ral com-pu-ta-tion\OT1/cmr/m/n/10 ,
  []
 
-[15
+[17
 
-] [16]
+] [18]
 Underfull \hbox (badness 3623) in paragraph at lines 218--223
 []\OT1/cmr/m/n/10 J^^Ser^^Semie Sub-lime, Nis-tor Grozavu, Younes Ben-nani, and
  An-toine
  []
 
-[17]) [18] (./survey.aux) ) 
+[19]) [20] (./survey.aux) ) 
 Here is how much of TeX's memory you used:
- 2272 strings out of 494924
- 29606 string characters out of 6179708
- 95865 words of memory out of 5000000
- 5583 multiletter control sequences out of 15000+600000
- 10062 words of font info for 36 fonts, out of 8000000 for 9000
+ 2307 strings out of 494924
+ 30097 string characters out of 6179708
+ 98076 words of memory out of 5000000
+ 5617 multiletter control sequences out of 15000+600000
+ 10230 words of font info for 37 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 27i,10n,28p,1822b,367s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,21n,27p,1890b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 bx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.p
-fb>
-Output written on survey.pdf (18 pages, 232607 bytes).
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on survey.pdf (20 pages, 268381 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
- 86 compressed objects within 1 object stream
+ 141 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
