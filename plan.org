@@ -1,0 +1,115 @@
+* Plan by Jérémie
+** I Introduction
+   I.1 jeux cyber bidules
+   I.2 clustering
+** II Mes super travaux - partie 1
+   II.1 Rotation de la queue de la vache à travers les ages
+   II.2 Clustering appliqué aux vaches
+** III Clustering collaboratif
+   III.1 Comment Younès Bennani inventa le clustering collaboratif
+   III.2 Mes modestes apports
+   III.3 Idées géniales de mes encadrants sur le clustering collaboratif
+** IV Comment ma thèse fut trop courtes
+   IV.1 De la métaphysique du temps en apprentissage incrémental
+   IV.2 Clustering collaboratif appliqué au temps
+** V Conclusions et perspectives
+
+
+* Parties
+** Introduction
+- jeu vidéo
+- profil de joueur
+- recoupement de comportements au sein d'un ou plusieurs jeux
+- clustering dans le machine learning
+- analyse des données générées par les joueurs
+- évolution du profil des joueurs (progrès)
+- données, nerf de la guerre
+- peu de ressources disponibles librement
+- données parfois incomplètes voir manquantes
+- connaissance a priori permet
+- adaptation du contenu (PvE)
+- résolution de problèmes de matchmaking (PvP)
+- collaboration interjeux permet de récupérer plus facilement de l'info
+- habitudes d'un joueur transmissibles d'un jeu à l'autre
+- tous les jeux n'ont pas intérêt à collaborer ensemble
+- apparition naturelle d'un contexte multi-vues
+- clustering collaboratif
+- paradigme multi-vues avec un aspect sécurité
+- différentes vues peuvent collaborer sans pour autant échanger des données
+- le clustering permet d'établir des profils
+- le collaboratif permet de le faire en faisant participer plusieurs sources/jeux
+
+
+** État de l'art
+*** Clustering
+      - Définition du clustering
+            - Qu'est-ce que c'est
+                  - Définition
+                        - "Data Clustering: A Review" 1999 : Clustering is the
+                          unsupervised classification of patterns
+                          (observations, data items, or feature
+                          vectors) into groups (clusters).
+                  - Date d'émergence
+                        - "Some methods for classification and analysis of
+                          mulmultivariate observations" 1967
+                  - Première(s) méthode(s) employée(s)
+                        - K-means 1967 -> heuristique
+                        - EM 1977 -> méthode stochastique
+            - À quoi ça sert et pourquoi on en a besoin
+                  - Génération massive de données
+                        - Réseaux sociaux (Twitter, Facebook)
+                        - Activité sur le web (Google)
+                        - Activité sur un ordinateur (Apple, Microsoft)
+                        - Récupération de données lors d'une activité humaine
+                          ou non (UCI datasets)
+                  - Cas d'utilisation actuels suivant les problématiques
+                        - Adaptation de la publicité
+                        - Émergence de groupes
+                        - Analyse d'informations médiatiques
+                        - Repérage de clients potentiels
+                        - Recommendation
+            - Quelles sont les difficultés
+                  - Les 4 V du big data : Volume, Variety, Veracity, Velocity
+                  - Tenir compte des deux critères du clustering : Compacité
+                    (boules) et Connectivité (cercles concentriques)
+                  - Mesure de similarité inter-individus
+                  - Attestation de la qualité d'un clustering
+                        - Silhouette
+                        - Davies-Bouldin Index
+                        - RandIndex (pour comparer deux clusterings)
+                  - Représentation et forme des données
+                        - scikit-learning (comparatif clustering doc)
+      - Les méthodes de l'état de l'art
+            - Les grands types de méthodes
+                  - Hiérarchique
+                        - Ward
+                        - Birch
+                        - Agglomerative
+                  - Partition
+                        - K-means
+                  - Densité
+                        - DBSCAN
+                        - Mean-shift
+                  - Stochastique
+                        - Fuzzy C-means
+                        - Gaussian Mixture
+                  - Autre
+                        - Affinity propagation
+                        - Spectral clustering
+      - Le clustering multi-vues
+            - Ajout de la contrainte multi vues
+                  - Plusieurs bases de données indépendantes
+                  - Différence vertical horizontal
+                  - Différence ensemble learning et collaborative clustering
+            - État de l'art sur le CC
+** Clustering Collaboratif
+
+** Système de reconstruction collaborative
+
+** Conclusion
+
+* Sources
+2.5 exabytes de données générées par jour : 
+      - http://www.vcloudnews.com/every-day-big-data-statistics-2-5-quintillion-bytes-of-data-created-daily/
+      - http://www.northeastern.edu/levelblog/2016/05/13/how-much-data-produced-every-day/
+3 Vs pas suffisant : https://datafloq.com/read/3vs-sufficient-describe-big-data/166
