@@ -6,6 +6,8 @@
 \usepackage{amsmath}
 \usepackage[utf8]{inputenc}
 \usepackage{array}
+\usepackage{xr}
+\externaldocument{crs}
 \usepackage[titlenumbered, ruled]{algorithm2e}
 \usepackage{booktabs}
 \SetKwRepeat{Do}{do}{while}
@@ -356,7 +358,7 @@ The most commonly met density based method is called Density-based spatial clust
 
     \subsection{Multi-view learning}
 
-    So far have been presented methods which relies on the learning of a whole dataset. However, it is possible to find cases in real life for which one does not have access to the totality of the dataset, because of privacy constraint for example. In some other cases, data may come from different heterogeneous sources. In both cases, it is at least hard, at most impossible to train a single algorithm on the totality of available data. This acknowledgment makes it possible to define a new clustering context, called the Multi-View Learning. In this latter, many methods have to be trained together before being combined in order to achieve the goal initially set.
+    So far have been presented methods which relies on the learning of a whole dataset. However, it is possible to find cases in real life for which one does not have access to the totality of the dataset, because of privacy constraint for example (see Section~\ref{sec:crs_context} for further explanation). In some other cases, data may come from different heterogeneous sources. In both cases, it is at least hard, at most impossible to train a single algorithm on the totality of available data. This acknowledgment makes it possible to define a new clustering context, called the Multi-View Learning. In this latter, many methods have to be trained together before being combined in order to achieve the goal initially set.
     
     As presented in~\cite{sun2013survey}, Multi-View Learning is a vast domain with many related subfields such as dimensionality reduction, semi-supervised and supervised learning and active learning. However, the following section is only focused on the application of Multi-View Learning in a clustering context, and more precisely on the collaborative clustering paradigm.
     
@@ -377,6 +379,7 @@ The most commonly met density based method is called Density-based spatial clust
     From now, the continuation of this manuscript is focused only on the Collaborative Clustering.
 
     \subsection{Horizontal and Vertical}
+\label{sec:cc_hor_ver}
 
     As previously presented, Collaborative Clustering makes possible to make several views to learn different datasets while making them collaborate. This general idea has two different declinations, depending on the similarities that the datasets have to share despise all. These paradigms have been defined in~\cite{pedrycz2005knowledge} and in~\cite{grozavu2010topological}.
 

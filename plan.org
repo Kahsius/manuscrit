@@ -105,7 +105,32 @@
 ** Clustering Collaboratif
 
 ** Système de reconstruction collaborative
-
+*** Context
+      - Problème de cold start pour le matchmaking
+      - Étant donné ses performances dans un jeu, quelles seront-elles dans
+        un nouveau jeu ?
+      - Manque de données
+      - Partage inter vues, mais problème de confidentialité
+      - Anonymisation des données pour pouvoir les transférer
+            - Anonymized data: generation models usage (G Cormode)
+*** Neural Networks
+      - Définition d'un neuron
+      - Descente de gradient
+      - Autoencoder & MLP
+*** Architecture
+      - Autoencoders pour anonymiser
+      - MLP pour transférer
+      - Masked Weighting Method
+*** Experiments
+      - comme dans l'article
+*** Limitations
+      - Temps d'apprentissage
+      - Nombre de réseaux à apprendre
+      - Score des Links
+      - Dimensionnement difficile
+*** Perspectives
+      - Améliorer la qualité des Links
+      - Définition semi automatique des paramètres
 ** Conclusion
 
 * Sources
