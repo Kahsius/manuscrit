@@ -2,23 +2,6 @@
 %     Created: ven. mai 18 02:00  2018 C
 % Last Change: ven. mai 18 02:00  2018 C
 %
-\documentclass[a4paper]{report}
-\usepackage{amsmath}
-\usepackage[utf8]{inputenc}
-\usepackage{array}
-\usepackage{xr}
-\externaldocument{crs}
-\usepackage[titlenumbered, ruled]{algorithm2e}
-\usepackage{booktabs}
-\SetKwRepeat{Do}{do}{while}
-
-\usepackage{graphicx}
-%\usepackage{subcaption}
-%\captionsetup[subfigure]{font=scriptsize}
-\DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
-\graphicspath{{./img/}}
-
-\begin{document}
 \chapter{State of the Art}
 This section first gives the definition of clustering along with its use cases and its main difficulties. Then several commonly met methods are presented along with the category of algorithms they belong to. Eventually we focus on the specific subfield of multi-view clustering, giving a definition and a state of the art of the research works which are conducted on it.
 
@@ -476,6 +459,3 @@ The most commonly met density based method is called Density-based spatial clust
 
     Hopefully, several works have been conducted in order to remedy this situation. In~\cite{grozavu2014diversity} and in~\cite{rastin2015collaborative}, the impact of the diversity of the solution found by each local view on the collaboration is studied. Even if these work do not provide a way to automatically update $\alpha$ and $\beta$, it gives an intuition of what is important for a specific view when considering its external pairs. An automatic update of the collaborative weights is presented in~\cite{grozavu2010topological} and in~\cite{grozavu2011learning}, also based on the gradient descent. However, this method still presents a significant constraint ($\beta = \alpha^2)$, which considerably simplify the update of the weight to the detriment of the genericity of the method. In a recent article, a new entropy-based method is presented~\cite{sublime2018optimizing} has the double advantage to present a generic method to update the weighting coefficients $\beta$ ($\alpha$ not being used in this method) while being usable for any combination of local clustering method. This has been made possible because of the sharing of the results of each clustering (either deterministic or stochastic) instead of an intermediary information such as the neighborhood functions for the SOM.\@ This work is based on the researches previously presented in~\cite{sublime2016contributions}.
 
-    \bibliographystyle{plain}
-    \bibliography{bib.bib}
-\end{document}

@@ -1,0 +1,33 @@
+%        File: manuscrit.tex
+%     Created: mer. août 01 03:00  2018 C
+% Last Change: mer. août 01 03:00  2018 C
+%
+\RequirePackage{amsmath}
+\documentclass[a4paper]{report}
+\usepackage{xr}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{tabularx}
+%\usepackage{algorithm}
+\graphicspath{{./img/}}
+%\usepackage{algorithmic}
+\usepackage[utf8]{inputenc}
+\usepackage[page,title]{appendix}
+\usepackage[caption=false]{subfig}
+\usepackage[titlenumbered, ruled]{algorithm2e}
+\SetKwRepeat{Do}{do}{while}
+\DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
+
+\begin{document}
+    %\input{intro}
+    %\input{survey}
+    \input{cc}
+    %\input{crs}
+    %\input{conclusion}
+    \bibliographystyle{plain}
+    \bibliography{bib.bib}
+\end{document}
+
+
