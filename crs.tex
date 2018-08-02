@@ -4,6 +4,8 @@
 %
 \chapter{Collaborative Reconstruction Network}
 
+The work presented in this chapter has been submitted to KAIS2018.\\
+
 The Collaborative Clustering paradigm is based on the prerequisite that each view has to contain a set of common individuals (described by different sets of features for the horizontal case) as big as possible to allow information exchange. However, this paradigm does not consider the case for which the views do not share the same set of individuals. Intuitively, if a view misses an individual in its database, it might be possible to use the information contained in all the other views to get a first approximation of the missing individual. This idea is developped in this chapter with the description of a system capable of recontructing an approximation of a missing individual in a multi-view context.\\
 
 \section{Context}
@@ -250,8 +252,7 @@ This Section presents the experiments that have been conducted to test our propo
 
 	\subsection{Datasets}
 \label{sec:datasets}
-To get empirical results of the Collaborative Reconstruction System, we use it on three different datasets usable in a multi-view context:
-	
+To get empirical results of the Collaborative Reconstruction System, we use it on three different datasets usable in a multi-view context, namely Wisconsin Diagnostic Breast Cancer (WDBC), Multi-Features Digital Dataset (MFDD), Madelon and Cube. While the description of the first three datasets can be found in Appendix~\ref{sec:app-datasets}, Cube is presented here because it is related to this chapter only.
 	\begin{enumerate}
         \item \textit{Wisconsin Diagnostic Breast Cancer (WDBC)}: This dataset has 569 instances with 32  variables (ID, diagnosis, 30 real-valued input variables). Each data observation is labeled as benign (357) or malignant (212). Variables are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass.  They describe characteristics of the cell nuclei present in the image. Since each data contains the characteristics of 3 nuclei, we have 3 natural views here.
         \item \textit{Multi-Features Digital Dataset (MFDD)}: This dataset consists of features of handwritten numerals (from 0 to 9) extracted from a collection of Dutch utility maps. 200 patterns per class (for a total of 2,000 patterns) have been digitized in binary images. These digits are represented in terms of the following six feature sets, each set being here used as a view: 76 Fourier coefficients of the character shapes, 216 profile correlations, 64 Karhunen-Love coefficients, 240 pixel averages in 2 $\times$ 3 windows and 47 Zernike moments morphological features. Each set of coefficient stands for a view.

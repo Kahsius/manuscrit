@@ -1,0 +1,6 @@
+- Mettre article jérémie en chapitre
+- Mettre états de l'art des articles dans survey.tex
+    - Faire les liens entre les equations de l'EdA CC avec le chapitre cc
+- Vérifier les intro des chapitres pour que ça colle
+- Réduire les perspectives de chaque article et les mettre dans conclusion.tex
+- Vérifier les doublons dans bib.bib
