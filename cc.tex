@@ -1,14 +1,4 @@
-\chapter{Collaborative Clustering}
 
-
-\section{Introduction}
-
-This work has been presented and accepted for publication in WCCI2018~\cite{sublime2018optimizing}.\\
-
-%Collaborative clustering is a recent and trendy machine learning paradigm in which several unsupervised algorithms work together with a goal of mutual improvement to tackle and find the underlying structures in difficult data sets~\cite{Cornuejols201881}. It has numerous applications such as multi-view clustering, the clustering of distributed and heterogeneous data, and multi-expert clustering. While collaborative clustering is similar in spirit with ensemble learning, the lack of supervision makes the collaboration between clustering algorithms more challenging: the success of supervised ensemble methods such as bagging and boosting relies on Condorcet's Jury theorem which states that these methods are sure to achieve good results as long as all classifiers do better than random with a sufficient diversity in their solutions~\cite{Kuncheva03}. However in the case of unsupervised algorithms, the notion of quality is difficult to evaluate and one cannot know if an unsupervised algorithm does better than random.
-
-
-Within the context of Collaborative Clustering, this chapter is concerned with proposing alternative methods to ensure that the collaboration of unsupervised algorithms leads to improved results. To do so, we will focus on a specific family of unsupervised collaborative frameworks based on topological maps: the collaborative version of the SOM algorithm for which several variations exist based on either SOM or its GTM evolution~\cite{grozavu2010topological,journals/ijcia/GhassanyGB12,Sublime16HIS}. 
 
 
 The contributions presented in this chapter are 3-folds:
@@ -97,7 +87,7 @@ The remainder of this chapter is organized as follows: Section~\ref{sec:opt-w} i
 %Due to their popularity and interesting vector quantization properties, algorithms such as Kohonen's Self-Organizing Maps (SOM) as well as Bishop's Generative Topographic Maps~\cite{Bishop98gtm:the} have often been used in unsupervised collaborative context to transfer information between algorithms~\cite{7523117,grozavu2010topological,journals/ijcia/GhassanyGB12,Sublime16HIS}.
 
 
-%In the context of horizontal collaborative learning, we consider a finite number of $J$ SOM algorithms $\mathcal{A}^1,...,\mathcal{A}^J$ working on different attributes of a data set made of $d$ numerical attributes
+%In the context of horizontal collaborative learning, we consider a finite number of $N$ SOM algorithms $\mathcal{A}^1,...,\mathcal{A}^N$ working on different attributes of a data set made of $d$ numerical attributes
 %$X=\{x_1,...,x_n\}$ with $x_l \in \mathbb{R}^d$. We note $X^j=\{x_1^j,...,x_{N}^j\}, x_l^j \subseteq x_l$ the subset of attributes processed by a given algorithm $\mathcal{A}^j$. 
 %We are in the discrete case and each  observation  $x_l^j$ is a vector belonging to a $d^j$-dimensional euclidean feature space $\mathbb{R}^{d^j}$.  
 
@@ -108,12 +98,12 @@ The remainder of this chapter is organized as follows: Section~\ref{sec:opt-w} i
 %performance of the map. 
 
 
-%From there, in the collaborative SOM algorithm, when a new input data is presented, the optimization is done to minimize the distance between the data and its best matching unit(s) in each local SOM algorithm $\mathcal{A}^j$ weighted by the neighborhood function. Furthermore, the optimization process also attempts to keep all $J$ self-organizing maps as topologically close as possible. The intended result after collaboration is that, if an observation of the $X^j$-th data set is projected onto the $i^*$-th unit of the $j$-th SOM map, then the same observation of the $X({i})$-th data set should be projected on the same unit  $i^*$ in the $i$-th map or on one of the neighboring unit. In other words, the same prototypes (topologically wise) should capture the same observations in the different maps.
+%From there, in the collaborative SOM algorithm, when a new input data is presented, the optimization is done to minimize the distance between the data and its best matching unit(s) in each local SOM algorithm $\mathcal{A}^j$ weighted by the neighborhood function. Furthermore, the optimization process also attempts to keep all $N$ self-organizing maps as topologically close as possible. The intended result after collaboration is that, if an observation of the $X^j$-th data set is projected onto the $i^*$-th unit of the $j$-th SOM map, then the same observation of the $X({i})$-th data set should be projected on the same unit  $i^*$ in the $i$-th map or on one of the neighboring unit. In other words, the same prototypes (topologically wise) should capture the same observations in the different maps.
 %Therefore the set of prototypes $w$ is  estimated iteratively by minimizing the  objective function  which in the case of a local map $\mathcal{A}^j$ writes:
 
 %\begin{equation}
 %\mathcal{C}(w,\beta) = \a_{j} L_j(w) +
-%\sum_{i \neq j} \beta_{i,j} \cdot C _{i,j}(w)	
+%\sum_{j \neq i} \beta_j^i \cdot C_j^i(w)	
 %\label{eq:globalC}
 %\end{equation}
 %where $L_j$ is the $j^{th}$ local term :
@@ -121,13 +111,13 @@ The remainder of this chapter is organized as follows: Section~\ref{sec:opt-w} i
 %L_j(w) =   \sum_{l=1}^{N }\sum_{k=1}^{n} {\mathcal K}{(k, k_c( x_l^j,w^j ) ) } \| x_l^j - w_{k}^j \|  
 %\label{eq:Lj}
 %\end{equation}
-%and $\beta=(\beta_{i,j})_{i,j}$ is the weigth of the pairwise collaborative $C_{i,j}$ term between the SOM algorithms $i$ and $j$:
+%and $\beta=(\beta_j^i)_j^i$ is the weigth of the pairwise collaborative $C_j^i$ term between the SOM algorithms $i$ and $j$:
 %\begin{equation}
-%C _{i,j}(w)=	\sum_{l=1}^{N}\sum_{k=1}^{n} \Delta K_{i,j} \| x_l^j - w_{k}^j \|
+%C_j^i(w)=	\sum_{l=1}^{N}\sum_{k=1}^{n} \Delta K_j^i \| x_l^j - w_{k}^j \|
 %\end{equation}
 %with
 %\begin{equation}
-%\Delta K_{i,j}=\left({\mathcal K}{(k, k_c( x_l^j,w^j ) ) } -  {\mathcal K}{(k, k_c( x_l^{i},w^{i} ) ) }  \right)^2
+%\Delta K_j^i=\left({\mathcal K}{(k, k_c( x_l^j,w^j ) ) } -  {\mathcal K}{(k, k_c( x_l^{i},w^{i} ) ) }  \right)^2
 %\label{eq:Cj}
 %\end{equation}
 %Here $k_c( x_l^j,w^j ) $ denotes the {\betaf best matching} unit which is the prototype $w^j_{k_c}$ whose coordinates are the closest to the fixed input $x_l^j$. 
@@ -140,15 +130,15 @@ The remainder of this chapter is organized as follows: Section~\ref{sec:opt-w} i
 %between the both collaboration maps.  
 %For the horizontal collaboration of the $j$ map with the $i$ map we first update the prototypes of the $j$ map by:  
 %$
-%w^{j}|_{new} = \operatornamewithlimits{argmin}_{w} [\a_j \cdot  L_j(w) + \sum_{i \neq j} \beta_{i,j} \cdot C _{i,j}(w)  ].
+%w^{j}|_{new} = \operatornamewithlimits{argmin}_{w} [\a_j \cdot  L_j(w) + \sum_{j \neq i} \beta_j^i \cdot C_j^i(w)  ].
 %$
 %The descent gradient strategy of the collaboration parameter $\beta$ gives the rule:
 %The collaboration parameter $\beta$ is adapted using the following expression:
 %\begin{eqnarray*}
-	%\beta_{i,j}|_{new} = \beta_{i,j}|_{old} + 
+	%\beta_j^i|_{new} = \beta_j^i|_{old} + 
 	%\dfrac
 	%{\sum_{l=1}^{N} \sum_{k=1}^{n} {\mathcal K}{(k, k_c( x_l^j,w^j ) )}  }
-	%{2  \cdot  \sum_{l=1}^{N} \sum_{k=1}^{n} \Delta K_{i,j} } 
+	%{2  \cdot  \sum_{l=1}^{N} \sum_{k=1}^{n} \Delta K_j^i } 
 	%\end{eqnarray*}
 
 
@@ -160,88 +150,81 @@ The remainder of this chapter is organized as follows: Section~\ref{sec:opt-w} i
 
 \subsection{Optimization problem}
 
-In this chapter we  propose a different collaborative approach in which we modify the objective function~\eqref{eq:globalC} using a  
-weighting  strategy to reduce the risk of negative collaboration: we study how to optimize the weights of the combination function in Equation~\eqref{eq:globalC} can lead to an optimal  value of the global function and reduce the risk of negative collaboration by further optimizing weight factors between the algorithms.
+In this chapter we  propose a different collaborative approach in which we modify the objective function~\eqref{eq:globalC} using a weighting  strategy to reduce the risk of negative collaboration: we study how the optimization of the weights of the combination function in Equation~\eqref{eq:globalC} can lead to an optimal value of the global function and reduce the risk of negative collaboration by further optimizing weight factors between the algorithms.
 
-We begin by changing the equations of the $\alpha$ by $\alpha_j=1$. We believe that it makes a lot more sense than the proposed square root which is never justified in the related works~\cite{grozavu2010topological,grozavu2011learning}. This helps us to properly evaluate the balance between the local and the collaborative term, for which 1 variable is enough.
-We are therefore mainly interested in finding the positive weights $\beta_{i,j}$ that will determine the strength of the collaborative term. 
+We begin by changing the values of the $\alpha$ by $\alpha_i=1$. We believe that it makes a lot more sense than the proposed square root which is never justified in the related works~\cite{grozavu2010topological,grozavu2011learning}. This helps us to properly evaluate the balance between the local and the collaborative term, for which 1 variable is enough.
+We are therefore mainly interested in finding the positive weights $\beta_j^i$ that will determine the strength of the collaborative term. 
 Moreover, as we restrict our study to the case of horizontal clustering, we would like to mention that in our theoretical model all data sets describe the same observations and all these collaborative data sets have the same number of observations but a different number of variables.  
-
 
 
 For fixed local maps $w$, our strategy to minimize Equation~\eqref{eq:globalC} is to minimize the second term. Indeed, since the collaboration weights are only in the collaborative term and because the local likelihood are fixed, we can ignore the local term in Equation~\eqref{eq:globalC}.
 
 The minimization of the collaborative term is based on the dual form of the problem. We do so under the Karush-Kuhn-Tucker conditions (KKT) 
-\cite{KKT1} assuming that the weights $\beta_{i,j}$ respect the following conditions:
-$$\forall j \quad \prod_{i \neq j}^J \beta_{i,j} = 1$$ 
+\cite{KKT1} assuming that the weights $\beta_j^i$ respect the following conditions:
+$$\forall j \quad \prod_{j \neq i}^N \beta_j^i = 1$$ 
 
-$$\forall (i,j) \quad \beta_{i,j} >0 $$ 
+$$\forall (i,j) \quad \beta_j^i >0 $$ 
 
-Note that we use a product constraint instead of a sum. While it may seem unusual, it has already been used in related works on multi-view clustering~\cite{CarvalhoML15}. Furthermore, in~\cite{Sublime2017} it has been demonstrated that the constraint $\sum_{i \neq j}^J \beta_{i,j} = 1$ would lead to an unsatisfying result and that an extra parameter $p$ (that needs to be learned) is needed to make it work with collaborative clustering. To simplify the presentation, in what follows we omit the dependency of $C_{i,j}$ to $w$ in our notations.
+Note that we use a product constraint instead of a sum. While it may seem unusual, it has already been used in related works on multi-view clustering~\cite{CarvalhoML15}. Furthermore, in~\cite{Sublime2017} it has been demonstrated that the constraint $\sum_{j \neq i}^N \beta_j^i = 1$ would lead to an unsatisfying result and that an extra parameter $p$ (that needs to be learned) is needed to make it work with collaborative clustering. To simplify the presentation, in what follows we omit the dependency of $C_j^i$ to $w$ in our notations.
 
 
-
-The results of the optimization under the Karush-Kuhn-Tucker conditions are shown below  in Equations~\eqref{eq:kkt_alpha}. For  all  $ i \neq j$  
+The results of the optimization under the Karush-Kuhn-Tucker (KKT) conditions are shown below  in Equations~\eqref{eq:kkt_alpha}. For  all  $ j \neq i$  
 we have:
 \begin{equation}
-\beta_{i,j} =  \frac{{(\prod_{k\neq j} C _{k,j})}^{\frac 1 {J-1}}} {C _{i,j}} \qquad
+\beta_j^i =  \frac{{(\prod_{k\neq i} C_k^i)}^{\frac 1 {N-1}}} {C_j^i} \qquad
 \label{eq:kkt_alpha}
 \end{equation} 
 The interpretation of these results is the following: 
-in the context of horizontal collaborative clustering, the global results should be better if each individual algorithm gives higher 
-weights to algorithms that have the most similar solutions compared with the local one (high $ \beta_{i,j}$ value for a given $\mathcal{A}^j$).
+in the context of horizontal collaborative clustering, the global results should be better if each individual algorithm gives higher weights to algorithms that have the most similar solutions compared with the local one.
 
+In other words: from Equation~\eqref{eq:kkt_alpha}, each algorithm would mostly collaborate with the algorithms that have the most similar solutions (small $C_j^i$). If several algorithms have the same most similar solution, they would be given the same weight.  The algorithms with the most similar solutions would still be favored to optimize the cost function of the global collaborative framework. But algorithms whose solutions have a lesser degree of similarity would still be taken into consideration locally. 
 
-In other words: from Equation~\eqref{eq:kkt_alpha}, each algorithm would mostly collaborate with the algorithms that have the most similar solutions (small $C_{i,j}$). If several algorithms have the same most similar solution, they would be given the same weight.  The algorithms with the most similar solutions would still be favored to optimize the cost function of the global collaborative framework. But algorithms whose solutions have a lesser degree of similarity would still be taken into consideration locally. 
-
-\medskip 
-
-Let us detail the calculus for the KKT optimization problem. 
-Given the $C_{i,j}$, we  optimize the matrix $\beta = {\beta_{i,j}}_{J \times J}$ as shown in the system below:
+Let us detail the calculus for the KKT optimization problem. In this demonstration, we will only consider one local view $i$ because the weights $\beta_j^i$ are computed and used locally.
+Given the $C_j^i$, we  optimize the matrix $\beta = {\left(\beta_j^i\right)}_{N \times N}$ as shown in the system below:
 \begin{equation}
 \begin{cases}
-\beta^* =  \operatornamewithlimits{argmin}_{\beta}  \sum_{i \neq j} \beta_{i,j}  C _{i,j} ,      \\
-\forall j \quad \prod_{i \neq j}^J \beta_{i,j}  = 1. \\
-\forall (i,j) \quad \beta_{i,j} >   0 \\      
+\beta^* =  \operatornamewithlimits{argmin}_{\beta}  \sum_{j \neq i} \beta_j^i  C_j^i ,      \\
+\prod_{j \neq i}^N \beta_j^i  = 1. \\
+\forall j, \quad \beta_j^i >   0 \\      
 \end{cases} 
 \label{eq:KKT0-app}
 \end{equation} 
-This is optimization under constraints problem. To solve this problem  we use Lagrange multipliers.
-From   $\forall j \quad \prod_{i \neq j}^J \beta_{i,j}  = 1$, we obtain
-$\forall j \quad \sum_{i \neq j}^J \ln  \beta_{i,j}   = 0$. The Lagrangian then writes: 
+This is optimization under constraints problem. To solve this problem  we use KKT multipliers.
+From   $\forall i, \quad \prod_{j \neq i}^N \beta_j^i  = 1$, we obtain
+$\forall i, \quad \sum_{j \neq i}^N \ln  \beta_j^i   = 0$. The Lagrangian then writes: 
 \begin{equation}
-L(\beta,\nu,\lambda)=\sum_{j=1}^J  \sum_{i \neq j}^J ( \beta_{i,j}  C _{i,j}    - \nu_j  \ln  \beta_{i,j}  - \lambda_{i,j}   \beta_{i,j} ).
+L(\beta,\nu,\lambda)= \sum_{j \neq i}^N ( \beta_j^i  C_j^i - \nu  \ln  \beta_j^i  - \lambda_j   \beta_j^i ).
 \label{eq:Lag-KKT}
 \end{equation}
 From the definition of the Lagrangian, we get the following KKT conditions:
 \begin{equation}
-\forall (i,j), i \neq j
+\forall j, j \neq i
 \begin{cases}
-(1) \quad \beta_{i,j} > 0,   \\
-(2) \quad \prod_{i \neq j}^J \beta_{i,j}  = 1,  \\
-(3) \quad \lambda_{i,j} \geq 0,  \\
-(4) \quad \beta_{i,j}  \lambda_{i,j} = 0,   \\
-(5) \quad  C _{i,j}       -  \frac{\nu_j}{ \beta_{i,j} }   - \lambda_{i,j} = 0.
+(1) \quad \beta_j^i > 0,   \\
+(2) \quad \prod_{j \neq i}^N \beta_j^i  = 1,  \\
+(3) \quad \lambda_j \geq 0,  \\
+(4) \quad \beta_j^i  \lambda_j = 0,   \\
+(5) \quad  C_j^i -  \frac{\nu}{ \beta_j^i }   - \lambda_j = 0.
 \end{cases} 
 \label{eq:app-kkt0}
 \end{equation} 
-Let's begin by considering the case where $\lambda_{i,j} > 0$ in~\eqref{eq:app-kkt0}-4. Then, we would have $\beta_{i,j}=0$  this case is not possible due to~\eqref{eq:app-kkt0}-1, therefore we will only consider the case $\beta_{i,j} \neq 0$ and $\lambda_{i,j}=0$. Then, with~\eqref{eq:app-kkt0}-5, we have:
+Let's begin by considering the case where $\lambda_j > 0$ in~\eqref{eq:app-kkt0}-4. Then, we would have $\beta_j^i=0$  this case is not possible due to~\eqref{eq:app-kkt0}-1, therefore we will only consider the case $\beta_j^i \neq 0$ and $\lambda_j=0$. Then, with~\eqref{eq:app-kkt0}-5, we have:
 \begin{equation}
-\beta_{i,j}  =   \frac{\nu_j} { C _{i,j} } \geq 0.
+\beta_j^i  =   \frac{\nu} { C_j^i } \geq 0.
 \label{eq:app-kkt1}
 \end{equation}
 From Equation~\eqref{eq:app-kkt0}-2 and~\eqref{eq:app-kkt1}, we have:
 \begin{equation}
-\prod_{i \neq j}^J   \beta_{i,j}  = \prod_{i \neq j}^J  \left(\frac{\nu_j}{C _{i,j} } \right)=\frac{\prod_{i \neq j}^J \nu_j} { \prod_{i \neq j}^J  \left( {C _{i,j} } \right)}  =1.
+    \prod_{j \neq i}^N   \beta_j^i  = \prod_{j \neq i}^N  \left(\frac{\nu}{C_j^i } \right)=\frac{\nu^{N-1}} { \prod_{j \neq i}^N  \left( {C_j^i } \right)}  =1.
 \end{equation}
 It follows that:
 $$
-{(\nu_j)}^{J-1}  =     \prod_{i \neq j}^J   C _{i,j} . 
+\nu^{N-1}  =     \prod_{j \neq i}^N   C_j^i . 
 $$
-Then by re-injecting the expression of $\nu_j$ into Equation~\eqref{eq:app-kkt1}, we get our claim  shown in Equation~\eqref{eq:kkt_alpha}.
+Then by re-injecting the expression of $\nu$ into Equation~\eqref{eq:app-kkt1}, we get our claim  shown in Equation~\eqref{eq:kkt_alpha}.
 
 \medskip
-Our modified version of the SOM algorithm for horizontal collaboration with the optimized weights is shown in Algorithm~\ref{alg:algoGen} below. The computational complexity for $N$ data in $J$ views is in $O(NJ)$ since it uses $J$ times the SOM algorithm which is in $O(N)$.
+Our modified version of the SOM algorithm for horizontal collaboration with the optimized weights is shown in Algorithm~\ref{alg:algoGen} below. The computational complexity for $M$ data in $N$ views is in $O(MN)$ since it uses $N$ times the SOM algorithm which is in $O(M)$.
 
 \begin{algorithm}[!h]
 \label{alg:algoGen}
@@ -251,11 +234,11 @@ Our modified version of the SOM algorithm for horizontal collaboration with the 
 	\vspace{0.05cm}
 	\textbf{Initialization:} Initialize all the map prototypes $W$ randomly. \\
 	\textbf{Local step:} Initilization of the maps\\
-	\ForAll{algorithms  $\mathcal{A}^j$} {
+	\ForAll{View $i$} {
 		Minimize the objective function of the classical SOM
 	} 
 	\textbf{Collaborative step:}\\
-	\ForAll{algorithms $\mathcal{A}^j$  } {
+	\ForAll{View $i$} {
 		For fixed $w$, compute:
 		$\beta$ using Equation~\eqref{eq:kkt_alpha} \\	 
 		Update the prototypes of all maps by: 
@@ -265,15 +248,16 @@ Our modified version of the SOM algorithm for horizontal collaboration with the 
 	}	 
 \end{algorithm}
 
+    \tableofcontents
 \subsection{Interpretation}
 \label{sec:interpretation}
 
-From Equation~\eqref{eq:kkt_alpha}, we can infer the following property: For two SOM algorithms $\mathcal{A}^j$ and $\mathcal{A}^i$, when the pairwise collaborative term $C_{i,j}$ is small (i.e.\ the maps are similar) comparatively with the other collaborative terms $C_{k,j}$, then the associated collaborative weight $\beta_{i,j}$ is large compared with the other $\beta_{k,j}$. The interpretation for this is that any SOM algorithm $\mathcal{A}^j$ should give a stronger collaborative weight to other self-organizing maps with a similar topology, and a weaker weight to the local term. As such, the Equation for the weights $\beta_{i,j}$ is an inverse geometric mean based on the similarity between two maps. 
-Furthermore, with Equation~\eqref{eq:kkt_alpha}, we can further interpret, that algorithms with relatively weak collaboration links $\beta_{i,j}$ -with maps very different from all others- whould give a stronger weight to their local term $L_i$ from Equation~\eqref{eq:Lj} and would not collaborate much with the other algorithms. 
+From Equation~\eqref{eq:kkt_alpha}, we can infer the following property: For two SOM algorithms in the views $i$ and $j$, when the pairwise collaborative term $C_j^i$ is small (i.e.\ the maps are similar) comparatively with the other collaborative terms $C_j^i$, then the associated collaborative weight $\beta_j^i$ is large compared with the other $\beta_k^j$. The interpretation for this is that any SOM algorithm should give a stronger collaborative weight to other self-organizing maps with a similar topology, and a weaker weight to the local term. As such, the Equation for the weights $\beta_j^i$ is an inverse geometric mean based on the similarity between two maps. 
+Furthermore, with Equation~\eqref{eq:kkt_alpha}, we can further interpret, that algorithms with relatively weak collaboration links $\beta_j^i$ --with maps very different from all others-- whould give a stronger weight to their local term $Q^i_{local}$ from Equation~\eqref{eq:globalC} and would not collaborate much with the other algorithms. 
 
 These properties are an improvement from an earlier result~\cite{Sublime2017} in a sense that our current model better balances between local and collaborative terms, and requires no extra parameter.
 
-The first conclusion of these results is that in the context of horizontal collaboration between several SOM algorithms, the most efficient way for a given algorithm $\mathcal{A}^i$ to collaborate is to favor exchanges with other SOM algorithms $\mathcal{A}^j$ that have similar topologies and are stable. These results are echoing recent works on clustering stability~\cite{stability2,vonLuxburg:2010:CSO:1774730.1774731} stating that  a clustering is stable if the partitioning remains similar when the data set or the clustering process is perturbed. 
+The first conclusion of these results is that in the context of horizontal collaboration between several SOM algorithms, the most efficient way for a SOM to collaborate is to favor exchanges with other SOM that have similar topologies and are stable. These results are echoing recent works on clustering stability~\cite{stability2,vonLuxburg:2010:CSO:1774730.1774731} stating that  a clustering is stable if the partitioning remains similar when the data set or the clustering process is perturbed. 
 In our case and within the context of collaborative clustering, if several self-organizing maps have a similar topology despite being drawn from different views, it is a proof of stability. As such, our weighting method favors collaboration between stable maps and marginalizes maps that are too different and may disturb the collaborative process.
 
 
@@ -322,14 +306,14 @@ To test the validity of our method and to compare it with other state of the art
 In a first experiment, we will investigate the evolution of the fitness function (Eq.~\ref{eq:globalC}) with and without our proposed beta-optimization method. For comparison purposes, both criteria have been normalized as follows: 
 \begin{equation}
 \mathcal{C}(w,\beta) = L_j(w) +
-\sum_{i \neq j} \Big(\frac{\beta_{i,j}}{\sum_{i \neq j}\beta_{i,j}} \cdot C _{i,j}(w)\Big)	
+\sum_{j \neq i} \Big(\frac{\beta_j^i}{\sum_{j \neq i}\beta_j^i} \cdot C_j^i(w)\Big)	
 \label{eq:globalC2}
 \end{equation}
-The point of this criterion is to make the $\beta_{i,j}$ act as weighting coefficients summing to 1, allowing to compare both versions of CC with and without $\beta$ optimization. \\
+The point of this criterion is to make the $\beta_j^i$ act as weighting coefficients summing to 1, allowing to compare both versions of CC with and without $\beta$ optimization. \\
 
 In the second experiment, the values of betas depending on the quality of the view is investigated: in order to analyze the capacity of the method to define which collaborations are useful, a view only made of uniform noise was added to each dataset (except for waveform which already has several features only made of noise). This noisy view was added only for this experiment.
 For each dataset, we split the data into three (WDBC, Spambase, VHR Strasbourg) or four (Isolet, Waveform) views of equal size, and we added a view of uniform noise. We then learn a SOM map for each database. \\
-The goal was to analyze if the method was able to limit the impact of the noisy view on the learning process of the other views. Because we put the constraint $\prod_{i \neq j}^J \beta_{i,j} = 1$ for every view $j$, the previous assertion would lead to $\beta_{noisy,i} < 1$ for every other view $i$. In this first experiment, we show that our optimization method is able to detect the noisy view and to mitigate its impact during the learning process by properly weakening the values of the weights linked to it, i.e $\beta_{noisy, j}$ low compared to the others.
+The goal was to analyze if the method was able to limit the impact of the noisy view on the learning process of the other views. Because we put the constraint $\prod_{j \neq i}^N \beta_j^i = 1$ for every view $j$, the previous assertion would lead to $\beta_{noisy}^i < 1$ for every other view $i$. In this first experiment, we show that our optimization method is able to detect the noisy view and to mitigate its impact during the learning process by properly weakening the values of the weights linked to it, i.e $\beta_{noisy}^j$ low compared to the others.
 
 
 Finally, in the last experiment, we analyze the impact of the method on the learning itself, several criteria introduced earlier are presented in Table~\ref{tab:criterion}. The point of this analysis was to check that the collaborative constraint added during the collaborative phase did not impact the results of the model itself. \\
@@ -357,15 +341,15 @@ The choice of this size was made heuristically, based on the most appropriate nu
 
 
 \paragraph{Relative Difference of the criterion}
-The first experiment is about the evolution of the modified criterion presented in Eq.~\ref{eq:globalC2}. Figure~\ref{fig:relative_difference} shows the relative difference (RD) of this criterion between the original version of the collaborative SOM algorithm and our proposed version with the smart weights $\beta$. It appears that the relative difference between the criterion is always positive, meaning that the version with the $\beta$-weighting always improves the learning compared to the standard version. This can be understood knowing the interpretation in Sec.~\ref{sec:interpretation}: the algorithm tends to make views that agree with each others collaborate, so the $\beta$-weighting favors lower values of $C_{i,j}$ (better collaboration), improving the global criterion.
+The first experiment is about the evolution of the modified criterion presented in Eq.~\ref{eq:globalC2}. Figure~\ref{fig:relative_difference} shows the relative difference (RD) of this criterion between the original version of the collaborative SOM algorithm and our proposed version with the smart weights $\beta$. It appears that the relative difference between the criterion is always positive, meaning that the version with the $\beta$-weighting always improves the learning compared to the standard version. This can be understood knowing the interpretation in Sec.~\ref{sec:interpretation}: the algorithm tends to make views that agree with each others collaborate, so the $\beta$-weighting favors lower values of $C_j^i$ (better collaboration), improving the global criterion.
 
 However, it also appears that all datasets are not treated equally by this method: the best mean RD goes from 0.4\
 
 \paragraph{$\beta$ analysis}
-Now considering $\beta$ coefficients themselves, Figure~\ref{fig:betas} presents the different $\beta$ values obtained at the end of the collaboration process for each dataset. Table~\ref{tab:minmax} gives their corresponding minimum and maximum values. To recall, the value $\beta_{i,j}$ can be read as ``how much does view $j$ exchanges with view $i$ compared to the others''. The values on the diagonal -which are of no importance- are fixed to 1 to make the comparison easier. The last row of each matrix corresponds to the collaboration between each view and the artificially added noisy view of each data set (except for Waveform, for which the two last views were already noisy). 
+Now considering $\beta$ coefficients themselves, Figure~\ref{fig:betas} presents the different $\beta$ values obtained at the end of the collaboration process for each dataset. Table~\ref{tab:minmax} gives their corresponding minimum and maximum values. To recall, the value $\beta_j^i$ can be read as ``how much does view $j$ exchanges with view $i$ compared to the others''. The values on the diagonal -which are of no importance- are fixed to 1 to make the comparison easier. The last row of each matrix corresponds to the collaboration between each view and the artificially added noisy view of each data set (except for Waveform, for which the two last views were already noisy). 
 
 
-Several points can be mentioned concerning these images. First, as one can see collaborations with noisy views are mostly weak:  the method presented here tends to minimize the impact of the collaboration between a useful view and a noisy one. This is particularly clear for the WDBC and VHR datasets where all $\beta$ on the last row are below 1, while all other factors are at least around 1. Secondly, one can see that the strong collaborations are mostly symmetrical. To continue with the WDBC example, we got $\beta_{1,3} \approx \beta_{3,1} > 1$. However this phenomenon is not true for less strong collaborations: for WDBC and VHR, we got $\beta_{1,2} \neq \beta_{2,1}$ and $\beta_{2,3} \neq \beta_{3,2}$. It appears that the algorithm leads to the creation of subgroups of views: when two views tends to collaborate, their other $\beta$ are approximately identical. This property can be seen as the continuation of the interpretation given in Sec.~\ref{sec:interpretation}: our method will favor the collaboration between agreeing views, leading to the creation of subgroups of views which have the same common behavior towards views outside of their group.
+Several points can be mentioned concerning these images. First, as one can see collaborations with noisy views are mostly weak:  the method presented here tends to minimize the impact of the collaboration between a useful view and a noisy one. This is particularly clear for the WDBC and VHR datasets where all $\beta$ on the last row are below 1, while all other factors are at least around 1. Secondly, one can see that the strong collaborations are mostly symmetrical. To continue with the WDBC example, we got $\beta_1^3 \approx \beta_3^1 > 1$. However this phenomenon is not true for less strong collaborations: for WDBC and VHR, we got $\beta_1^2 \neq \beta_2^1$ and $\beta_2^3 \neq \beta_3^2$. It appears that the algorithm leads to the creation of subgroups of views: when two views tends to collaborate, their other $\beta$ are approximately identical. This property can be seen as the continuation of the interpretation given in Sec.~\ref{sec:interpretation}: our method will favor the collaboration between agreeing views, leading to the creation of subgroups of views which have the same common behavior towards views outside of their group.
 
 \begin{figure}[!h]
 	\centering

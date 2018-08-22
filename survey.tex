@@ -384,11 +384,13 @@ The most commonly met density based method is called Density-based spatial clust
 
     The first one is the usual cost function of the local methods used in each view. During the first local phase, each method produces a model according to this function. The second one takes into consideration the information learned by each view to formalize the idea of concensus between the views. Formally, the criterion of the $i$-th view can be written as follow:
 
-    \begin{equation}
-        Q^i = Q^i_{local}(V_i) + Q^i_{collab}(V_{j\neq i})
-    \end{equation}
+    \begin{align}
+        \label{eq:globalC}
+        Q^i &= Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
+        &= Q^i_{local}(V_i) + \sum_{j\neq i} C_j^i(V_i, V_j)
+    \end{align}
 
-    With $Q_{local}$ being the local criterion used to trained the local model of the $i$-th view, and $Q_{collab}$ being a term appended to the local criterion to formalize the collaborative part of the training. $V_i$ stands for $i$-th view, and from now, we define $N$ as the total number of views. In most of the literature, both local and collaborative terms have to be defined accordingly to the local methods which are used, even if some researches have been done to make possible to use different local methods. A summary is given in the next Section. When the cost function is defined, its differenciate is computed and then used to generate rules to update the parameters of the system using gradient descent: 
+    With $Q^i_{local}$ being the local criterion used to trained the local model of the $i$-th view, and $Q_{collab}$ being a term appended to the local criterion to formalize the collaborative part of the training. This latter term is made of the $N-1$ terms $C_j^i$ corresponding to each collaboration between the local views and its pairs. $V_i$ stands for $i$-th view, and from now, we define $N$ as the total number of views. In most of the literature, both local and collaborative terms have to be defined accordingly to the local methods which are used, even if some researches have been done to make possible to use different local methods. A summary is given in the next Section. When the cost function is defined, its differenciate is computed and then used to generate rules to update the parameters of the system using gradient descent: 
     
     \begin{equation}
         \omega_{new} = \omega_{old} - \varepsilon \frac{\partial Q}{\partial \omega}
@@ -412,10 +414,10 @@ The most commonly met density based method is called Density-based spatial clust
 
     \begin{align}
         \forall j \in [1..N], \quad Q^i &= Q^i_{local} + Q^i_{collab}\\
-    &= Q^i_{local} + \sum_{j\neq i}^N \alpha_{i,j}\sum_{n=1}^{|V_i|}\sum_{k=1}^C{(s_{n,k}^i - s_{n,k}^j)}^2|x_n-\mu_k^i|^2
+    &= Q^i_{local} + \sum_{j\neq i}^N \beta{i,j}\sum_{n=1}^{|V_i|}\sum_{k=1}^C{(s_{n,k}^i - s_{n,k}^j)}^2|x_n-\mu_k^i|^2
     \end{align}
     
-    with $\alpha_{i,j}$ being a weight defining the importance of the collaboration between the views $i$ and $j$. The point of the collaborative term of this function is to formalize the distance between the allocation vector of each sample. To better understand the use of this term, it is necessary to observe its behaviour in two extreme cases: when the responsibilities are roughly equal and when they are not. If all the responsibilities are approximately equal for two views, their respective clusterings are approximately equivalent, meaning that a concensus has been found, thus the collaborative term and the cost function are low. On the opposite, if the responsibilities are totally different, the sum of each absolute difference makes the term important, and so improvable. By considering these two cases, one can understand that the final goal of the horizontal collaborative clustering is to find the best concensus as possible between all the views.
+    with $\beta{i,j}$ being a weight defining the importance of the collaboration between the views $i$ and $j$. The point of the collaborative term of this function is to formalize the distance between the allocation vector of each sample. To better understand the use of this term, it is necessary to observe its behaviour in two extreme cases: when the responsibilities are roughly equal and when they are not. If all the responsibilities are approximately equal for two views, their respective clusterings are approximately equivalent, meaning that a concensus has been found, thus the collaborative term and the cost function are low. On the opposite, if the responsibilities are totally different, the sum of each absolute difference makes the term important, and so improvable. By considering these two cases, one can understand that the final goal of the horizontal collaborative clustering is to find the best concensus as possible between all the views.
 
     \subsubsection{Self Organizing Maps}
 
@@ -439,7 +441,7 @@ The most commonly met density based method is called Density-based spatial clust
     \end{equation}
 
     \begin{equation}
-    Q_{collab}^i = \sum_{j \neq i}\beta_i^j \sum_{n=1}^{|V_i|}\sum_{k=1}^C \big(K^i_{k,\chi(x_n)} - K^j_{k,\chi(x_n)}\big)\|x_n^i - \omega^k \|^2 
+        Q_{collab}^i = \sum_{j \neq i}\beta_i^j \sum_{n=1}^{|V_i|}\sum_{k=1}^C \big(K^i_{k,\chi(x_n)} - K^j_{k,\chi(x_n)}\big)\|x_n^i - \omega^k \|^2 = \sum_{j \neq i} \beta_i^j C_i^j 
         \label{eq:som_cc_collab}
     \end{equation}
 
