@@ -40,19 +40,47 @@ Our contributions regarding the online training of Collaborative Clustering are:
 
 When gathering data in a multi-view context, it is very likely that data are not gathered neither through the same process nor at the same moment, and this even if it is performed on the same set of individuals. Thus, data about an individual may be missing in a specific dataset while differents descriptions may be available in all the other views. The intuiton behind the idea developed in this part of the thesis is that it is possible to use all the available informations about an individual in order to get a first approximation of its missing description.
 
-The analysis of the communications in a multi-view context has first been studied using clustering as use case. However, we have worked on a way to develop these multi-view communication in the case of collaborative reconstruction of missing data. This time, the information transfert from a view to another is performed by two different components instead of the usual importance weights: a set of neural networks to infer a first approximation of the individual only knowing the information coming from a single view, and a weighting method based on vectors rather than scalar to combine all the external inferences. To ensure a minimum security on data transfert, an autoencoder is first used in each view transfering its informations in order to prevent the receiving view from accessing original data which are not its.
+The analysis of the communications in a multi-view context has first been studied using clustering as use case. However, we have worked on a way to develop these multi-view communication in the case of collaborative reconstruction of missing data. This time, the information transfert from a view to another is performed by two different components instead of the usual importance weights: a set of neural networks to infer a first approximation of the individual only knowing the information coming from a single view, and a weighting method based on vectors rather than scalar to combine all the external inferences which we call Masked Weighting Method. To ensure a minimum security on data transfert, an autoencoder is first used in each view transfering its informations in order to prevent the receiving view from accessing original data which are not its.
 
 For this contribution again experimental results are provided to attest of the efficiency of our method. The experimental set up is more important than for the other contributions of this thesis because the efficiency of the method could not be as easily defined as for the other methods. Because it does not exist a comparable work in the literature as far as we know, we have suggested the following points to analyze in order to attest of the quality of a reconstruction:
 \begin{itemize}
     \item The reconstructed individual should be as near as possible from the original sample (considering the RMSE as the reference distance in our experiments)
     \item Even if the reconstructed individual is relatively far from its original version, it may be considered as good if a classification method can still predict its correct label only based on the reconstructed features (the DBSCAN algorithm has been used during these experiments).
+\end{itemize}
 
-\end{itemize}<++>
+Thus, our method has been tested following these two points, and the results are presented in this thesis. A set of graphical reconstruction of handwritten digits is also presented in order to enable the visual validation of the reconstruction efficiency.
 
+To sum up our contributions regarding Collaborative Reconstruction, we present:
+\begin{itemize}
+    \item The definition of the new paradigm of Collaborative Reconstruction.
+    \item The definition of a system enabling to reconstruct missing data in a multi-view context.
+    \item The definition of a new combination method which weights are automatically trained.
+    \item The experimental results of our method on various datasets.
+\end{itemize}
 
 
 \subsection{Implementation}
+The different algorithms presented in this thesis have been implemented using either R or Python language. Here is a list of the main components which have been developed all along the previously mentioned experiments:
+\begin{itemize}
+    \item The development of the original Self Organizing Maps as well as our online version in R.
+    \item Collaborative Clustering methods, the original one and the online version have also been developed in R. This has been done conjointly with the Self Organizing Maps development.
+    \item Autoencoders, Multi-Layer Perceptron and our Masked Weighting Method have been coded in Python using the Pytorch library. These correspond to standard components of our Collaborative Reconstruction System
+    \item A reusable version of our Collaborative Reconstruction System has been developed in Python.
+\end{itemize}
 
 \section{Short term perspectives}
 
+Perspectives of the work presented in this thesis depends on the use case which is considered.\\
+
+\textbf{Perspectives regarding Collaborative Clustering:} Regarding the optimization of importance weights in a multi-view context, possible extensions could include similar studies on the case of vertical collaboration where the collaborating SOM algorithms handles different data sharing the same features, as well as the application of the same optimization technique for collaborative Generative Topographic Maps in a first time, and a further extension to non-topological collaborative methods in a second time.\\
+
+\textbf{Perspectives regarding Collaborative Reconstruction:} As future works, we plan on improving the reconstructions acquired from the external views through the modification of the inter-view Links. As well, because of the potentially high data dimensionality, the use of another error than the MSE should be considered. A feature selection process may be added to the system, thus limiting the impact of the noise features in the original dataset. Another possible future extension of this work would be to work on a lighter architecture that would scale better with large datasets. 
+
 \section{Long term limitations and perspectives}
+
+The most interesting perspectives for this thesis would be to continue the research initiated on Collaborative Reconstruction of missing individuals. As presented above, there are points which can still be technically improved regarding each component of the method. Moreover, while the tests performed on the system have presented coherent results on its efficiency, a theoretical analysis of the whole system might be useful. Similarly, because of the genericity of what we call the Masked Weighting Method, its analytical description might profit fields which are not necessarily linked to Collaborative Reconstruction.
+
+It may also be interesting to consider the information given by a view to another one and the use that can be made of it. Nowadays, data privacy and security are becoming hot topics which have to be adressed regarding the evolution of technology and the use that is made of it. To put constraints on the information transfered while allowing to still improve local result in any way may globaly benefit fields such as Collaborative Clustering or Collaborative Learning. So far in our method, the security put on data tranfer is done using an Autoencoder, preventing the external view to have access to original data while still allowing it to infer something linked to its local data representation. While it is a first step toward data privacy, we are still far from satisfying to rule such as these defined by Differential Privacy~\cite{dwork2010differential}.
+
+More generally, even if it intuitivelly appears to be a vast domain, to have a theoretical framework describing collaborative processes in Machine Learning may make possible the extension of the paradigm to a wider range of applications than just clustering and reconstruction. The exchange of information between two views linked both by interests (to get new information to improve local results) and by constraints (original data should may not be shareable) is a concept which could be used as a base for further researches.
+
