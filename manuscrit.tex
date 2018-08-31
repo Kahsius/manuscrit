@@ -10,25 +10,31 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{minitoc}
 \graphicspath{{./img/}}
 \usepackage[utf8]{inputenc}
-\usepackage[page,title]{appendix}
+\usepackage[toc,page,title]{appendix}
 \usepackage[caption=false]{subfig}
 \usepackage[titlenumbered, ruled]{algorithm2e}
 \SetKwRepeat{Do}{do}{while}
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
 
 \begin{document}
+    \dominitoc{}
     \tableofcontents
+    \listoffigures
     \input{intro}
     \input{survey}
-    \input{som}
     \input{cc}
+    \input{som}
     \input{crs}
     \input{conclusion}
     \bibliographystyle{plain}
     \bibliography{bib.bib}
     \begin{appendices}
+        \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+        \input{summary}
         \input{annexes}
     \end{appendices}
 \end{document}

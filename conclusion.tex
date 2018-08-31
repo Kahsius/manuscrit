@@ -1,0 +1,58 @@
+\chapter{Conclusion and Perspectives}
+
+\minitoc{}
+\newpage
+
+\section{Summary of the contributions}
+The aim of this thesis is to explore the possible improvement that could be done regarding communications in a multi-view context.
+
+\subsection{Contributions applied to inter-view communications for Collaborative Clustering}
+
+In the context of Collaborative Clustering, a local view receives information from all the other external ones. These informations are used to modify the results obtained localy in order to find the best possible concensus among all the existing views. To find the best concensus implies to find the best way for views to exchange information, but also to know how to combine these informations in order to achieve the desired concensus.
+
+This information combination has already been studied in the literature on Collaborative and is based on a set of weights defining the importance that a view gives to another one. To define the importance of the information from a view is equivalent to modify the relative value of the weight attached to this view. In this thesis, we present a method to automaticaly update these values through a training process. This method is based on a constraint problem defined by a cost function representing the current concensus score knowing each local result and the pairwise importance weights. The analytical resolution of this problem enables as well as an interpretation of the resulting weights is presented in this thesis.
+
+The analytical results show that the algorithm tends to create clusters of views mutually agreeing on the results they got on their local individuals. This interpretation is coherent with the original aim of the method: by combining similar views and by lowering the impact of the dissimilar views on the score, the achieved concensus is more likely to be better than if all the importance weights were uniformly set. These theoretical results have been tested on five different datasets which were voluntary choosen to be dissimilar in order to test the generecity of our method.
+
+Thus, our contributions regarding the improvement of communications in Collaborative Clustering are:
+\begin{itemize}
+    \item The definition of a new weighting method defining the importance a view has to give to the information provided by of one of its peers.
+    \item The presentation of the analytical fundation of this method as well as its interpretation.
+    \item The experimental tests presenting the results our method can achieve on datasetsvarying in terms of nature, size and complexity.
+\end{itemize}
+
+\subsection{Contribution applied to online training of Collaborating Clutering}
+
+In most of literature about clustering, the problem is defined for a specific moment in time, without any possibility of modifications of the results in case of a change in data distribution through time. While online training is a specific field in Machine Learning, it has never been studied in the particular case of Collaborative Clustering. In a parallel work developped in this thesis, the adaption of the inter-views communications in order to perform online training of a set of collaborative views has been studied. Contrary to the work mentioned above, our method is not generic and is specificaly based on Self-Organzing Maps to performed online training.
+
+Because Collaborative Clustering is based on the results achieved locally by each clustering method, to make the collaborative learning online first necessitates to adapt each local clustering in order to make them responsive to possible changes in data distribution through time. Self Organizing Maps have been choosen to this extent. However, the work already available in the literature on online Self Organizing Maps was incompatible with the requirement of Collaborative Clustering: while the online adaptation of maps always required modification of its topology, the paradigm of Collaborative Clustering requires that topologies remain constant all along the training. Thus, we present in this thesis an online version of Self Organizing Maps based on the adaptation of the temperature function of this later. By doing so, the training of a map only depends on the distribution of last arriving data.
+
+Experimentals results are provided on four different datasets to attest of the efficiency of our method.
+
+Our contributions regarding the online training of Collaborative Clustering are:
+\begin{itemize}
+    \item The definition of an online version of Self Organizing Maps not based on topological modification of the maps.
+    \item The adaptation of Collaborative Clustering score function to enable online training.
+    \item The experimental tests attesting of the efficiency of our method.
+\end{itemize}
+
+\subsection{Contributions applied to Collaborative Reconstruction}
+
+When gathering data in a multi-view context, it is very likely that data are not gathered neither through the same process nor at the same moment, and this even if it is performed on the same set of individuals. Thus, data about an individual may be missing in a specific dataset while differents descriptions may be available in all the other views. The intuiton behind the idea developed in this part of the thesis is that it is possible to use all the available informations about an individual in order to get a first approximation of its missing description.
+
+The analysis of the communications in a multi-view context has first been studied using clustering as use case. However, we have worked on a way to develop these multi-view communication in the case of collaborative reconstruction of missing data. This time, the information transfert from a view to another is performed by two different components instead of the usual importance weights: a set of neural networks to infer a first approximation of the individual only knowing the information coming from a single view, and a weighting method based on vectors rather than scalar to combine all the external inferences. To ensure a minimum security on data transfert, an autoencoder is first used in each view transfering its informations in order to prevent the receiving view from accessing original data which are not its.
+
+For this contribution again experimental results are provided to attest of the efficiency of our method. The experimental set up is more important than for the other contributions of this thesis because the efficiency of the method could not be as easily defined as for the other methods. Because it does not exist a comparable work in the literature as far as we know, we have suggested the following points to analyze in order to attest of the quality of a reconstruction:
+\begin{itemize}
+    \item The reconstructed individual should be as near as possible from the original sample (considering the RMSE as the reference distance in our experiments)
+    \item Even if the reconstructed individual is relatively far from its original version, it may be considered as good if a classification method can still predict its correct label only based on the reconstructed features (the DBSCAN algorithm has been used during these experiments).
+
+\end{itemize}<++>
+
+
+
+\subsection{Implementation}
+
+\section{Short term perspectives}
+
+\section{Long term limitations and perspectives}

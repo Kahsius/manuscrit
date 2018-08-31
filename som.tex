@@ -1,14 +1,18 @@
 	\chapter{Incremental Self Organizing Maps based Collaborative Clustering}
 \label{ccisom}
 
+\minitoc{}
+\newpage
+
     \section{Introduction}
+
     Collaborative Clustering makes it possible for several independant views to collaborate. An incremental method for this problem, in which data are continuously added to each view through time, would make possible for a set of views to collaborate all along their existence, and not only at a fixed point in time. Thus, the different collaboration could follow a possible changement in data distribution through time. To clarify a detail which differenciate online and incremental methods, unlike the former, the latter are allowed to store a batch of data when they arrive, making it possible to work with batches instead of just singletons.
 	
     The elaboration of such a method presents several challenges. As presented in~\ref{sec:soa_cc}, Collaborative Clustering relies on prototype based clustering, thus reducing the number of available clustering algorithms. The second one lies in the adaptation of the collaborative update rules depending on the chosen clustering method. In this chapter we try to address theses challenges by focusing on the case of SOM.\@
 	
     The work presented here consists in an incremental SOM-based Collaborative Clustering method without topological modification of the SOM and which is robust to a possible data distribution evolution. The key component of this approach lies in the modification of the temperature function of the SOM which does not depend on time anymore.
 	
-    The rest of this chapter is organized as follows: our approach on incremental SOM and its application to Collaborative Clustering is presented in Section~\ref{ccisom}, followed by the experimental results presented in Section~\ref{experiments}. Eventually, a further analysis of our method is presented (easymotion-prefix)in Section~\ref{conclusion}.
+    The rest of this chapter is organized as follows: our approach on incremental SOM and its application to Collaborative Clustering is presented in Section~\ref{ccisom}, followed by the experimental results presented in Section~\ref{experiments}. Eventually, a further analysis of our method is presented (easymotion-prefix) in Section~\ref{conclusion}.
 	
 	\section{Incremental and Collaborative Clustering?}
     Incremental SOM have already been studied in the litterature. However, all the presented solutions are based on topological modifications of the map~\cite{deng2000esom,paplinski2012incremental}, and this kind of modifications are not compatible with the Collaborative Clustering update rules. Indeed, the Collaborative Clustering paradigm supposes that each dataset describes its data by the same number of prototypes to allow comparisons between several views and to keep topological mapping between each pair of views. In our case, the prototypes correspond to the neurons of the SOM, and as such without modification of the algorithm, the topology of each SOM has to be fixed during the initialization of the algorithm. Another problem encountered in general with incremental clustering is the possibility for the algorithms to answer changes in the data distribution through time. If the data distribution evolves, one has to be sure that the prototypes will follow the distribution of the most recent batches.
@@ -92,19 +96,23 @@
 	In this section we present the results obtained on the four datasets. For these experiments, a 10$\times$10 SOM has been used, with $\lambda_{\min}=0.3$, $\lambda_{\max}=3$, $\epsilon=0.5$ (while it is usually time-dependent for classical SOM), $N_{batch}=10$ and the local step of Collaborative Clustering has been performed for the first 10 batches. The models have been trained using only the 30 first batches in order to test the early convergence of the model and because it appears that the results do not change a lot on the long term. The methods have been coded in R v3.2.3.
 	
 	\begin{table}[!h]
-		\caption{Mean quantization errors on each database. ISOM stands for Incremental SOM and ICollaborative Clustering stands for Incremental Collaborative Clustering. Bold numbers are the lowest ones for each column.}
+		\caption{Mean quantization errors on each database. ISOM stands for Incremental SOM and ICollaborative Clustering stands for Incremental Collaborative Clustering. Bold numbers are the lowest ones for each line.}
 		\begin{center}
-			\begin{tabular}{cc@{\quad}c@{\quad}cc@{\quad}c@{\quad}cc@{\quad}c@{\quad}cc@{\quad}c@{\quad}c}
-				\cline{2-13}
-				& \multicolumn{3}{c||}{Spam Base} & \multicolumn{3}{c||}{Waveform} & \multicolumn{3}{c||}{WDBC} & \multicolumn{3}{c|}{Isolet}\\
-				\cline{2-13}
-				& 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3\\
-				\midrule
-				\multicolumn{1}{|c|}{ISOM} & 0.31 & \textbf{0.18} & 0.18 & \textbf{0.18} & \textbf{0.17} & \textbf{0.24} & \textbf{0.19} & \textbf{0.16} & 0.20 & 2.15 & 2.84 & 2.85\\
-				%\hline
-				\multicolumn{1}{|c|}{ICollaborative Clustering} & \textbf{0.26} & 0.19 & \textbf{0.16} & 0.23 & 0.19 & 0.30 & 0.19 & 0.19 & \textbf{0.16} & \textbf{1.27} & \textbf{1.38} & \textbf{1.37}\\
-				\midrule
-			\end{tabular}
+\begin{tabular}{cccc}
+                           & View & Incremental SOM & \begin{tabular}[c]{@{}c@{}}Incremental\\ Collaborative Clustering\end{tabular} \\ \midrule
+\multirow{3}{*}{Spam Base} & 1    & 0.31            & \textbf{0.26}                                                                  \\
+                           & 2    & \textbf{0.18}   & 0.19                                                                           \\
+                           & 3    & 0.18            & \textbf{0.16}                                                                  \\ \midrule
+\multirow{3}{*}{Waveform}  & 1    & \textbf{0.18}   & 0.23                                                                           \\
+                           & 2    & \textbf{0.17}   & 0.19                                                                           \\
+                           & 3    & \textbf{0.24}   & 0.30                                                                           \\ \midrule
+\multirow{3}{*}{WDBC}      & 1    & \textbf{0.19}   & 0.19                                                                           \\
+                           & 2    & \textbf{0.16}   & 0.19                                                                           \\
+                           & 3    & 0.20            & \textbf{0.16}                                                                  \\ \midrule
+\multirow{3}{*}{Isolet}    & 1    & 2.15            & \textbf{1.27}                                                                  \\
+                           & 2    & 2.84            & \textbf{1.38}                                                                  \\
+                           & 3    & 2.85            & \textbf{1.37}                                                                 \\ \midrule
+\end{tabular}
 		\end{center}
 \label{tab:tab1}
 	\end{table}
@@ -127,3 +135,6 @@
 	In this study, we proposed a methodology to perform incremental SOM without topological modifications of the map as well as the application of this method to adapt horizontal Collaborative Clustering according to the incremental constraint. Its application to vertical Collaborative Clustering is possible but has not been described in this paper. With these methods, the temperature function $\widetilde{\lambda}$, and so the neighboring function $\widetilde{K}$ of the generated maps are no longer time-dependent, and now only depend on incoming data. Knowing that, the map can be adapted to continuously incoming data. The presented methods have been tested on 4 different datasets, and the results show that the version of incremental SOM presented in this paper can be adapted to perform incremental Collaborative Clustering.\@ The influence of the parameter $N_{batch}$, namely its impact on the stability of the learning, has also been investigated.
 	
 	To pursue this work, we plan to investigate the methods which would allow to adapt topological modifications on SOM in the context of Collaborative Clustering.\@ Furthermore, we plan to adapt what has been presented in this research work to the GTM, which are by nature similar to SOM.\@
+
+In the next chapter, we explore a collaboration method based on neural network and vectors rather than on scalar only. The complexity of this new method makes it possible to introduce a new use case to explore how an inter-view collaboration can be used to perform tasks different from clustering.
+

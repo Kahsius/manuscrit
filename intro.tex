@@ -1,0 +1,67 @@
+\chapter{Introduction}
+
+\minitoc{}
+\newpage
+
+\section{Abstract}
+
+This thesis presents several algorithms used in a collaborative context. Its main axis is the communication between several distributed datasets and their developments, either in terms of quality or in terms of use case. This axis is then divided in two sub problems, each one being defined by the goal of the algorithm.
+
+The first case is the clustering one, developped in the specific paradim of Collaborative Clustering, the aim of which is to find a consensus between the clusterings of several distributed datasets, called views. Being given a local view, this consensus is achieved through the prioritization of the information got from all the external views. The method presented in this thesis is generic and can be applied without consideration of the clustering algorithms used on each view.
+
+The second case is the reconstruction of missing data. Being given several views, and considering a set of individuals being described in more than one view, the goal of this use case is to transfer information from a view to another in order to infer an approximation of the missing description of an individual. While the use case of Collaborative Clustering has already been extensively studied in the literature, the use case of Collaborative Reconstruction is introduced in this thesis. This new use case is applied on several datasets containing either images or vectors, the majority of which being commonly met datasets for Collaborative Clustering. However, the method presented here differs from what has previously been presented in the literature in that the inter-views communication is performed both by a scalar based prioritization of the information and by a neural network based inference system.
+
+\section{Thesis Scope}
+
+Each day, data are becoming bigger and more complex. This has the advantage of making possible a wide range of application on different data of all natures, but it also has the disadvantage of making each application more specific, and their possibles solutions more difficult to design. Moreover, because of this huge volumetry of data, one is likely to face a problem for which data is distributed among several datasets. It is in this context that Collaborative Clustering has been created. In the specific case of a set of individuals distributed among several views and being described by different sets of features, tasks such as clustering or reconstruction have to consider a way to transfer information without having the same description of what they are exchanging on. Collaborative Learning (being either for Clustering or Reconstruction) is based on the hypothesis that datasets share an amount of information sufficient to infer links between views. In the case of Clustering and Reconstruction, this shared information is the presence of the same set of individuals in all the views. The work presented in this thesis is based on the study of the communication that can be performed between two views with different set of features knowing this shared information to improve each local result.
+
+Considering the two specific use cases of clustering and reconstruction, the first one is the process of organizing individuals in groups such as the similarity between the individuals of a same group is maximum while the similarity between individuals from two different groups is minimum. However, it is an ill-posed problem because there is no universal definition of what a similarity measure is. Moreover, in the case of unsupervised learning, in which case available data are unlabeled, it is hard to determine the right number of clusters. Clustering results heavily depends on the algorithm which is used, as well as their parameters and the nature of data that is studied. In Collaborative Clustering, the results which are obtained localy (the groups and their members) are transfered to all the other views. Then each local clustering is updated in order to ultimately find the best possible consensus between the results of all the views. The intuition behind this paradigm is that it may be possible to transfer information from a view to an other allowing to have a better understanding on local individuals.
+
+Now considering reconstruction, the increasing quantity of data available does not guarantee that each dataset will be perfectly complete. Moreover, to have several datasets using different sets of features often implies that data have been gathered using various methods during different sessions maybe separated in time, and so it is very unlikely that each dataset contains the description of the exact same set of individuals than all its peers. In this context, a system able to infer information on an individual based on its other descriptions available in the other views could mitigate the problem of missing data in a collaborative context. Such a system is presented in this thesis, as well its application to several different datasets.
+
+\section{Thesis Overview}
+
+This thesis is structured into four chapters (Introduction, Conclusion and Appendices excluded) and is organized as follows:\\
+
+\textbf{Chapter 2, State of the Art:} This chapter introduces a state of the art divided in 4 main parts: a quick definition of clustering, followed by the challenges it is currently facing. Then are presented the most commonly met methods, to finally introduce Collaborative Clustering as field in itself. The point of this chapter is to bring the reader from a high level definition of what the clustering is, to then move to the more specific collaborative context.\\
+
+\textbf{Chapter 3, Optimized weights for the horizontal collaborative SOM algorithm:} Based on the challenges and on the state of the art presented in the previous chapter, this one presents a new weighting method used to define the importance a view has to give to the information coming from all its external peers. We first define the optimization problem related to this context, leading to the creation of a constrained system of equation defining the values of the weighting coefficients which give the best consensus among all the views. This system is then solved mathematically using the Karush-Kuhn-Tucker method. An interpretation of the results is then given. The method is finally numerically compared to what can be met in the literature on several independant datasets.\\
+
+\textbf{Chapter 4, Incremental Self Organizing Maps based Collaborative Clustering:} This chapter is less connected to the two previous ones in that in presents early work that have been performed on Collaborative Clustering. The point was to define a method making the online training of Self Organizing Maps in a collaborative context. It is linked to the problem of communications in a collaborative context in that it focuses on how these communications could be performed all the training session, and not just during a fixed training session in time. Thus the chapter first introduces the problem of online training in a collaborative context. Based on the limitations identified, we present an online version of Self Organizing Maps. This later metho is then adapted to be used in a Collaborative Context. Experiments are then performed to determine the efficiency of our new Collaborative Clustering method. A discussion regarding the limitations of this method as well as a conclusion ends this last chapter.\\
+
+\textbf{Chapter 5, Collaborative Reconstruction System} This chapter presents our method to perform Collaborative Reconstruction. Because we couldn't find any work related to Collaborative Reconstruction in the literature, its context is first defined at the beginning of the chapter. A quick summary on Neural Networks is given, this later method being one of the two used to transfer information from a view to another. This subsection defines two of the many kind of existing Neural Networks: Multi-Layer Perceptrons (MLP) and Autoencoders. After this quick introduction, a global definition of the architecture of what we call the Collaborative Reconstruction System is given. Each component is defined: the Autoencoders to encode the information, the MLP to transfer the information to another view, and the Masked Weighting Method to combine all the external informations. This later component and its training are detailed using a mathematical demonstration of the learning process of its parameters using either a Gradient Descent or an iterative process. Because of the complexity of the system, and because the Masked Weighting Method is a contribution in itself, several sets of experiments have conducted to test both the efficiency of the global system and the impact of the weighting method on the results of the system. A graphical representation of what can be achieved in terms of reconstruction is also presented using a dataset of handwritten digits. Finally, a discussion of the advantages and on the limits of the system is presented at the end of the chapter.\\
+
+
+\section{Main Contributions}
+
+\textbf{\\International Journal}
+
+\begin{itemize}
+    \item (currently submited) Denis Maurel, Sylvain Lefebvre and J{\'{e}}r{\'{e}}mie Sublime,
+        \textit{Deep Cooperative Reconstruction with Security Constraints},
+        Knowledge And Information System (KAIS),
+        2019.
+\end{itemize}
+
+\textbf{\\International Conferences}
+
+\begin{itemize}
+    \item Denis Maurel, J{\'e}r{\'e}mie Sublime and Sylvain Lefebvre,
+        \textit{Incremental Self-Organizing Maps for Collaborative Clustering},
+        International Conference on Neural Information Processing,
+        2017.
+
+    \item J{\'e}r{\'e}mie Sublime, Denis Maurel, Nistor Grozavu, Basarab Matei and Younès Bennani,
+        \textit{Optimizing exchange confidence during collaborative clustering},
+        International Joint Conference on Neural Networks (IJCNN),
+        2017.
+\end{itemize}
+
+\textbf{\\National Conference}
+
+\begin{itemize}
+    \item Denis Maurel, J{\'e}r{\'e}mie Sublime and Sylvain Lefebvre,
+        \textit{Cartes Auto-Organisatrices Incrémentales appliquées au Clustering Collaboratif},
+        Conf{e}rence internationale sur l'extraction et la gestion des connaissances,
+        2017.
+\end{itemize}

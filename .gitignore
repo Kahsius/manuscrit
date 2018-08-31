@@ -6,3 +6,6 @@
 *.bbl
 *.blg
 *.toc
+*.lof
+*.maf
+*.mtc*

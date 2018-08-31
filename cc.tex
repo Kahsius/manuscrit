@@ -1,5 +1,10 @@
 
+\chapter{Optimized weights for the horizontal collaborative SOM algorithm}
 
+\minitoc{}
+\newpage
+
+\section{Introduction}
 
 The contributions presented in this chapter are 3-folds:
 \begin{itemize}
@@ -144,11 +149,9 @@ The remainder of this chapter is organized as follows: Section~\ref{sec:opt-w} i
 
 
 
-\section{Optimized weights for the horizontal collaborative SOM algorithm}
-\sectionmark{Optimization under KKT conditions}
 \label{sec:opt-w}
 
-\subsection{Optimization problem}
+\section{Optimization problem}
 
 In this chapter we  propose a different collaborative approach in which we modify the objective function~\eqref{eq:globalC} using a weighting  strategy to reduce the risk of negative collaboration: we study how the optimization of the weights of the combination function in Equation~\eqref{eq:globalC} can lead to an optimal value of the global function and reduce the risk of negative collaboration by further optimizing weight factors between the algorithms.
 
@@ -248,8 +251,7 @@ Our modified version of the SOM algorithm for horizontal collaboration with the 
 	}	 
 \end{algorithm}
 
-    \tableofcontents
-\subsection{Interpretation}
+\section{Interpretation}
 \label{sec:interpretation}
 
 From Equation~\eqref{eq:kkt_alpha}, we can infer the following property: For two SOM algorithms in the views $i$ and $j$, when the pairwise collaborative term $C_j^i$ is small (i.e.\ the maps are similar) comparatively with the other collaborative terms $C_j^i$, then the associated collaborative weight $\beta_j^i$ is large compared with the other $\beta_k^j$. The interpretation for this is that any SOM algorithm should give a stronger collaborative weight to other self-organizing maps with a similar topology, and a weaker weight to the local term. As such, the Equation for the weights $\beta_j^i$ is an inverse geometric mean based on the similarity between two maps. 
@@ -414,11 +416,12 @@ The last experiment consisted in the analysis of two criterion commonly met in t
 \section{Conclusion}
 \label{sec:cc-conlu}
 
-In this chapter, we have proposed an optimization method for the case of horizontal collaborative clustering between SOM algorithms. Our proposed method answers several questions regarding the tuning of the collaborative parameters between local and collaborative terms when using topological based collaborative clustering methods. Furthermore, we have also demonstrated how it can be used to make groups of similar maps, and to detect and discard noisy views.
+In this chapter, we have presented an optimization method for the case of horizontal collaborative clustering between SOM algorithms. Our method answers several questions regarding the tuning of the collaborative parameters between local and collaborative terms when using topological based collaborative clustering methods. Furthermore, we have also demonstrated how it can be used to make groups of similar maps, and to detect and discard noisy views.
 
-Using our optimization model we have also found interesting properties, and in particular we have shown how diversity can be used to avoid bad influences from noisy or low quality view, and ultimately to improve the results of unsupervised collaborative learning. The conclusion from the theoretical part of this chapter is that a lower diversity is a good criterion to choose collaborators because it tends to favor stable solutions, which is a good thing since stability is a well known good quality criterion to find the intrinsic structures of the data set in unsupervised learning. However, one should keep in mind that the low diversity criterion has its limits and may hinder improvements in the collaborative process due to the lack of risk taking, or lead to no improvement at all if the diversity is too low. These later 2 issues are tackled in another paper co-published with this one and where an alternative bandit optimization scheme is proposed for a similar collaborative clustering problem~\cite{Sublime2018a2}. 
-
+Using our optimization model we have also found interesting properties, and in particular we have shown how diversity can be used to avoid bad influences from noisy or low quality view, and ultimately to improve the results of unsupervised collaborative learning. The conclusion from the theoretical part of this chapter is that a lower diversity is a good criterion to choose collaborators because it tends to favor stable solutions, which is a good thing since stability is a well known good quality criterion to find the intrinsic structures of the data set in unsupervised learning. However, one should keep in mind that the low diversity criterion has its limits and may hinder improvements in the collaborative process due to the lack of risk taking, or lead to no improvement at all if the diversity is too low. These later 2 issues are tackled in a paper where an alternative bandit optimization scheme is proposed for a similar collaborative clustering problem~\cite{Sublime2018a2}. 
 
 Other possible extensions for this work could include similar studies on the case of vertical collaboration where the collaborating SOM algorithms handles different data sharing the same features, as well as the application of the same optimization technique for collaborative Generative Topographic Maps in a first time, and a further extension to non-topological collaborative methods in a second time.
 
+The method presented in this chapter can be considered as an improvement of the inter-views collaboration using a traditional scalar weighting method. 
 
+The next chapter will present a work which also consider the communication in a multi-view context. However, the point of view adopted is different in that it is the definition of the local algorithm which is studied and adapted, rather than the way they are communicating. The communication mechanism is the same while its context is different.
