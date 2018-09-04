@@ -14,7 +14,7 @@
 	
     The rest of this chapter is organized as follows: our approach on incremental SOM and its application to Collaborative Clustering is presented in Section~\ref{ccisom}, followed by the experimental results presented in Section~\ref{experiments}. Eventually, a further analysis of our method is presented (easymotion-prefix) in Section~\ref{conclusion}.
 	
-	\section{Incremental and Collaborative Clustering?}
+	\section{Incremental Collaborative Clustering}
     Incremental SOM have already been studied in the litterature. However, all the presented solutions are based on topological modifications of the map~\cite{deng2000esom,paplinski2012incremental}, and this kind of modifications are not compatible with the Collaborative Clustering update rules. Indeed, the Collaborative Clustering paradigm supposes that each dataset describes its data by the same number of prototypes to allow comparisons between several views and to keep topological mapping between each pair of views. In our case, the prototypes correspond to the neurons of the SOM, and as such without modification of the algorithm, the topology of each SOM has to be fixed during the initialization of the algorithm. Another problem encountered in general with incremental clustering is the possibility for the algorithms to answer changes in the data distribution through time. If the data distribution evolves, one has to be sure that the prototypes will follow the distribution of the most recent batches.
 	
 	\section{Incremental SOM}
@@ -130,7 +130,7 @@
 					\caption{Evolution of the purities for the Isolet database with 2 different $N_{batch}$. The red lines represent the incremental SOM whereas the black lines represent the collaborative SOM.\@ Each iteration corresponds to the arrival of a new sample}
 				\end{figure}
 
-	\section{Conclusion and Future Works}
+	\section{Conclusion}
 \label{conclusion}
 	In this study, we proposed a methodology to perform incremental SOM without topological modifications of the map as well as the application of this method to adapt horizontal Collaborative Clustering according to the incremental constraint. Its application to vertical Collaborative Clustering is possible but has not been described in this paper. With these methods, the temperature function $\widetilde{\lambda}$, and so the neighboring function $\widetilde{K}$ of the generated maps are no longer time-dependent, and now only depend on incoming data. Knowing that, the map can be adapted to continuously incoming data. The presented methods have been tested on 4 different datasets, and the results show that the version of incremental SOM presented in this paper can be adapted to perform incremental Collaborative Clustering.\@ The influence of the parameter $N_{batch}$, namely its impact on the stability of the learning, has also been investigated.
 	

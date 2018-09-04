@@ -1,19 +1,32 @@
-\chapter{Résumé en français}
+\chapter{R\'{e}sum\'{e} en français}
 
 \section{Contexte}
+Cette thèse portant sur l'\'{e}tude des communications au sein de mod\`{e}les d'apprentisage automatique collaboratif a \'{e}t\'{e} dirig\'{e}e par Raja Chicky (ISEP) et co-encadr\'{e}e par J\'{e}r\'{e}mie Sublime (ISEP, Universit\'{e} Paris 13) et Sylvain Lefebvre (ISEP).\\
 
-\section{Résumé de la thèse}
+L'objectif principal de cette th\`{e}se \'{e}tait d'\'{e}tudier les communications inter-vues au sein de mod\`{e}les d'apprentissage collaboratifs afin d'am\'{e}liorer la transmission d'informations entre les vues. Cette id\'{e}e a \'{e}t\'{e} d\'{e}clin\'{e}e suivant deux axes suivant le type d'application concern\'{e}:\\
 
-\subsection{État de l'art sur le clustering et sur sa version collaborative}
+\begin{itemize}
+    \item Le clustering collaboratif pour lequel chaque vue disposera initialement d'un clustering local qui sera ensuite modifi\'{e} afin d'arriver \`{a} une s\'{e}rie de concensus entre les vues. La modification de chaque clustering local se base sur l'\'{e}change d'informations entre les vues, afin que les resultats obtenus localement puisse \^{e}tre utilis\'{e}s par les vues externes. Le clustering collaboratif s'attache \`{a} trouver un concensus aussi global que possible plutôt qu'\`{a} am\'{e}liorer chaque clustering local. Le clustering collaboratif est à distinguer de l'ensemble learning qui lui chercher à trouver un concensus unique entre toutes les vues à l'aide d'une fusion au sein d'un modèle global de l'ensemble des clusterings locaux. Au sein de cette th\`{e}se, nous parleros majoritairement de la version horizontale du clustering collaboratif, pour laquelle chaque vue dispose du m\^{e}me ensemble d'individus d\'{e}crits au sein de chaque vue par un ensemble diff\'{e}rent de features. Deux sous-axes ont été explorés concernant les communications inter-vues:
+        \begin{enumerate}
+            \item L'optimisation des coefficients définissant l'importance que chaque vue accorde à l'information reçue de ses paires. Pour cela nous proposons une nouvelle méthode d'apprentissage permettant d'adpater dynamiquement ces poids à l'aide d'un apprentissage.
+            \item La proposition d'une méthode d'apprentissage en ligne permettant à des vues de communiquer au fil du temps afin de faire évoluer les résultats obtenus localement à d'éventuels changements de distribution.
+        \end{enumerate}
 
-\subsection{Optimisation des communication de cartes auto-adaptatives collaboratives}
+    \item La reconstruction collaborative dont le but est de reconstruire localement des données manquantes à l'aide d'informations présentes dans les vues externes. Cette application est définie est développée dans cette thèse avec la proposition d'un système permettant d'inférer l'approximation d'un individu à l'aide entre autre de réseaux de neurones. Ces réseaux seront utilisés soit pour coder l'information à transférer afin d'assurer une sécurité minimum, soit pour inférer les valeurs locales d'un individu en se basant sur l'information reçue de la vue externe.
+\end{itemize}
 
-\subsection{Système de reconstruction collaborative}
 
-\subsection{Clustering collaboratif basé sur des cartes auto-adaptatives incrémentales}
+\section{Clustering collaboratif}
 
-\section{Résumé des contributions scientifiques et perspectives}
 
-\subsection{Résumé des contributions}
+Le clustering collaboratif est défini par un ensemble de base de données (appelées vues) ayant chacune opéré un clustering sur leurs données locales. Le but du clustering collaboratif va \^{e}tre de faire s'échanger de l'information entre les vues afin de modifier chaque clustering local pour finalement se rapprocher d'un concensus entre les vues.\\
 
-\subsection{Perspectives}
+Se pose alors le problème du recoupement d'information lorsqu'une vue local reçoit des informations provenant de plus d'une source externe. Les méthodes de l'état de l'art dans la litérature se base sur une pondération de ces informations à l'aide de coefficients scalaires~\cite{cornuejols2018collaborative,pedrycz2002collaborative,maurel2017incremental,ghassany2012collaborative,sublime2016collaborative,rastin2015collaborative}. Cependant, la méthode de définition de ces coefficients est à chaque fois empirique, et c'est sur ce constat que se basent les travaux présentés dans la première partie de cette thèse. Un second sous axe d'exploration a consisté en la modification d'une méthode existante de clustering collaboratif~\cite{ghassany2012collaborative} basée sur des cartes auto adaptatrices~\cite{KOHO1} afin de l'adapter à l'apprentissage en ligne. En effet, jusqu'à présent toute les méthodes rencontrées dans la littérature proposaient des apprentissages fixés dans le temps. On pourrait cependant imaginer qu'une application réelle du clustering collaboratif nécessiterait un apprentissage en continu, sous peine de rendre obsolètes les résultats initialement obtenus passée un certaine période.
+
+(easymotion-prefix)\subsection{Optimisation des poids pour du clustering collaboratif bas\'{e} sur des cartes auto adaptatrices}
+
+\subsection{Cartes auto adaptatrices incr\'{e}mentales appliqu\'{e}es au clustering collaboratif}
+
+\section{Syst\`{e}me de reconstruction collaborative}
+
+\section{R\'{e}sum\'{e} des contributions scientifiques et perspectives}

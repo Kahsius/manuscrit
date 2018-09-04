@@ -3,17 +3,22 @@
 % Last Change: mer. août 01 03:00  2018 C
 %
 \RequirePackage{amsmath}
-\documentclass[a4paper]{report}
+\documentclass[11pt]{book}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{changepage}
 \usepackage{xr}
 \usepackage{float}
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{pdfpages}
 \usepackage{tabularx}
 \usepackage{multirow}
 \usepackage{minitoc}
 \graphicspath{{./img/}}
-\usepackage[utf8]{inputenc}
 \usepackage[toc,page,title]{appendix}
 \usepackage[caption=false]{subfig}
 \usepackage[titlenumbered, ruled]{algorithm2e}
@@ -21,6 +26,12 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
 
 \begin{document}
+    \includepdf{page-de-garde1}
+    ~
+    \newpage
+    \includepdf{page-de-garde-anglais}
+    ~
+    \newpage
     \dominitoc{}
     \tableofcontents
     \listoffigures
@@ -33,10 +44,8 @@
     \bibliographystyle{plain}
     \bibliography{bib.bib}
     \begin{appendices}
-        \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+        \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
         \input{summary}
         \input{annexes}
     \end{appendices}
 \end{document}
-
-

@@ -1,0 +1,89 @@
+% *-----------------------------------------------------------*
+% *         Page de Garde (bas\'{e} sur le mod\`{e}le UPMC)
+% * Derni\`{e}re modif le : 2012/02/13
+% *-----------------------------------------------------------*
+% * README: 
+% *   - se compile avec pdflatex
+% *   - l'{e}ntête de ce fichier sert pour g\'{e}n\'{e}rer une page
+% *     unique. Ce texte latex peut s'inclure (partie comprise 
+% *     entre les lignes et  ) dans un document existant.
+% *-----------------------------------------------------------*
+
+% - - - - - - - entête pour avoir une page unique 
+
+\documentclass[11pt]{book}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+% - - - - - - - d\'{e}but de la page 
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{25cm}
+\setlength{\oddsidemargin}{-0cm}
+\setlength{\topmargin}{-1cm}
+\title{}     
+\date{} 
+\author{}
+\begin{document}
+\thispagestyle{empty}
+
+%changepage{text height}{text width}{even-side margin}{odd-side margin}{column sep}{topmargin}{headheight}{headsep}{footskip}
+
+\includegraphics[scale=0.12]{upmc-logo.png}
+
+{\large
+
+\vspace*{1cm}
+
+\begin{center}
+
+{\bf DOCTORAL THESIS BY \\ l'UNIVERSIT\'{E} PIERRE ET MARIE CURIE}
+
+\vspace*{0.5cm}
+
+Speciality \\ [2ex]
+{\bf Computer Science}\ \\ 
+
+\vspace*{0.5cm}
+
+\'{E}cole doctorale Informatique, T\'{e}l\'{e}communications et \'{E}lectronique (Paris)
+
+\vspace*{1cm}
+
+
+Presented by \ \\
+
+
+\vspace*{0.5cm}
+
+
+{\Large {\bf Denis MAUREL}}
+
+\vspace*{1cm}
+To obtain the grade of \ \\[1ex]
+{\bf Doctor of the UNIVERSIT\'{E} PIERRE ET MARIE CURIE} \ \\
+
+\vspace*{1cm}
+
+\end{center}
+
+\flushleft{Thesis subject:\ \\
+\ \\
+{\Large {\bf Contributions to inter-views communications applied to collaborative learning\\ }}
+  
+
+\vspace*{1.5cm} 
+\flushleft{defended on XX/01/2019}\\[2ex]
+\flushleft{Jury:  }\\[1ex]
+\flushleft{\begin{tabular}{r@{\ }ll}
+  & Mme. Raja {\sc Chiky} & Directrice de th\`{e}se\\
+  & M. Pr\'{e}nom {\sc Nom} & Rapporteur \\
+  & M. Pr\'{e}nom {\sc Nom} & Rapporteur  \\
+  & M. Pr\'{e}nom {\sc Nom} & Examinateur  \\
+  & M. Pr\'{e}nom {\sc Nom} & Examinateur  \\
+\end{tabular}}
+
+}}
+
+\clearpage
+\end{document}
