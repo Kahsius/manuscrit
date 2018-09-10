@@ -1,4 +1,3 @@
-
 \chapter{Optimized weights for the horizontal collaborative SOM algorithm}
 
 \minitoc{}
@@ -174,7 +173,7 @@ Note that we use a product constraint instead of a sum. While it may seem unusua
 The results of the optimization under the Karush-Kuhn-Tucker (KKT) conditions are shown below  in Equations~\eqref{eq:kkt_alpha}. For  all  $ j \neq i$  
 we have:
 \begin{equation}
-\beta_j^i =  \frac{{(\prod_{k\neq i} C_k^i)}^{\frac 1 {N-1}}} {C_j^i} \qquad
+\beta_j^i =  \frac{{(\prod_{k\neq j} C_k^i)}^{\frac 1 {N-1}}} {C_j^i} \qquad
 \label{eq:kkt_alpha}
 \end{equation} 
 The interpretation of these results is the following: 

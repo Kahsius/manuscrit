@@ -96,7 +96,7 @@
 	In this section we present the results obtained on the four datasets. For these experiments, a 10$\times$10 SOM has been used, with $\lambda_{\min}=0.3$, $\lambda_{\max}=3$, $\epsilon=0.5$ (while it is usually time-dependent for classical SOM), $N_{batch}=10$ and the local step of Collaborative Clustering has been performed for the first 10 batches. The models have been trained using only the 30 first batches in order to test the early convergence of the model and because it appears that the results do not change a lot on the long term. The methods have been coded in R v3.2.3.
 	
 	\begin{table}[!h]
-		\caption{Mean quantization errors on each database. ISOM stands for Incremental SOM and ICollaborative Clustering stands for Incremental Collaborative Clustering. Bold numbers are the lowest ones for each line.}
+		\caption{Mean quantization errors on each database. Bold numbers are the lowest ones for each line.}
 		\begin{center}
 \begin{tabular}{cccc}
                            & View & Incremental SOM & \begin{tabular}[c]{@{}c@{}}Incremental\\ Collaborative Clustering\end{tabular} \\ \midrule
@@ -128,6 +128,7 @@
                     \subfloat[$N_{batch}=3$, View 2]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/p2.png}\label{img5}}
                     \subfloat[$N_{batch}=3$, View 3]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/p3.png}\label{img6}}
 					\caption{Evolution of the purities for the Isolet database with 2 different $N_{batch}$. The red lines represent the incremental SOM whereas the black lines represent the collaborative SOM.\@ Each iteration corresponds to the arrival of a new sample}
+\label{fig:isom}
 				\end{figure}
 
 	\section{Conclusion}

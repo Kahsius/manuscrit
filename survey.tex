@@ -27,7 +27,7 @@ This section first gives the definition of clustering along with its use cases a
 
     With D the dimension of $x$ and $y$, and with $x_k$ the $k$-th coordinate of $x$ in its feature space. This measure is intuitive because it refers to the concept of distance which we use everyday. However, even if it is intuitive and can give good results in lower dimensional spaces, it becomes another problem when the number of dimensions increases. The choice of the inter-individuals distance must consider points such as the space dimensionality, the kind of features used in the dataset, and even the goal of the clustering. A guide on this problem can be found in~\cite{domingos2012few}.
 
-    Also, the choice of a measure defines data topology in the sense that it defines the shape of the clusters that may be found. The topology of data is also a point to consider when choosing a clustering method because some may (or not) be used for certain kind of topologies. The diagrams displayed in documentation of the Python package \textit{scikit-learn}\footnote{http://scikit-learn.org/stable/modules/clustering.html} present how some methods may or may not adapt to some topologies. For example, methods such as K-means based with $l2$-norm defines ball-shaped clusters. This may not give the expected result when considering data forming concentric circles for example.
+    Also, the choice of a measure defines data topology in the sense that it defines the shape of the clusters that may be found. The topology of data is also a point to consider when choosing a clustering method because some may (or not) be used for certain kind of topologies. The diagrams displayed in documentation of the Python package \textit{scikit-learn}\footnote{\url{http://scikit-learn.org/stable/modules/clustering.html}} present how some methods may or may not adapt to some topologies. For example, methods such as K-means based with $l2$-norm defines ball-shaped clusters. This may not give the expected result when considering data forming concentric circles for example.
 
     From now, every time the term ``neighbor'' will be used, it will implicity implies that a distance between data points has been defined. The definition of this distance can be viewed as an additional parameter for every method using it.
 
@@ -386,8 +386,8 @@ The most commonly met density based method is called Density-based spatial clust
 
     \begin{align}
         \label{eq:globalC}
-        Q^i &= Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
-        &= Q^i_{local}(V_i) + \sum_{j\neq i} C_j^i(V_i, V_j)
+        Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
+        &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, V_j)
     \end{align}
 
     With $Q^i_{local}$ being the local criterion used to trained the local model of the $i$-th view, and $Q_{collab}$ being a term appended to the local criterion to formalize the collaborative part of the training. This latter term is made of the $N-1$ terms $C_j^i$ corresponding to each collaboration between the local views and its pairs. $V_i$ stands for $i$-th view, and from now, we define $N$ as the total number of views. In most of the literature, both local and collaborative terms have to be defined accordingly to the local methods which are used, even if some researches have been done to make possible to use different local methods. A summary is given in the next Section. When the cost function is defined, its differenciate is computed and then used to generate rules to update the parameters of the system using gradient descent: 

@@ -323,18 +323,18 @@ During this experiment, we were interested in the impact of our combination meth
 \begin{figure}[h]
 \label{fig:msemrd}
     \centering
-    \subfloat[][WDBC]{\includegraphics[scale=.30]{img/mse_wdbc}\label{fig:mse_a}}
+    \subfloat[][WDBC]{\includegraphics[width=.35\textwidth]{img/mse_wdbc}\label{fig:mse_a}}
     \qquad
-    \subfloat[][WDBC]{\includegraphics[scale=.30]{img/mrd_wdbc}\label{fig:mrd_a}}\\
-    \subfloat[][MFDD]{\includegraphics[scale=.30]{img/mse_mfeat}\label{fig:mse_b}}
+    \subfloat[][WDBC]{\includegraphics[width=.35\textwidth]{img/mrd_wdbc}\label{fig:mrd_a}}\\
+    \subfloat[][MFDD]{\includegraphics[width=.35\textwidth]{img/mse_mfeat}\label{fig:mse_b}}
     \qquad
-    \subfloat[][MFDD]{\includegraphics[scale=.30]{img/mrd_mfeat}\label{fig:mrd_b}}\\
-    \subfloat[][Madelon]{\includegraphics[scale=.30]{img/mse_madelon}\label{fig:mse_c}}
+    \subfloat[][MFDD]{\includegraphics[width=.35\textwidth]{img/mrd_mfeat}\label{fig:mrd_b}}\\
+    \subfloat[][Madelon]{\includegraphics[width=.35\textwidth]{img/mse_madelon}\label{fig:mse_c}}
     \qquad
-    \subfloat[][Madelon]{\includegraphics[scale=.30]{img/mrd_madelon}\label{fig:mrd_c}}\\
-    \subfloat[][Cube]{\includegraphics[scale=.30]{img/mse_cube}\label{fig:mse_d}}
+    \subfloat[][Madelon]{\includegraphics[width=.35\textwidth]{img/mrd_madelon}\label{fig:mrd_c}}\\
+    \subfloat[][Cube]{\includegraphics[width=.35\textwidth]{img/mse_cube}\label{fig:mse_d}}
     \qquad
-    \subfloat[][Cube]{\includegraphics[scale=.30]{img/mrd_cube}\label{fig:mrd_d}}
+    \subfloat[][Cube]{\includegraphics[width=.35\textwidth]{img/mrd_cube}\label{fig:mrd_d}}
     \caption{Mean Squared Error and Mean Relative Difference for all the datasets.\@ A lower value corresponds to a better result.}
 \end{figure}
 
@@ -349,7 +349,7 @@ During this experiment, we were interested in the impact of our combination meth
     \quad
     \subfloat[][Cube]{\includegraphics[scale=.30]{img/cd_cube}\label{fig:classif_h}}
     \caption{Classification Scores and Difference for WDBC, MFDD and
-        Madelon: original scores from the original data, classification score from the reconstructed data without and with the Masked Weighting Method and their difference.}
+    Madelon: original scores from the original data, classification score from the reconstructed data without and with the Masked Weighting Method and their difference. Values above 0 indicates that our classifications are better on reconstructed individuals than on original ones.}
 \end{figure}
 
 For WDBC, MFDD and Cube, the Masked Weighting Method significantly reduces the MSE for almost every view (Figures~\ref{fig:mse_a},~\ref{fig:mse_b} and~\ref{fig:mse_d}). This was expected because the use of this method implies the optimization of parameters w.r.t.\ this error. Moreover, the MRD is reduced for all the views in WDBC, MFDD and Cube (Figures~\ref{fig:mrd_a},~\ref{fig:mrd_b} and~\ref{fig:mrd_d}): the reconstructed individuals are closest to their original versions. The exceptionnal results obtained for the MSE on the Cube dataset (Figure~\ref{fig:mse_d}) can be explained by the fact that this dataset has been created as a perfect example for our weighting method.\@ Further results can be found in Section~\ref{sec:results_mwm}.
