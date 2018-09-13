@@ -4,83 +4,83 @@
 \newpage
 
 \section{Summary of the contributions}
-The aim of this thesis is to explore the possible improvement that could be done regarding communications in a multi-view context.
+The aim of this thesis is to explore the possible improvements that could be done regarding communications in a collaborative multi-view context using unsupervised methods.
+
+\subsection{Contributions applied to incremental training of Collaborating Clutering}
+
+In most of literature about clustering, the problem is defined for a specific moment in time, without any possibility to modify the results in case of a change in data distribution through time. While incremental training is a specific field in Machine Learning, it has never been studied in the particular case of Collaborative Clustering. The adaption of the inter-views communications in order to perform incremental training of a set of collaborative views has been studied in this thesis.
+
+Because Collaborative Clustering is based on the results achieved locally by each clustering method, the definition of an incremental Collaborative Clustering method implies the use of an incremental clustering method locally. Self Organizing Maps have been choosen to this purpose because they have already been extensively used for Collaborative Clustering. However, the work already available in the literature on incremental Self Organizing Maps was incompatible with the requirement of Collaborative Clustering: while the incremental adaptation of maps always required modification of its topology, the paradigm of Collaborative Clustering requires that topologies remain constant all along the training in order to be compared. Thus, we present an incremental version of Self Organizing Maps based on the adaptation of the temperature function of this later. By doing so, the training of a map only depends on the distribution of last arriving data, making the adaptation to Collaborative Clustering possible.
+
+Experimental results are provided on four different datasets to attest to the efficiency of our method.
+
+Our contributions regarding the incremental training of Collaborative Clustering are:
+\begin{itemize}
+    \item The definition of an incremental version of Self Organizing Maps not based on topological modification of the maps.
+    \item The adaptation of Collaborative Clustering score function to enable incremental training.
+    \item The experimental tests attesting of the efficiency of our method.
+\end{itemize}
 
 \subsection{Contributions applied to inter-view communications for Collaborative Clustering}
 
-In the context of Collaborative Clustering, a local view receives information from all the other external ones. These informations are used to modify the results obtained localy in order to find the best possible concensus among all the existing views. To find the best concensus implies to find the best way for views to exchange information, but also to know how to combine these informations in order to achieve the desired concensus.
+In the context of Collaborative Clustering, a local view receives information from all the other external ones. These informations are used to modify the results obtained locally in order to find the best possible concensus among all the existing views. To find the best concensus implies to find the best way for views to exchange information, but also to know how to combine these informations in order to achieve the desired concensus.
 
-This information combination has already been studied in the literature on Collaborative and is based on a set of weights defining the importance that a view gives to another one. To define the importance of the information from a view is equivalent to modify the relative value of the weight attached to this view. In this thesis, we present a method to automaticaly update these values through a training process. This method is based on a constraint problem defined by a cost function representing the current concensus score knowing each local result and the pairwise importance weights. The analytical resolution of this problem enables as well as an interpretation of the resulting weights is presented in this thesis.
+This information combination has already been studied in the literature about Collaborative Clustering and is based on a set of collaboration weights defining the importance a view gives to the information provided by another view. To define this importance is equivalent to modify the relative value of the collaborative weight corresponding to this view. In this thesis, we present a method to automaticaly update these values through a training process. This method is based on a problem under constraint defined both by a cost function representing the current concensus score of the system (knowing each local result and the pairwise importance weights) and by a constraint on the values of the collaboration weights. 
 
-The analytical results show that the algorithm tends to create clusters of views mutually agreeing on the results they got on their local individuals. This interpretation is coherent with the original aim of the method: by combining similar views and by lowering the impact of the dissimilar views on the score, the achieved concensus is more likely to be better than if all the importance weights were uniformly set. These theoretical results have been tested on five different datasets which were voluntary choosen to be dissimilar in order to test the generecity of our method.
+The analytical results show that the algorithm tends to create clusters of views mutually agreeing on the results they got on their local individuals. This interpretation is coherent with the original goal of the method: by combining similar views and by lowering the impact of the dissimilar views on the score, the achieved concensus is more likely to be better than if all the importance weights were equal. These theoretical results have been tested on five different datasets which were voluntary choosen to be dissimilar in order to test the generecity of our method.
 
 Thus, our contributions regarding the improvement of communications in Collaborative Clustering are:
 \begin{itemize}
-    \item The definition of a new weighting method defining the importance a view has to give to the information provided by of one of its peers.
+    \item The definition of a new weighting method defining the importance a view has to give to the information provided by of one of its peers. This method has the advatange to get rid of the parameter $p$ used coinjointly with a sum rather than a product in~\cite{sublime2017analysis} and also to not require the use of the simplification $\beta = \alpha^2$.
     \item The presentation of the analytical fundation of this method as well as its interpretation.
     \item The experimental tests presenting the results our method can achieve on datasetsvarying in terms of nature, size and complexity.
 \end{itemize}
 
-\subsection{Contribution applied to online training of Collaborating Clutering}
-
-In most of literature about clustering, the problem is defined for a specific moment in time, without any possibility of modifications of the results in case of a change in data distribution through time. While online training is a specific field in Machine Learning, it has never been studied in the particular case of Collaborative Clustering. In a parallel work developped in this thesis, the adaption of the inter-views communications in order to perform online training of a set of collaborative views has been studied. Contrary to the work mentioned above, our method is not generic and is specificaly based on Self-Organzing Maps to performed online training.
-
-Because Collaborative Clustering is based on the results achieved locally by each clustering method, to make the collaborative learning online first necessitates to adapt each local clustering in order to make them responsive to possible changes in data distribution through time. Self Organizing Maps have been choosen to this extent. However, the work already available in the literature on online Self Organizing Maps was incompatible with the requirement of Collaborative Clustering: while the online adaptation of maps always required modification of its topology, the paradigm of Collaborative Clustering requires that topologies remain constant all along the training. Thus, we present in this thesis an online version of Self Organizing Maps based on the adaptation of the temperature function of this later. By doing so, the training of a map only depends on the distribution of last arriving data.
-
-Experimentals results are provided on four different datasets to attest of the efficiency of our method.
-
-Our contributions regarding the online training of Collaborative Clustering are:
-\begin{itemize}
-    \item The definition of an online version of Self Organizing Maps not based on topological modification of the maps.
-    \item The adaptation of Collaborative Clustering score function to enable online training.
-    \item The experimental tests attesting of the efficiency of our method.
-\end{itemize}
-
 \subsection{Contributions applied to Collaborative Reconstruction}
 
-When gathering data in a multi-view context, it is very likely that data are not gathered neither through the same process nor at the same moment, and this even if it is performed on the same set of individuals. Thus, data about an individual may be missing in a specific dataset while differents descriptions may be available in all the other views. The intuiton behind the idea developed in this part of the thesis is that it is possible to use all the available informations about an individual in order to get a first approximation of its missing description.
+After developing the two axis presented above, it appeared that when gathering data in a multi-view context, it is very likely that data are not gathered neither through the same process nor at the same moment, and this even if it is performed on the same set of individuals. Thus, data about an individual may be missing in a specific view while its other descriptions may be available in all the other views. The intuition behind the idea developed here is that it is possible to use all the available remote informations about an individual in order to get a first approximation of its missing local description. We refer to this new paradigm as Collaborative Reconstruction.
 
-The analysis of the communications in a multi-view context has first been studied using clustering as use case. However, we have worked on a way to develop these multi-view communication in the case of collaborative reconstruction of missing data. This time, the information transfert from a view to another is performed by two different components instead of the usual importance weights: a set of neural networks to infer a first approximation of the individual only knowing the information coming from a single view, and a weighting method based on vectors rather than scalar to combine all the external inferences which we call Masked Weighting Method. To ensure a minimum security on data transfert, an autoencoder is first used in each view transfering its informations in order to prevent the receiving view from accessing original data which are not its.
+This time, information transfer from a view to another one is performed by two different components instead of the usual importance weights. First, a set of neural networks (one per external view) is used to infer a first approximation of the individual knowing the information coming from a single view. Then, a weighting method based on vectors rather than scalar is used to combine all the external inferences. We call this method Masked Weighting Method. To ensure a minimum security on data transfer, an autoencoder is first used locally before transfering any information to prevent the receiving view from accessing original data which are not its.
 
-For this contribution again experimental results are provided to attest of the efficiency of our method. The experimental set up is more important than for the other contributions of this thesis because the efficiency of the method could not be as easily defined as for the other methods. Because it does not exist a comparable work in the literature as far as we know, we have suggested the following points to analyze in order to attest of the quality of a reconstruction:
+For this contribution again, experimental results are provided to attest of the efficiency of our method. The experimental set up is more important than for the other contributions because the efficiency of the method could not be defined as easily as for the other methods. Because there is no comparable work in the literature as far as we know, we have suggested to analyze the following points in order to attest to the quality of a reconstruction:
 \begin{itemize}
     \item The reconstructed individual should be as near as possible from the original sample (considering the RMSE as the reference distance in our experiments)
     \item Even if the reconstructed individual is relatively far from its original version, it may be considered as good if a classification method can still predict its correct label only based on the reconstructed features (the DBSCAN algorithm has been used during these experiments).
 \end{itemize}
 
-Thus, our method has been tested following these two points, and the results are presented in this thesis. A set of graphical reconstruction of handwritten digits is also presented in order to enable the visual validation of the reconstruction efficiency.
+Thus, our method has been tested following these two points, and the results are presented and analyzed in this thesis. A set of graphical reconstructions of handwritten digits is also displayed to enable the visual validation of the reconstruction efficiency.
 
 To sum up our contributions regarding Collaborative Reconstruction, we present:
 \begin{itemize}
     \item The definition of the new paradigm of Collaborative Reconstruction.
-    \item The definition of a system enabling to reconstruct missing data in a multi-view context.
-    \item The definition of a new combination method which weights are automatically trained.
+    \item The definition of a system enabling to reconstruct missing data in a collaborative context.
+    \item The definition of a new combination method which weights are automatically trained in a collaborative context.
     \item The experimental results of our method on various datasets.
 \end{itemize}
 
 
 \subsection{Implementation}
-The different algorithms presented in this thesis have been implemented using either R or Python language. Here is a list of the main components which have been developed all along the previously mentioned experiments:
+The different algorithms presented in this thesis have been implemented using either R or Python language. Here is a list of the main components developed all along the previously mentioned experiments:
 \begin{itemize}
-    \item The development of the original Self Organizing Maps as well as our online version in R.
-    \item Collaborative Clustering methods, the original one and the online version have also been developed in R. This has been done conjointly with the Self Organizing Maps development.
-    \item Autoencoders, Multi-Layer Perceptron and our Masked Weighting Method have been coded in Python using the Pytorch library. These correspond to standard components of our Collaborative Reconstruction System
+    \item The original Self Organizing Maps as well as our incremental version in R.
+    \item Collaborative Clustering methods, the original one based on Self Organzing Maps and the incremental version have also been developed in R. This has been done conjointly with the Self Organizing Maps development.
+    \item Autoencoders, Multi-Layer Perceptron and our Masked Weighting Method have been coded in Python using the Pytorch library. They correspond to standard components of our Collaborative Reconstruction System.
     \item A reusable version of our Collaborative Reconstruction System has been developed in Python.
 \end{itemize}
 
 \section{Short term perspectives}
 
-Perspectives of the work presented in this thesis depends on the use case which is considered.\\
+Perspectives of the work presented in this thesis depends on the use case considered.\\
 
-\textbf{Perspectives regarding Collaborative Clustering:} Regarding the optimization of importance weights in a multi-view context, possible extensions could include similar studies on the case of vertical collaboration where the collaborating SOM algorithms handles different data sharing the same features, as well as the application of the same optimization technique for collaborative Generative Topographic Maps in a first time, and a further extension to non-topological collaborative methods in a second time.\\
+\textbf{Perspectives regarding Collaborative Clustering:} Regarding automatic training of collaborative weights in a collaborative context, possible extensions could include similar studies on the case of vertical collaboration where the collaborating SOM algorithms handles different data sharing the same features, as well as the application of the same optimization technique for collaborative Generative Topographic Maps in a first time, and a further extension to non-topological collaborative methods in a second time. Furthermore, the application of our weighting method could be applied to incremental Collaborative Clustering.\\
 
-\textbf{Perspectives regarding Collaborative Reconstruction:} As future works, we plan on improving the reconstructions acquired from the external views through the modification of the inter-view Links. As well, because of the potentially high data dimensionality, the use of another error than the MSE should be considered. A feature selection process may be added to the system, thus limiting the impact of the noise features in the original dataset. Another possible future extension of this work would be to work on a lighter architecture that would scale better with large datasets. 
+\textbf{Perspectives regarding Collaborative Reconstruction:} As future works, we plan on improving the reconstructions acquired from the external views through the modification of the inter-view MLP\@. Furthermore, because of a potentially high data dimensionality, the use of another error than the MSE should be considered and compared to this latter. A feature selection process may be added to the system, thus limiting the impact of the noise features in the original dataset as observed for the Madelon dataset. Another possible future extension of this work could be a lighter architecture that would scale better with large datasets. 
 
 \section{Long term limitations and perspectives}
 
-The most interesting perspectives for this thesis would be to continue the research initiated on Collaborative Reconstruction of missing individuals. As presented above, there are points which can still be technically improved regarding each component of the method. Moreover, while the tests performed on the system have presented coherent results on its efficiency, a theoretical analysis of the whole system might be useful. Similarly, because of the genericity of what we call the Masked Weighting Method, its analytical description might profit fields which are not necessarily linked to Collaborative Reconstruction.
+The most interesting perspectives for this thesis would be to continue the research initiated on Collaborative Reconstruction of missing individuals. As presented previously, there are points which can still be technically improved regarding each component of the system. Moreover, while the tests performed on the system have presented coherent results regarding its efficiency, a theoretical analysis of the whole system might be useful. Similarly, research on the interaction between MLP trainings and the Masked Weighting Method training may improve reconstruction results.
 
-It may also be interesting to consider the information given by a view to another one and the use that can be made of it. Nowadays, data privacy and security are becoming hot topics which have to be adressed regarding the evolution of technology and the use that is made of it. To put constraints on the information transfered while allowing to still improve local result in any way may globaly benefit fields such as Collaborative Clustering or Collaborative Learning. So far in our method, the security put on data tranfer is done using an Autoencoder, preventing the external view to have access to original data while still allowing it to infer something linked to its local data representation. While it is a first step toward data privacy, we are still far from satisfying to rule such as these defined by Differential Privacy~\cite{dwork2010differential}.
+It may also be interesting to consider the information given by a view to another one and the use that can be made of it. Nowadays, data privacy and security are hot topics which have to be adressed regarding the evolution of technology and the use that is made of it. To put constraints on the information transfered while allowing to still improve local result in any way may globally benefit fields such as Collaborative Clustering or Collaborative Learning. So far in our method, the security put on data tranfer is done using an Autoencoder, preventing the external view to have access to original data while still allowing it to infer something linked to its local data representation. While it is a first step toward data security, we are still far from satisfying to rules such as these defined by Differential Privacy~\cite{dwork2010differential}.
 
-More generally, even if it intuitivelly appears to be a vast domain, to have a theoretical framework describing collaborative processes in Machine Learning may make possible the extension of the paradigm to a wider range of applications than just clustering and reconstruction. The exchange of information between two views linked both by interests (to get new information to improve local results) and by constraints (original data should may not be shareable) is a concept which could be used as a base for further researches.
+More generally, even if it intuitivelly appears to be a vast domain, building a theoretical framework describing collaborative processes in Machine Learning may make possible the extension of the paradigm to a wider range of applications than just clustering and reconstruction. The exchange of information between two views linked both by interests (to get new information to improve local results) and by constraints (original data should not be shared) is a concept which could be used as a base for further researches.
 

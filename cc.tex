@@ -5,7 +5,10 @@
 
 \section{Introduction}
 
+In this chapter, we present an optimization method for the case of horizontal collaborative clustering between SOM algorithms. Our method aims at answering several questions regarding the tuning of the collaborative parameters between local and collaborative terms when using topological based collaborative clustering methods. 
+
 The contributions presented in this chapter are 3-folds:
+
 \begin{itemize}
 	\item We propose an entirely automated and unsupervised optimization method to adjust the strength of the collaboration between algorithms collaborating together via the SOM algorithm.
 	\item We experimentally demonstrate that our optimization method can efficiently be used to detect noisy views that would otherwise deteriorate the quality of a collaboration between algorithms.
@@ -15,138 +18,6 @@ To do so, we propose an optimization method of the collaborative process likelih
 
 
 The remainder of this chapter is organized as follows: Section~\ref{sec:opt-w} is devoted to the description of our proposed optimization method, as well as the interpretation of the proposed weights formulas, in Section~\ref{app:c}, some numerical experiments are proposed and analyzed. Finally, Section~\ref{sec:cc-conlu} presents a conclusion on the work presented in this chapter.
-
-%\section{State of the art and related works}
-
-%\subsection{Self-organizing map general principle}
-
-%We recall the general principle of the now well known self-organizating map (SOM) algorithm  originally devised by Teuvo 
-%Kohonen in 1982~\cite{KOHO1,KOHO2}. 
-%Let $\mathcal G$ be a map, a finite subset of an ordered lattice (generally a bi-dimensional array).
-%We  define the proximity  on  $\mathcal G$  as follows:
-%for each pair of cells  $(i,j)$ on the map,  $d(i,j)$ is  
-%the length of the shortest chain linking cells $i$ and $j$ on the grid, i.e. the Manhattan distance.
-%For each cell $i$ this distance defines a  topological neighborhood   whose influence is controlled by a kernel positive function  
-%with rapid decay to infinity as follows:
-%\begin{equation}
-%{\mathcal K} (i,j) = \dfrac{1}{\lambda(t) }exp\left(-\dfrac{d^2 (i,j)}{\lambda(t)^{2} }\right),
-%\end{equation}
-%where $
-%\lambda(t)  = \lambda_{0}\left(\frac{\lambda_{f}}{\lambda_{0}}\right)^{\frac{1}{t}}
-%$ is the temperature's function modelling the neighborhood's range,
-%$\lambda_{0}$ and $\lambda_{f}$ represent respectively the initial and the final temperature 
-%(e.g. $\lambda_{0}=2$ and $\lambda_{f} = 0.5$), and $t$ is the time instance. 
-%The size of this neighborhood $\lambda $ is a function decreasing in time, so, 
-%the neighborhood function ${\mathcal K} (i,j)$ will have the same trend as a standard Gaussian deviation decreasing with the iterations.
-
-%The inputs $x$ are 
-%${\mathbb{R}}^{d}$-valued, ${\mathbb{R}}^{d}$  endowed with the Euclidean distance denoted by $\|\cdot \|.$
-%The map state at some fixed time  is given by the vector: 
-%$w  = (w_1 ,\:w_2 ,\:\ldots,\:w_n ),$ where $w_i $ is the $d$-dimensional weight vector of the unit $i$. 
-%For a given state $w $ and input $x $, the {\betaf winning} unit 
-%$i_c$ is the unit $w_{i_c}$  whose coordinates
-%are the closest to the input $x $. 
-
-%The SOM algorithm usually unfolds in two phases: at first a large adaptation parameter $ \lambda$ is used so that the presented data affect several prototypes on large  neighborhood area. In the second phase, the adaptation parameter decreases toward $0$, and the neighborhood gets smaller until only a single unit is affected by each data. 
-
-%The SOM algorithm is recursively defined by :
-%\begin{equation}
-%\left\{
-%\begin{array}{lll}
-%i_c= \operatornamewithlimits{argmin}_{i \in \mathcal G}\left\{ \|x -w_i \|  \right\}, \\
-%w_i|_{new}  =  w_i|_{old} -\varepsilon  {\mathcal K} (i,i_{c}) (w_i|_{old} -x), 
-%\forall i \in \mathcal G. 
-%\end{array}
-%\right.
-%\label{SOM_algo}
-%\end{equation}
-%The goal of the learning algorithm is to converge  when the computational time goes to infinity, to a map  state such  
-%the output  map will be ``topology preserving'' in some sense. 
-
-%\subsection{Collaborative clustering}
-
-%As stated in the introduction, collaborative clustering is a recent Machine Learning parallel in which several unsupervised algorithms work together with a goal of mutual improvement. The main difference between what is traditionally referred as "clustering ensemble learning"~\cite{DBLP:journals/ijprai/Vega-PonsR11} and collaborative clustering is that clustering ensemble learning methods aim at finding a single consensus partition, while collaborative clustering does not have this final goal. In short, the field of collaborative clustering is concerned with finding algorithms and functions that allow algorithms to share information and to improve their results based on each other similarities, while the field of ensemble learning is more concerned with finding algorithms and methods to merge the solutions or find a consensus between them. Collaborative clustering can therefore be a task of its own (e.g. multi-view clustering where consensus is not always possible nor advisable), or a preliminary step to an ensemble learning task. The methods and techniques used by both fields are therefore naturally overlapping, and a good collaborative algorithm must respect 
-%properties that are very similar to these of a good ensemble learning method~\cite{DBLP:journals/ml/ZimekV15,SublimePR17}:
-%\begin{itemize}
-	%\item Consistency : The updated results must be somewhat similar to the original local results
-	%\item Novelty : Collaborative clustering must make it possible to find solutions that would have been otherwise unattainable locally.
-	%\item Stability : Results that have a lower sensitivity to noise.
-%\end{itemize}
-
-%Collaborative clustering is generaly split between two main types of applications: \textit{horizontal collaboration} where the collaborative algorithms work on the same data elements (See Figure~\ref{fig-example-h}) eventually split in several views or data sites, and \textit{vertical collaboration} where the different algorithms work on datasets that are different, but have the same features and similar cluster structures. In this paper, we will focus only in the case of horizontal collaboration.
-
-%\begin{figure}[!h]
-	%\centering
-	%\includegraphics[width=0.8\linewidth]{horizontal_clustering.png}
-	%\caption{Example of horizontal collaboration between 3 views of the same data}
-	%\label{fig-example-h}
-%\end{figure}
-
-%Several frameworks have been proposed for unsupervised horizontal collaboration based on different techniques that all have strenghts and weaknesses: Probabilistic and model based approaches~\cite{SublimePR17,DBLP:conf/ijcnn/Sublemontier13,Vanhaesebrouck2017a}, topological approaches like in this paper~\cite{7523117,grozavu2010topological,Sublime16HIS} as well as evolutionary approaches~\cite{Depaire2011}.
-%Regardless of the type of methods, all techniques faces similar challenges: How to pick which algorithms should or should not exchange their information and based on which criterion. We tackle both problems in this paper. 
-%Other open problems that are often raised include: whether or not to merge the solutions found in the different views after collaboration, and how to evaluate the efficiency of a collaboration. These issues are discussed in the experimental section but not directly addressed in this paper.
-
-%\subsection{The SOM algorithm in a collaborative setting} 
-
-%Due to their popularity and interesting vector quantization properties, algorithms such as Kohonen's Self-Organizing Maps (SOM) as well as Bishop's Generative Topographic Maps~\cite{Bishop98gtm:the} have often been used in unsupervised collaborative context to transfer information between algorithms~\cite{7523117,grozavu2010topological,journals/ijcia/GhassanyGB12,Sublime16HIS}.
-
-
-%In the context of horizontal collaborative learning, we consider a finite number of $N$ SOM algorithms $\mathcal{A}^1,...,\mathcal{A}^N$ working on different attributes of a data set made of $d$ numerical attributes
-%$X=\{x_1,...,x_n\}$ with $x_l \in \mathbb{R}^d$. We note $X^j=\{x_1^j,...,x_{N}^j\}, x_l^j \subseteq x_l$ the subset of attributes processed by a given algorithm $\mathcal{A}^j$. 
-%We are in the discrete case and each  observation  $x_l^j$ is a vector belonging to a $d^j$-dimensional euclidean feature space $\mathbb{R}^{d^j}$.  
-
-
-%An analysis of the objective function of the SOM algorithm shows there exists some similarities with K-Means problem. 
-%Indeed the prototypes of SOM can be interpreted as local centers which have to obey to supplementary topological conditions. 
-%For that reason it is very natural to adopt the same  collaborative scheme for  SOM maps than for the K-Means or Fuzzy C-Means algorithm: That is introducing an appropriate modification  of the  SOM cost function via  the addition of a collaborative term to convey the topological information. This approach  was adopted by Grozavu and Benanni~\cite{grozavu2010topological,grozavu2011learning} where they highlighted the capacity of improving the overall clustering 
-%performance of the map. 
-
-
-%From there, in the collaborative SOM algorithm, when a new input data is presented, the optimization is done to minimize the distance between the data and its best matching unit(s) in each local SOM algorithm $\mathcal{A}^j$ weighted by the neighborhood function. Furthermore, the optimization process also attempts to keep all $N$ self-organizing maps as topologically close as possible. The intended result after collaboration is that, if an observation of the $X^j$-th data set is projected onto the $i^*$-th unit of the $j$-th SOM map, then the same observation of the $X({i})$-th data set should be projected on the same unit  $i^*$ in the $i$-th map or on one of the neighboring unit. In other words, the same prototypes (topologically wise) should capture the same observations in the different maps.
-%Therefore the set of prototypes $w$ is  estimated iteratively by minimizing the  objective function  which in the case of a local map $\mathcal{A}^j$ writes:
-
-%\begin{equation}
-%\mathcal{C}(w,\beta) = \a_{j} L_j(w) +
-%\sum_{j \neq i} \beta_j^i \cdot C_j^i(w)	
-%\label{eq:globalC}
-%\end{equation}
-%where $L_j$ is the $j^{th}$ local term :
-%\begin{equation}
-%L_j(w) =   \sum_{l=1}^{N }\sum_{k=1}^{n} {\mathcal K}{(k, k_c( x_l^j,w^j ) ) } \| x_l^j - w_{k}^j \|  
-%\label{eq:Lj}
-%\end{equation}
-%and $\beta=(\beta_j^i)_j^i$ is the weigth of the pairwise collaborative $C_j^i$ term between the SOM algorithms $i$ and $j$:
-%\begin{equation}
-%C_j^i(w)=	\sum_{l=1}^{N}\sum_{k=1}^{n} \Delta K_j^i \| x_l^j - w_{k}^j \|
-%\end{equation}
-%with
-%\begin{equation}
-%\Delta K_j^i=\left({\mathcal K}{(k, k_c( x_l^j,w^j ) ) } -  {\mathcal K}{(k, k_c( x_l^{i},w^{i} ) ) }  \right)^2
-%\label{eq:Cj}
-%\end{equation}
-%Here $k_c( x_l^j,w^j ) $ denotes the {\betaf best matching} unit which is the prototype $w^j_{k_c}$ whose coordinates are the closest to the fixed input $x_l^j$. 
-%Let us first remark that the cost function defined in Equation~\eqref{eq:globalC} is continuously first differentiable function in all the variables.  Therefore a  minimum always exists and could be found by nonlinear programming.
-
-
-%In~\cite{grozavu2010topological},\cite{grozavu2011learning} the authors solve the optimization problem by using a  gradient descent strategy. 
-%The value of the collaboration link $\beta$ is determined during the first phase of the collaboration step, and they fix $\a = \sqrt\beta$. 
-%This parameter allows to determine the importance of the collaboration between each two datasets,  this value depends on topological similarity 
-%between the both collaboration maps.  
-%For the horizontal collaboration of the $j$ map with the $i$ map we first update the prototypes of the $j$ map by:  
-%$
-%w^{j}|_{new} = \operatornamewithlimits{argmin}_{w} [\a_j \cdot  L_j(w) + \sum_{j \neq i} \beta_j^i \cdot C_j^i(w)  ].
-%$
-%The descent gradient strategy of the collaboration parameter $\beta$ gives the rule:
-%The collaboration parameter $\beta$ is adapted using the following expression:
-%\begin{eqnarray*}
-	%\beta_j^i|_{new} = \beta_j^i|_{old} + 
-	%\dfrac
-	%{\sum_{l=1}^{N} \sum_{k=1}^{n} {\mathcal K}{(k, k_c( x_l^j,w^j ) )}  }
-	%{2  \cdot  \sum_{l=1}^{N} \sum_{k=1}^{n} \Delta K_j^i } 
-	%\end{eqnarray*}
-
-
-
 
 \label{sec:opt-w}
 
@@ -169,51 +40,39 @@ $$\forall (i,j) \quad \beta_j^i >0 $$
 
 Note that we use a product constraint instead of a sum. While it may seem unusual, it has already been used in related works on multi-view clustering~\cite{CarvalhoML15}. Furthermore, in~\cite{Sublime2017} it has been demonstrated that the constraint $\sum_{j \neq i}^N \beta_j^i = 1$ would lead to an unsatisfying result and that an extra parameter $p$ (that needs to be learned) is needed to make it work with collaborative clustering. To simplify the presentation, in what follows we omit the dependency of $C_j^i$ to $w$ in our notations.
 
-
-The results of the optimization under the Karush-Kuhn-Tucker (KKT) conditions are shown below  in Equations~\eqref{eq:kkt_alpha}. For  all  $ j \neq i$  
-we have:
-\begin{equation}
-\beta_j^i =  \frac{{(\prod_{k\neq j} C_k^i)}^{\frac 1 {N-1}}} {C_j^i} \qquad
-\label{eq:kkt_alpha}
-\end{equation} 
-The interpretation of these results is the following: 
-in the context of horizontal collaborative clustering, the global results should be better if each individual algorithm gives higher weights to algorithms that have the most similar solutions compared with the local one.
-
-In other words: from Equation~\eqref{eq:kkt_alpha}, each algorithm would mostly collaborate with the algorithms that have the most similar solutions (small $C_j^i$). If several algorithms have the same most similar solution, they would be given the same weight.  The algorithms with the most similar solutions would still be favored to optimize the cost function of the global collaborative framework. But algorithms whose solutions have a lesser degree of similarity would still be taken into consideration locally. 
-
-Let us detail the calculus for the KKT optimization problem. In this demonstration, we will only consider one local view $i$ because the weights $\beta_j^i$ are computed and used locally.
+We use the Karush-Kuhn-Tucker method to solve the created optimization problem. In this demonstration, we will only consider one local view $i$ because the weights $\beta_j^i$ are computed and used locally.
 Given the $C_j^i$, we  optimize the matrix $\beta = {\left(\beta_j^i\right)}_{N \times N}$ as shown in the system below:
 \begin{equation}
-\begin{cases}
-\beta^* =  \operatornamewithlimits{argmin}_{\beta}  \sum_{j \neq i} \beta_j^i  C_j^i ,      \\
-\prod_{j \neq i}^N \beta_j^i  = 1. \\
-\forall j, \quad \beta_j^i >   0 \\      
-\end{cases} 
-\label{eq:KKT0-app}
+    \begin{cases}
+        \beta^* =  \operatornamewithlimits{argmin}_{\beta}  \sum_{j \neq i} \beta_j^i  C_j^i ,      \\
+        \prod_{j \neq i}^N \beta_j^i  = 1. \\
+        \forall j, \quad \beta_j^i >   0 \\      
+    \end{cases} 
+    \label{eq:KKT0-app}
 \end{equation} 
 This is optimization under constraints problem. To solve this problem  we use KKT multipliers.
 From   $\forall i, \quad \prod_{j \neq i}^N \beta_j^i  = 1$, we obtain
 $\forall i, \quad \sum_{j \neq i}^N \ln  \beta_j^i   = 0$. The Lagrangian then writes: 
 \begin{equation}
-L(\beta,\nu,\lambda)= \sum_{j \neq i}^N ( \beta_j^i  C_j^i - \nu  \ln  \beta_j^i  - \lambda_j   \beta_j^i ).
-\label{eq:Lag-KKT}
+    L(\beta,\nu,\lambda)= \sum_{j \neq i}^N ( \beta_j^i  C_j^i - \nu  \ln  \beta_j^i  - \lambda_j   \beta_j^i ).
+    \label{eq:Lag-KKT}
 \end{equation}
 From the definition of the Lagrangian, we get the following KKT conditions:
 \begin{equation}
-\forall j, j \neq i
-\begin{cases}
-(1) \quad \beta_j^i > 0,   \\
-(2) \quad \prod_{j \neq i}^N \beta_j^i  = 1,  \\
-(3) \quad \lambda_j \geq 0,  \\
-(4) \quad \beta_j^i  \lambda_j = 0,   \\
-(5) \quad  C_j^i -  \frac{\nu}{ \beta_j^i }   - \lambda_j = 0.
-\end{cases} 
-\label{eq:app-kkt0}
+    \forall j, j \neq i
+    \begin{cases}
+        (1) \quad \beta_j^i > 0,   \\
+        (2) \quad \prod_{j \neq i}^N \beta_j^i  = 1,  \\
+        (3) \quad \lambda_j \geq 0,  \\
+        (4) \quad \beta_j^i  \lambda_j = 0,   \\
+        (5) \quad  C_j^i -  \frac{\nu}{ \beta_j^i }   - \lambda_j = 0.
+    \end{cases} 
+    \label{eq:app-kkt0}
 \end{equation} 
 Let's begin by considering the case where $\lambda_j > 0$ in~\eqref{eq:app-kkt0}-4. Then, we would have $\beta_j^i=0$  this case is not possible due to~\eqref{eq:app-kkt0}-1, therefore we will only consider the case $\beta_j^i \neq 0$ and $\lambda_j=0$. Then, with~\eqref{eq:app-kkt0}-5, we have:
 \begin{equation}
-\beta_j^i  =   \frac{\nu} { C_j^i } \geq 0.
-\label{eq:app-kkt1}
+    \beta_j^i  =   \frac{\nu} { C_j^i } \geq 0.
+    \label{eq:app-kkt1}
 \end{equation}
 From Equation~\eqref{eq:app-kkt0}-2 and~\eqref{eq:app-kkt1}, we have:
 \begin{equation}
@@ -223,7 +82,16 @@ It follows that:
 $$
 \nu^{N-1}  =     \prod_{j \neq i}^N   C_j^i . 
 $$
-Then by re-injecting the expression of $\nu$ into Equation~\eqref{eq:app-kkt1}, we get our claim  shown in Equation~\eqref{eq:kkt_alpha}.
+Then by re-injecting the expression of $\nu$ into Equation~\eqref{eq:app-kkt1}, we get for  all  $ j \neq i$:
+\begin{equation}
+\beta_j^i =  \frac{{(\prod_{k\neq j} C_k^i)}^{\frac 1 {N-1}}} {C_j^i} \qquad
+\label{eq:kkt_alpha}
+\end{equation} 
+The interpretation of these results is the following: 
+in the context of horizontal collaborative clustering, the global results should be better if each individual algorithm gives higher weights to algorithms that have the most similar solutions compared with the local one.
+
+In other words: from Equation~\eqref{eq:kkt_alpha}, each algorithm would mostly collaborate with the algorithms that have the most similar solutions (small $C_j^i$). If several algorithms have the same most similar solution, they would be given the same weight.  The algorithms with the most similar solutions would still be favored to optimize the cost function of the global collaborative framework. But algorithms whose solutions have a lesser degree of similarity would still be taken into consideration locally. 
+
 
 \medskip
 Our modified version of the SOM algorithm for horizontal collaboration with the optimized weights is shown in Algorithm~\ref{alg:algoGen} below. The computational complexity for $M$ data in $N$ views is in $O(MN)$ since it uses $N$ times the SOM algorithm which is in $O(M)$.
@@ -423,4 +291,4 @@ Other possible extensions for this work could include similar studies on the cas
 
 The method presented in this chapter can be considered as an improvement of the inter-views collaboration using a traditional scalar weighting method. 
 
-The next chapter will present a work which also consider the communication in a multi-view context. However, the point of view adopted is different in that it is the definition of the local algorithm which is studied and adapted, rather than the way they are communicating. The communication mechanism is the same while its context is different.
+In the next chapter, we explore a collaboration method based on neural network and vectors rather than on scalar only. The complexity of this new method makes it possible to introduce a new use case to explore how an inter-view collaboration can be used to perform tasks different from clustering.

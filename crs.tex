@@ -7,16 +7,16 @@
 \minitoc{}
 \newpage
 
-The work presented in this chapter has been submitted to KAIS2018.\\
+The work presented in this chapter has been submitted to the Knowledge and Information Systems journal.\\
 
 As presented in Section~\ref{sec:soa_cc}, all the collaborative clustering methods presented in the litterature base their collaboration on scalar values which weight the importance that is given by a local view to the information provided by its peers. The intuition behind the work presented in this chapter is that a collaboration can be more complex than just the weighting of all the information coming from an external view. Instead, local information could be inferred based on an external information, and the combination of two information could be done on subparts of these informations, which is not permited by the standard weighting method. These two latter ideas have been the starting point of what is presented in this chapter. In order to exploit these ideas, a new use case different from the clustering one has been created.
 
-The Collaborative Clustering paradigm is based on the prerequisite that each view has to contain a set of common individuals (described by different sets of features for the horizontal case) as big as possible to allow information exchange. However, this paradigm does not consider the case for which the views do not share the same set of individuals. Intuitively, if a view misses an individual in its database, it might be possible to use the information contained in all the other views to get a first approximation of the missing individual. This idea is developped in this chapter with the description of a system capable of recontructing an approximation of a missing individual in a multi-view context.\\
+The Collaborative Clustering paradigm is based on the prerequisite that each view has to contain a set of common individuals (described by different sets of features for the horizontal case) as big as possible to allow information exchange. However, this paradigm does not consider the case for which the views do not share the exact same set of individuals. Intuitively, if a view misses an individual in its database, it might be possible to use the information contained in all the other views to get a first approximation of the missing individual. This idea is developped in this chapter with the description of a system capable of recontructing an approximation of a missing individual in a multi-view context.\\
 
 \section{Context}
 \label{sec:crs_context}
 
-Current proliferation of multi-view data in various domains such as marketing, bank administration or even survey analysis, has recently been accompanied by a global security awareness that questions which data should --or more often shouldn't-- be made available and shared. This awareness is based on the question of the link between one's intimacy and the processing that is made of one's data. This topic being beyond the scope of this thesis, it will not be further detailed, however it will be used as the fundation of the security constraint which is detailed hereafter. This security problem is particularly relevant in the case of multi-view learning, a speciality of Machine Learning in which algorithms are trained using databases distributed among several independant (but communicating) views. Some multi-view paradigms such as Collaborative Clustering are based on the hypothesis that different views share the same set of individuals, point which makes possible the inter-view results comparison, and so the training and the improvement of each local model. However, this hypothesis does not have to be verified in practice: the presence of an individual in a database does not guarantee its presence in all the other views. In real life cases, it is even more likely that an individual is present in a limited number of views, considering all these available. The question of the use of the available information to infer missing data on an individual may be asked.
+The current proliferation of multi-view data in various domains such as marketing, bank administration or even survey analysis, has recently been accompanied by a global security awareness that questions which data should --or more often shouldn't-- be made available and shared. This awareness is based on the question of the link between one's intimacy and the processing that is made of one's data. This topic being beyond the scope of this thesis, it will not be further detailed, however it will be used as the fundation of the security constraint which is detailed hereafter. This security problem is particularly relevant in the case of multi-view learning, a speciality of Machine Learning in which algorithms are trained using databases distributed among several independant (but communicating) views. Some multi-view paradigms such as Collaborative Clustering are based on the hypothesis that different views share the same set of individuals, point which makes possible the inter-view results comparison, and so the training and the improvement of each local model. However, this hypothesis does not have to be verified in practice: the presence of an individual in a database does not guarantee its presence in all the other views. In real life cases, it is even more likely that an individual is present in a limited number of views, considering all these available. The question of the use of the available information to infer missing data on an individual may be asked.
 	
 Because of the security concern mentionned abose, a solution to the missing data problem should at least be able to reconstruct missing data in the concerned views without sharing of the original data available in each local view.	Within this context, this chapter presents a solution to fill in missing pieces of information in a given view by using the data contained in the other views but without any data transfer that may breach security issues. While data reconstruction as already been studied using method such as Collaborative Filtering~\cite{koren2015advances}, the work presented here presents the extension of this problem to the multi-view context while also considering the problem of data security.
 
@@ -258,12 +258,7 @@ This Section presents the experiments that have been conducted to test our propo
 	\subsection{Datasets}
 \label{sec:datasets}
 To get empirical results of the Collaborative Reconstruction System, we use it on three different datasets usable in a multi-view context, namely Wisconsin Diagnostic Breast Cancer (WDBC), Multi-Features Digital Dataset (MFDD), Madelon and Cube. While the description of the first three datasets can be found in Appendix~\ref{sec:app-datasets}, Cube is presented here because it is related to this chapter only.
-	\begin{enumerate}
-        \item \textit{Wisconsin Diagnostic Breast Cancer (WDBC)}: This dataset has 569 instances with 32  variables (ID, diagnosis, 30 real-valued input variables). Each data observation is labeled as benign (357) or malignant (212). Variables are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass.  They describe characteristics of the cell nuclei present in the image. Since each data contains the characteristics of 3 nuclei, we have 3 natural views here.
-        \item \textit{Multi-Features Digital Dataset (MFDD)}: This dataset consists of features of handwritten numerals (from 0 to 9) extracted from a collection of Dutch utility maps. 200 patterns per class (for a total of 2,000 patterns) have been digitized in binary images. These digits are represented in terms of the following six feature sets, each set being here used as a view: 76 Fourier coefficients of the character shapes, 216 profile correlations, 64 Karhunen-Love coefficients, 240 pixel averages in 2 $\times$ 3 windows and 47 Zernike moments morphological features. Each set of coefficient stands for a view.
-        \item \textit{Madelon}: This dataset is an artificial dataset containing data points grouped in 32 clusters placed on the vertices of a five dimensional hypercube and randomly labeled +1 or -1. The five dimensions constitute 5 informative features. 15 linear combinations of those features were added to form a set of 20 (redundant) informative features. Based on those 20 features one must separate the examples into the two classes (corresponding to the +-1 labels). Finally 480 features called `probes' having no predictive power were added by the authors. The order of the features and patterns is random. This dataset is the most challenging among these used here. It is used to test the ability of our sytem to ignore noise (it should not reconstruct it) and to show that despite the large number of noisy features, we still have good classification results regardless of the poor reconstruction. Because no further information in available on this dataset, the views are randomly generated by picking a random set of 125 features for each.
-        \item \textit{Cube}: In addition of the three previously described datasets, we have created a toy example which we mainly use to test the effectiveness of the Masked Weighting Method. This dataset, which we will refer to as the Cube dataset, is made of 1000 3-dimensional points divided in 4 classes of 250 members each. The points of each class are generated using a normal law with a standard deviation of $0.1$ and centered either on the center of the feature space $(0,0,0)$, or at the extremity of one on the three unit vectors $(1,0,0)$, $(0,1,0)$ and $(0,0,1)$. A graphical representation of the Cube dataset can be seen on Figure~\ref{fig:cube}. The 3 views are obtained by projecting the whole dataset according to one of the three previous unit vectors. The point of this segmentation is explained in Section~\ref{sec:results}.
-	\end{enumerate}
+        Cube is a toy example which we mainly use to test the effectiveness of the Masked Weighting Method. This dataset is made of 1000 3-dimensional points divided in 4 classes of 250 members each. The points of each class are generated using a normal law with a standard deviation of $0.1$ and centered either on the center of the feature space $(0,0,0)$, or at the extremity of one on the three unit vectors $(1,0,0)$, $(0,1,0)$ and $(0,0,1)$. A graphical representation of the Cube dataset can be seen on Figure~\ref{fig:cube}. The 3 views are obtained by projecting the whole dataset according to one of the three previous unit vectors. The point of this segmentation is explained in Section~\ref{sec:results}.
 
     \begin{figure}[h]
         \centering
@@ -274,7 +269,9 @@ To get empirical results of the Collaborative Reconstruction System, we use it o
 	
 	\subsection{Methodology}
 \label{sec:methodo}
-In order to analyze each aspect of the system, several sets of experiments have been conducted.	The first set consists in training a system with and without the Masked Weighting Method and to analyze the results in terms of reconstruction quality (Section~\ref{sec:msemrd}). When it comes to combining the results from each external views, the system without our combination method simply uses a normalized equi-weighted sum of the reconstructed external vectors. This first experiment has been conducted in order to both test the viability of the method and determine the impact of our new combination method.\@ An intermediary result is presented in Section~\ref{sec:num}: the reconstruction of images from the MFDD dataset is graphically presented. The second set of experiments consists in the analysis of the results obtained during the first set, but this time considering the impact of the Masked Weightinh Method on a classification task performed on the reconstructed data (Section~\ref{sec:classif}). Finally, the third and last set of experiments consists in the analysis of the masks values for the toy example (Section~\ref{sec:results_mwm}). This is done to ensure the method is able to determine which reconstructor is better for which part of the reconstructed individuals.
+In order to analyze each aspect of the system, several sets of experiments have been conducted.	The first set consists in training a system with and without the Masked Weighting Method and to analyze the results in terms of reconstruction quality (Section~\ref{sec:msemrd}). When it comes to combining the results from each external views, the system without our combination method simply uses a normalized equi-weighted sum of the reconstructed external vectors. This first experiment has been conducted in order to both test the viability of the method and determine the impact of our new combination method.\@
+
+An intermediary result is presented in Section~\ref{sec:num}: the reconstruction of images from the MFDD dataset is graphically presented. The second set of experiments consists in the analysis of the results obtained during the first set, but this time considering the impact of the Masked Weightinh Method on a classification task performed on the reconstructed data (Section~\ref{sec:classif}). Finally, the third and last set of experiments consists in the analysis of the masks values for the toy example (Section~\ref{sec:results_mwm}). This is done to ensure the method is able to determine which reconstructor is better for which part of the reconstructed individuals.
 	
 For all sets of experiments, the global methodology remains the same: each view is split in a training set (90\%) and a test set (10\%), then all neural networks (Autoencoders and Links) are trained using the required training set. To test the system, the process described in Figure~\ref{fig:process} has been conducted on the test dataset of each view, with the results being compared to the original data.
 	
@@ -318,28 +315,33 @@ This Section is divided following the different kind of experiments that have be
     \subsection{Basic reconstruction with and without the Masked Weighting Method}
 \label{sec:msemrd}
 	
-During this experiment, we were interested in the impact of our combination method on the results of the system.\@ A summary of the results on WDBC, MFDD, Madelon and Cube can be found in Appendix~\ref{fig:msemrd} and~\ref{fig:classif}.
+During this experiment, we were interested in the impact of our combination method on the results of the system.\@ A summary of the results on WDBC, MFDD, Madelon and Cube can be found in Figure~\ref{fig:msemrd}, Figure~\ref{fig:crs_mrd} and~\ref{fig:classif}.
 
 \begin{figure}[h]
 \label{fig:msemrd}
     \centering
     \subfloat[][WDBC]{\includegraphics[width=.35\textwidth]{img/mse_wdbc}\label{fig:mse_a}}
     \qquad
-    \subfloat[][WDBC]{\includegraphics[width=.35\textwidth]{img/mrd_wdbc}\label{fig:mrd_a}}\\
-    \subfloat[][MFDD]{\includegraphics[width=.35\textwidth]{img/mse_mfeat}\label{fig:mse_b}}
-    \qquad
-    \subfloat[][MFDD]{\includegraphics[width=.35\textwidth]{img/mrd_mfeat}\label{fig:mrd_b}}\\
+    \subfloat[][MFDD]{\includegraphics[width=.35\textwidth]{img/mse_mfeat}\label{fig:mse_b}}\\
     \subfloat[][Madelon]{\includegraphics[width=.35\textwidth]{img/mse_madelon}\label{fig:mse_c}}
     \qquad
-    \subfloat[][Madelon]{\includegraphics[width=.35\textwidth]{img/mrd_madelon}\label{fig:mrd_c}}\\
     \subfloat[][Cube]{\includegraphics[width=.35\textwidth]{img/mse_cube}\label{fig:mse_d}}
-    \qquad
-    \subfloat[][Cube]{\includegraphics[width=.35\textwidth]{img/mrd_cube}\label{fig:mrd_d}}
-    \caption{Mean Squared Error and Mean Relative Difference for all the datasets.\@ A lower value corresponds to a better result.}
+    \caption{Mean Squared Error for all the datasets.\@ A lower value corresponds to a better result.}
 \end{figure}
 
+\begin{figure}[h]
+    \centering
+    \subfloat[][WDBC]{\includegraphics[width=.35\textwidth]{img/mrd_wdbc}\label{fig:mrd_a}}
+    \qquad
+    \subfloat[][MFDD]{\includegraphics[width=.35\textwidth]{img/mrd_mfeat}\label{fig:mrd_b}}\\
+    \subfloat[][Madelon]{\includegraphics[width=.35\textwidth]{img/mrd_madelon}\label{fig:mrd_c}}
+    \qquad
+    \subfloat[][Cube]{\includegraphics[width=.35\textwidth]{img/mrd_cube}\label{fig:mrd_d}}
+    \caption{Mean Relative Difference for all the datasets.\@ A lower value corresponds to a better result.}
+\label{fig:crs_mrd}
+\end{figure}
 	
-\begin{figure}[H]
+\begin{figure}[h]
 \label{fig:classif}
     \centering
     \subfloat[][WDBC]{\includegraphics[scale=.30]{img/cd_wdbc}\label{fig:classif_c}}
@@ -361,7 +363,7 @@ Considering the reconstruction results on the Madelon dataset (Figure~\ref{fig:m
 
 To better analyze the quality of the reconstructed individuals, we have used a specific view of the MFDD dataset, namely the one with the 240 pixel averages in 2 $\times$ 3 windows. The individuals of the tests datasets have been reconstructed and plotted. A sample of the individuals in the original dataset is presented on Figure~\ref{fig:num_original}. The contrast difference is explained by the normalization of the descriptive vectors before plotting.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o0}}
     \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o1}}
@@ -379,7 +381,7 @@ To better analyze the quality of the reconstructed individuals, we have used a s
 
 A sample of the individuals reconstructed is presented on Figure~\ref{fig:num_reconstructed}. While the MSE and the MRD are high for this view (Figure~\ref{fig:mse_b} and Figure~\ref{fig:mrd_b}), it appears visually that the reconstructed individuals can be easily recognized.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \subfloat[][]{\includegraphics[scale=.15]{img/sample/0}}
     \subfloat[][]{\includegraphics[scale=.15]{img/sample/1}}
@@ -397,7 +399,7 @@ A sample of the individuals reconstructed is presented on Figure~\ref{fig:num_re
 
 However, while it is true for most of the reconstructed images, some examples do not work as well, as presented in Figure~\ref{fig:num_reconstructed_bad}. Moreover, even if the numbers can be recognized, a blurring effect can be observed even on the best reconstructed examples. This puts forward the fact that the system approximation can be improved, because while it does not damages the recognition in the case of the MFDD dataset, we can imagine that it can damage it for some other use cases.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \subfloat[][]{\includegraphics[scale=.15]{img/moches/00}}
     \subfloat[][]{\includegraphics[scale=.15]{img/moches/11}}
@@ -451,7 +453,7 @@ In the Cube example, the information is either totally shared (same values if th
 
 	\section{Conclusion}
 \label{sec:conclusion}
-In this chapter, in a global context of multiplication of multi-view data, we have presented a new system called the Cooperative Reconstruction System. The purpose of this system is to reconstruct missing data using information contained in each view, without sharing the original data, thus avoiding security issues. To do this, the system relies on three modules: Autoencoders to cipher data under a scalar vector form, Multi-Layer Perceptrons -called Links- to decipher an external code in a local view, and the Masked Weighting Method, a new weighting method to combine all external reconstructions, thus obtaining the final reconstruction. 
+In this chapter, in a global context of multiplication of multi-view data, we have presented a new Cooperative Reconstruction System. The purpose of this system is to reconstruct missing data using information contained in each view, without sharing the original data, thus avoiding security issues. To do this, the system relies on three modules: Autoencoders to cipher data under a scalar vector form, Multi-Layer Perceptrons -called Links- to decipher an external code in a local view, and the Masked Weighting Method, a new weighting method to combine all external reconstructions, thus obtaining the final reconstruction. 
 	
 The Masked Weighting Method has three functions: combining external informations, reducing the influence of views with information which could hinder the reconstruction process, and reducing the impact of missing data during the system training process.
 	

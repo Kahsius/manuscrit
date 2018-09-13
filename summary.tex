@@ -49,7 +49,7 @@ La définition de notre méthode d'optimisation s'est faite grâce à l'ajout de
 La second contrainte a été posée sur l'ensemble des $\beta$:
 
 \begin{equation}
-    \forall j \quad \prod_{j \neq i}^N \beta_j^i = 1 \\
+    \forall j \quad \prod_{j \neq i}^N \beta_j^i = 1, \quad
     \forall (i,j) \quad \beta_j^i >0 
 \end{equation}
 
@@ -136,7 +136,7 @@ Le clustering collaboratif se base sur l'hypothèse que les vues communicantes d
 
 Une représentation de l'architecture de notre méthode est présentée sur la Figure~\ref{fig:sum_base}. Alors que le clustering collaboratif se base sur une correspondance cluster à cluster, la reconstruction collaborative s'appuie elle sur l'inférence de données cibles à partir de données initiales. La difficulté de la mise en pratique de cette idée a motivé l'utilisation de réseaux de neurones, et plus particulièrement de Perceptrons Multi-Couches (aussi appelés Liens, ou Link en anglais), comme liens entre les vues afin de donner une première approximation de l'individu manquant. L'apprentissage de tels réseaux est possible du fait de la présence d'un ensemble d'individus en commun à une paire de vue. En utilisant les descriptions de la vue externe comme entrée et celles de la vue locale comme sortie, il était possible d'effectuer un apprentissage supervisé du réseau.
 
-	\begin{figure}[h]
+	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\textwidth]{img/base_system.pdf}
         \caption{Système de recontruction coopérative. Dans cet example, les vues 1 et 3 envoient leur versions codées de l'individu à la vue 2.}
@@ -147,7 +147,7 @@ Une représentation de l'architecture de notre méthode est présentée sur la F
 
     Enfin, le dernier composant de notre méthode consiste en une méthode de pondération, que nous avons appelé méthode de pondération par masques, qui permet de combiner l'ensemble des approximations créées à partir des données reçues des vues externes ($N-1$ dans un système à $N$ vues où chaque vue externe aurait une information sur l'individu manquant). L'idée fondamentale de cette méthode consiste en l'utilisation de vecteurs permettant de pondérer des individus point à point (descripteur par descripteur) plutôt que d'utiliser un unique coefficient pondérant l'ensemble de l'individu. En effet, il est facile d'imaginer que pour un individu manquant donné, chaque vue externe permette d'en reconstruire seulement une partie. L'utilisation d'un coeffcient de pondération unique ne permet pas de prendre en compte cette différenciation. Un schéma décrivant le processus de pondération par un ensemble de vecteurs, que nous appelerons désormais masques, est présenté sur la Figure~\ref{fig:sum_mwm}. Les valeurs des masques sont entraînées au préalable afin de mieux correspondre à chaque vue, et chaque vue possède $N-1$ masques, un par vue externe.
 
-	\begin{figure}[h]
+	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\textwidth]{img/mwm.pdf}
         \caption{La méthode de pondération par masques. La vue 2 possède les individus inférés à l'aide des informations des vues 1 et 3, et elle utilise ses masques entraînés au préalable afin d'obtenir le résultat pondéré final.}
@@ -167,7 +167,7 @@ Une représentation de l'architecture de notre méthode est présentée sur la F
 
     Une fois l'ensemble de ces étapes effecutées pour toutes les vues du problème, la reconstruction d'un individu manquant devient possible. L'ensemble du processus de reconstruction est décrit sur la Figure~\ref{fig:sum_process}.
 
-    \begin{figure}[h]
+    \begin{figure}[H]
         \centering
         \includegraphics[scale=0.8]{img/process.pdf}
         \caption{Processus de reconstruction allant de l'identification de la donnée manquante à l'obtention de sa version reconstruite.}
@@ -185,7 +185,7 @@ Une représentation de l'architecture de notre méthode est présentée sur la F
     
     Un schéma décrivant la pondération par masque et comment elle permet de s'affranchir de caractéristiques mal reconstruites et/ou bruitées peut \^{e}tre trouvé sur la Figure~\ref{fig:sum_process_mwm}.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[scale=.38]{img/process_mwm}
     \caption{Combinaison de deux reconstructions partiellement bonnes. Dans cet exemple, chaque vue dispose d'assez d'information pour reconstruire seulement une caractéristique sur les deux dans la vue locale (pointillés). La méthode de pondération par masques favorise les parties les mieux reconstruites de chaque résultat, d'où le $\times 0$ et $\times 1$ dans les masques.}
