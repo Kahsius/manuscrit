@@ -6,7 +6,7 @@
 This section first gives the definition of clustering along with its use cases and its main difficulties. Then several commonly met methods are presented along with the category of algorithms they belong to. Eventually we focus on the specific subfield of multi-view clustering, giving a definition and a state of the art of the research works which are conducted on it.
 
     \section{Definition of clustering}
-    Everyday, people all around the world generate 2.5 exabytes ($2.5 \times 10^{18}$ bytes) of data of all kinds: videos, texts, audio, activities on social networks\ldots Since its creation, clustering has become an active field of research because of the possibilities it offers when applied to such a variety of data. Using clustering, it becomes possible to better understand the underlying structures of a dataset. These structures can then be used for further real-world application such as market study, advertisement targeting, product improvement and recommendation.
+    Everyday, exabytes of data of all kinds are generated: videos, texts, audio, activities on social networks\ldots Since its creation, clustering has become an active field of research because of the possibilities it offers when applied to such a variety of data. Using clustering, it becomes possible to better understand the underlying structures of a dataset. These structures can then be used for further real-world application such as market study, advertisement targeting, product improvement and recommendation.
 
     In~\cite{jain1999data}, the clustering is defined as ``[\ldots] the unsupervised classification of patterns (observations, data items, or feature vectors) into groups (clusters)''. The term unsupervised refers to one of the two subfield of Machine Learning: supervised and unsupervised learning. A problem is said to be supervised if the learning algorithm is trained knowing both the input and the corresponding labels (classification for example). On the opposite, a problem is said to be unsupervised if one has only access to its input, which is the case of the clustering for which one has to define clusters only knowing input data.  
 
@@ -214,7 +214,7 @@ DB = \frac{1}{|C|}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
 
     Vector quantization methods are based on the idea that a clustering can be summarized by a set of prototype vectors, thus the belonging of a datum to one cluster is determined by comparing it to the set of existing prototypes. There are two main kinds of Vector Quantization methods: these based on deterministic belongings for which a data point belong to one and only one cluster, and these based on stochastic belongings for which belongings are expressed as a set of probabilities, one per prototype. 
 
-    The Deterministic Vector Quantization methods are historically the first ones that have been created. The very first method, still used today, is the K-means algorithm~\cite{macqueen1967some}. This method is based on a pair of steps done iteratively until convergence of the prototypes. First a set of $K$ prototypes is randomly generated in the feature space, then each data point is associated with its closest prototype. When all the belongings have been determined, the prototypes are updated as the means of their associated data points: they become the ``center'' of the cluster they represent. The last two steps are repeated until the prototypes updates norms are sufficiently small to be considered as negligeable. The initial method has allowed the emergence of many variations such as k-medians clustering~\cite{jain1988algorithms}, k-medoids clustering~\cite{kaufman1987clustering} depending on the prototype update rule. An extension to this algorithm has been proposed in~\cite{kohonen1998self} in which the authors define the Self-Organizing Maps (SOM). This methods is based on the same idea than K-means, except that the prototypes are generally organized as a map in which each node update will also impact its neighbors, depending on a neighboring function based on the Manhattan distance between two nodes in the map. This allows to not only capture prototypes, but also to organize them following a possible underlying structure in the dataset. This method also makes possible to get a two or three dimensional representation of a possibily high feature space. Indeed in a supervised case, by assigning to each node the class of the majority of its associated data points, it it possible to graphically see the underlying proximity structure in the dataset. The k-means algorithm is illustrated in Algorithm~\ref{alg:kmeans}.
+    The Deterministic Vector Quantization methods are historically the first ones that have been created. The very first method, still used today, is the K-means algorithm~\cite{macqueen1967some}. This method is based on a pair of steps done iteratively until convergence of the prototypes. First a set of $K$ prototypes is randomly generated in the feature space, then each data point is associated with its closest prototype. When all the belongings have been determined, the prototypes are updated as the means of their associated data points: they become the ``center'' of the cluster they represent. The last two steps are repeated until the prototypes updates norms are sufficiently small to be considered as negligeable. The initial method has allowed the emergence of many variations such as k-medians clustering~\cite{jain1988algorithms}, k-medoids clustering~\cite{kaufman1987clustering} depending on the prototype update rule. An extension to this algorithm has been proposed in~\cite{kohonen1998self} in which the authors define the Self-Organizing Maps (SOM). This methods is based on the same idea than K-means, except that the prototypes are organized as a map in which each node update will also impact its neighbors, depending on a neighboring function based on the Manhattan distance between two nodes in the map. This allows to not only capture prototypes, but also to organize them following a possible underlying structure in the dataset. This method also makes possible to get a two or three dimensional representation of a possibily high feature space. Indeed in a supervised case, by assigning to each node the class of the majority of its associated data points, it it possible to graphically see the underlying proximity structure in the dataset. This method is detailed more deeply in Section~\ref{sec:survey_som}. The k-means algorithm is illustrated in Algorithm~\ref{alg:kmeans}.
 
     \begin{algorithm}
         \caption{K-Means algorithm}
@@ -347,7 +347,7 @@ The most commonly met density based method is called Density-based spatial clust
 
     \begin{enumerate}
         \item Improve a global clustering knowing the clusterings performed on each view.
-        \item Making the views collaborate to achieve a global inter-views concensus.
+        \item Making the views collaborate to achieve a global inter-views consensus.
     \end{enumerate}
 
     As defined in~\cite{cornuejols2018collaborative}, the first subfields corresponds to Cooperative Clustering while the second one is called Collaborative Clustering. While these fields may seem closely related, their fundamentals differ in some points.
@@ -361,7 +361,7 @@ The most commonly met density based method is called Density-based spatial clust
     \subsection{Horizontal and Vertical}
 \label{sec:cc_hor_ver}
 
-    As previously presented, the goal of Collaborative Clustering is to make several views collaborate using their local results in order to achieve a better concensus. This general idea has two different declinations, depending on the similarities that the datasets have to share despise all. These paradigms have been defined in~\cite{pedrycz2005knowledge} and in~\cite{grozavu2010topological}.
+    As previously presented, the goal of Collaborative Clustering is to make several views collaborate using their local results in order to achieve a better consensus. This general idea has two different declinations, depending on the similarities that the datasets have to share despise all. These paradigms have been defined in~\cite{pedrycz2005knowledge} and in~\cite{grozavu2010topological}.
 
     If all the datasets contain different individuals represented by the same set of features, the collaborative clustering is called vertical. On the opposite, if all the datasets contain the same set of individuals described by different sets of features, the clustering is called horizontal (cf Figure~\ref{fig:hor_cc}). A third paradigm, called hybrid, is a combination of the two previously mentioned. In the work presented here, we have been interested in the horizontal version of Collaborative Clustering because it makes possible to tackle the problem of heterogeneous data coming from different sources. The related works presented in the next Section are all related to horizontal clustering, unless the opposite is explicitly mentionned.
     \vspace{.8cm}
@@ -373,13 +373,14 @@ The most commonly met density based method is called Density-based spatial clust
 \label{fig:hor_cc}
         \end{figure}
 
-    \subsection{Theory}
+    \subsection{Theory and Gradient Descent}
+\label{sec:theo_grad_desc}
     
     Collaborative Clustering methods are based on two distinct phases introduced in~\cite{pedrycz2002collaborative}: a first phase of local clustering, during which each view produces a model of its data independently of the other views, and a second called collaborative during which the views exchange the information they have acquired during the first phase in order to continue to learn from what their pairs have found. These two steps are the first theoretical point defininf a Collaborative Clustering method.
 
     Moreover, in Machine Learning, a method is usually designed around a function to optimize, called either cost function or criterion or even score. Collaborative Clustering consists in several algorithms collaborating, so each one has its own score to optimize. To formalize this idea mathematically and conjointly with the definition of the two steps mentioned above, two cost functions are computed per view.
 
-    The first one is the usual cost function of the local methods used in each view. During the first local phase, each method produces a model according to this function. The second one takes into consideration the information learned by each view to formalize the idea of concensus between the views. Formally, the criterion of the $i$-th view can be written as follow:
+    The first one is the usual cost function of the local methods used in each view. During the first local phase, each method produces a model according to this function. The second one takes into consideration the information learned by each view to formalize the idea of consensus between the views. Formally, the criterion of the $i$-th view can be written as follow:
 
     \begin{align}
         \label{eq:globalC}
@@ -389,12 +390,11 @@ The most commonly met density based method is called Density-based spatial clust
 
     With $Q^i_{local}$ being the local criterion used to trained the local model of the $i$-th view, and $Q_{collab}$ being a term appended to the local criterion to formalize the collaborative part of the training. This latter term is made of the $N-1$ terms $C_j^i$ corresponding to a dissimilarity measure between the local views and its pairs. $V_i$ stands for $i$-th view, and from now, we define $N$ as the total number of views. In most of the literature, both local and collaborative terms have to be defined accordingly to the local methods which are used, even if some researches have been done to make possible to use different local methods. A summary is given in the next Section. When the cost function is defined, its differenciate is computed and then used to generate rules to update the parameters of the system using gradient descent: 
     
-    \begin{equation}
-        \omega_{new} = \omega_{old} - \varepsilon \frac{\partial Q}{\partial \omega}
-        \label{eq:gradient_descent}
-    \end{equation}
-    
-    With $\omega$ the parameter to update and $\varepsilon$ a fixed parameter defining the learning rate. 
+		\begin{equation}
+            {(w_{i|j}^k)}^{new} = {(w_{i|j}^k)}^{old} - \epsilon \, \frac{\partial E}{\partial w_{i|j}^k}
+		\end{equation}
+		
+        where $\epsilon > 0$ is the parameter defining the learning rate of the process. This update process is performed on every parameter $w_{i|j}$ until convergence. In practice, the learning is stopped when the norm of the update goes under a threshold fixed by the user. 
     
     \subsection{Methods presented in the literature}
 
@@ -411,38 +411,43 @@ The most commonly met density based method is called Density-based spatial clust
 
     \begin{align}
         \forall j \in [1..N], \quad Q^i &= Q^i_{local} + Q^i_{collab}\\
-    &= Q^i_{local} + \sum_{j\neq i}^N \beta{i,j}\sum_{n=1}^{|V_i|}\sum_{k=1}^C{(s_{n,k}^i - s_{n,k}^j)}^2|x_n-\mu_k^i|^2
+    &= Q^i_{local} + \sum_{j\neq i}^N \beta^i_j\sum_{n=1}^{|V_i|}\sum_{k=1}^C{(s_{n,k}^i - s_{n,k}^j)}^2|x_n-\mu_k^i|^2
     \end{align}
     
-    with $\beta{i,j}$ being a weight defining the importance of the collaboration between the views $i$ and $j$. The point of the collaborative term of this function is to formalize the distance between the allocation vector of each sample. To better understand the use of this term, it is necessary to observe its behaviour in two extreme cases: when the responsibilities are roughly equal and when they are not. If all the responsibilities are approximately equal for two views, their respective clusterings are approximately equivalent, meaning that a concensus has been found, thus the collaborative term and the cost function are low. On the opposite, if the responsibilities are totally different, the sum of each absolute difference makes the term important, and so improvable. By considering these two cases, one can understand that the final goal of the horizontal collaborative clustering is to find the best concensus as possible between all the views.
+    with $\beta^i_j$ being a weight defining the importance that view $i$ gives to the information coming from the external view $j$. The point of the collaborative term of this function is to formalize the distance between the allocation vector of each sample. To better understand the use of this term, it is necessary to observe its behaviour in two extreme cases: when the responsibilities are roughly equal and when they are not. If all the responsibilities are approximately equal for two views, their respective clusterings are approximately equivalent, meaning that a consensus has been found, thus the collaborative term and the cost function are low. On the opposite, if the responsibilities are totally different, the sum of each absolute difference makes the term important, and so improvable. By considering these two cases, one can understand that the final goal of the horizontal collaborative clustering is to find the best consensus as possible between all the views.
 
     \subsubsection{Self Organizing Maps}
+\label{sec:survey_som}
 
     A second version of collaborative clustering has been proposed using self organizing maps~\cite{kohonen1998self}. It is based on the same idea than previously defined, and has been presented in~\cite{grozavu2010topological}. An online version, based on the same cost function but with a different temperature function, has also been proposed in~\cite{maurel2017incremental}. A SOM is defined by a temperature function $\lambda$ which itself defines a neighborhood function $K$. To define the local and collaborative terms of the cost function, $K$ is used instead of the responsibilities $s$, which gives the following equations for the $i$-th view:
 
     \begin{equation}
-    \lambda(t) = \lambda_{\max}{\Big(\frac{\lambda_{\min}}{\lambda_{\max}}\Big)}^{\frac{1}{t}}
+    \lambda(t) = \lambda_{\min}{\Big(\frac{\lambda_{\max}}{\lambda_{\min}}\Big)}^{\frac{1}{t}}
         \label{eq:som_temp}
     \end{equation}
 
-    With $\lambda_{\min}$ and $\lambda_{\max}$ two parameters of the SOM algorithm. This function is then used to define the following neighborhood function and the corresponding local and collaborative terms:
-
+    With $\lambda_{\min}$ and $\lambda_{\max}$ two parameters of the SOM algorithm defining the minimum and maximum temperature used during the training. One can notice that the function goes from $\lambda_{\max}$ for $t=1$ to $\lambda_{\min}$ for $t\to \infty$. This function is then used to define the following neighborhood function:
+    
     \begin{equation}
         K_{k,l} = \exp\Big(-\frac{d^2(k,l)}{\lambda(t)}\Big)
         \label{eq:som_neigh}
     \end{equation}
 
+    The idea behind this function is to determine the width of the neighborhood affected by the modification of a single neuron. The higher $\lambda(t)$, the hotter is said the map, and the wider is the neighborhood impacted by the modification of a neuron. However, this wider area comes with a limitation in the modification that can be performed on each neuron. This phenomenon is related to the exponential function used for $K$, if the map is hot, the map performs global modifications of its structure in order to adapt to the data typology. On the opposite, when the map is cold, the map only performs local modifications in order to adapt its neuron to its immediate neighborhood.
+
+    Both collaborative and local terms are then defined using $K_{k,l}$:
+
     \begin{equation}
-        Q_{local}^i = \alpha_i \sum_{n=1}^{|V_i|}\sum_{k=1}^C K^i_{k,\chi(x_n)}\|x_n^i - \omega^k \|^2 
+        Q_{local}^i = \alpha_i \sum_{n=1}^{|V_i|}\sum_{k=1}^C K^i_{k,\chi(x_n)}\|x_n^i - w^k \|^2 
         \label{eq:som_cc_local}
     \end{equation}
 
     \begin{equation}
-        Q_{collab}^i = \sum_{j \neq i}\beta_i^j \sum_{n=1}^{|V_i|}\sum_{k=1}^C \big(K^i_{k,\chi(x_n)} - K^j_{k,\chi(x_n)}\big)\|x_n^i - \omega^k \|^2 = \sum_{j \neq i} \beta_i^j C_i^j 
+        Q_{collab}^i = \sum_{j \neq i}\beta_i^j \sum_{n=1}^{|V_i|}\sum_{k=1}^C \big(K^i_{k,\chi(x_n)} - K^j_{k,\chi(x_n)}\big)\|x_n^i - w^k \|^2 = \sum_{j \neq i} \beta_i^j C_i^j 
         \label{eq:som_cc_collab}
     \end{equation}
 
-    With $d(k,l)$ being the topological distance (number of hops) between the neurons $k$ and $l$ in the SOM, $\alpha_i$ being the weighting coefficient for the local view $i$, $\chi(x)$ being the function returning the best matching unit (MBU) of a sample, namely the neuron of the map which is the nearest from the data point $x$, and $\omega^k$ is the $k$-th neuron of the SOM.\@
+    With $d(k,l)$ being the topological distance (number of hops) between the neurons $k$ and $l$ in the SOM, $\alpha_i$ being the weighting coefficient for the local view $i$, $\chi(x)$ being the function returning the best matching unit (MBU) of a sample, namely the neuron of the map which is the nearest from the data point $x$, and $w^k$ is the $k$-th neuron of the SOM.\@
 
     The learning process is the same than for the FCM version: first, each local view learns a model of its data using the standard SOM algorithm, then the neurons are updated during the collaborative phase following the cost function defined by~\ref{eq:som_cc_local} and~\ref{eq:som_cc_collab}.
 
@@ -452,7 +457,7 @@ The most commonly met density based method is called Density-based spatial clust
 
     The GTM being considered as the stochastic evolution of the SOM, the use of the former as the local clustering method for Collaborative clustering instead of the latter has naturaly been studied and has been presented in~\cite{ghassany2012collaborative},~\cite{sublime2015vertical},~\cite{sublime2015horizontal} and~\cite{sublime2016collaborative}. The learning algorithm relies on the same principle than the SOM-based one, but this time using the Expectation-Maximization algorithm~\cite{dempster1977maximum}. During the Expectation phase each datum is assigned to a neuron. Then during the Maximization phase, the neurons are updated using a penalized likelihood as described in~\cite{green1990use}.\\
 
-    \subsection{Related works and limitations}
+    \subsection{Genericity of Collaborative Clustering}
 \label{sec:survey_limitations}
 
     The methods presented so far all share several limitations. First of all, the same algorithms have to be used in each view to make the collaboration possible. Moreover, because these algorithms are prototype based and because the collaboration phase relies on a comparison between the prototypes, the number of these latter has to be the same among all the views. An even more important restriction is that the maps defined by the SOM and the GTM algorithms have to be closed to each other in order to be compared. Additionally, these methods rely on the weighting coefficients $\alpha$ and $\beta$ in order to select what collaborator should be favored or not during the learning process. These parameters have to be chosen closely, and this may become a tricky task if many views have to be considered.

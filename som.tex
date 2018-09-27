@@ -35,16 +35,16 @@
 	
 		\begin{equation}
 \label{criterion}
-		\widetilde{R}^m(\chi, \omega) = \widetilde{R}_{Local}(W) + \widetilde{R}_{Collab}(W)
+		\widetilde{Q}^m(\chi, w) = \widetilde{Q}_{Local}^m(W) + \widetilde{Q}_{Collab}^m(W)
 		\end{equation}
 		
 		\begin{equation}
 \label{criterion2}
-		\widetilde{R}_{Local}(W) = \alpha_m\sum_{i=1}^{N_{batch}}\sum_{j=1}^{|W|}\widetilde{K}^m_{j, \chi(x_i)}\|x_i^k - \omega_j^k\|^2
+		\widetilde{Q}_{Local}^m(W) = \alpha_m\sum_{i=1}^{N_{batch}}\sum_{j=1}^{|W|}\widetilde{K}^m_{j, \chi(x_i)}\|x_i^k - w_j^k\|^2
 		\end{equation}
 		
 		\begin{equation}
-        \widetilde{R}_{Collab} = \sum_{m'=1, m'\neq m}^{P}\beta_m^{m'}\sum_{i=1}^{N_{batch}}\sum_{j=1}^{|W|}{(\widetilde{K}^m_{j, \chi(x_i)} - \widetilde{K}^{m'}_{j, \chi(x_i)})}^2  \|x_i^m - \omega_j^m\|^2
+        \widetilde{Q}_{Collab}^m = \sum_{m'=1, m'\neq m}^{P}\beta_m^{m'}\sum_{i=1}^{N_{batch}}\sum_{j=1}^{|W|}{(\widetilde{K}^m_{j, \chi(x_i)} - \widetilde{K}^{m'}_{j, \chi(x_i)})}^2  \|x_i^m - w_j^m\|^2
 		\end{equation}
 		
 		\begin{algorithm}[H]
@@ -60,9 +60,9 @@
                         }
                         \textbf{2. Collaboration Step}\\
                         \For{$m \in {1..P}$}{
-                            \For{$\omega \in W^m$}{
-                                $\omega = \omega + \frac{\alpha_m \sum_{i=1}^{N_{batch}}\widetilde{K}^m_{j,\chi(x_i^m)}\Delta_i^m + \sum_{m'=1, m'\neq m}^{P}\sum_{i=1}^{N}\beta_m^{m'} L_{ij}\Delta_i^m}{\alpha_m \sum_{i=1}^{N_{batch}}\widetilde{K}^m_{j,\chi(x_i^m)} + \sum_{m'=1, m'\neq m}^{P}\sum_{i=1}^{N}\beta_m^{m'} L_{ij}}$\\
-                        with $L_{ij} = {(\widetilde{K}^m_{j, \chi{x_i}} - \widetilde{K}^{m'}_{j, \chi{x_i}})}^2$ and $\Delta_i^m = (x_i^m - \omega)$
+                            \For{$w \in W^m$}{
+                                $w = w + \frac{\alpha_m \sum_{i=1}^{N_{batch}}\widetilde{K}^m_{j,\chi(x_i^m)}\Delta_i^m + \sum_{m'=1, m'\neq m}^{P}\sum_{i=1}^{N}\beta_m^{m'} L_{ij}\Delta_i^m}{\alpha_m \sum_{i=1}^{N_{batch}}\widetilde{K}^m_{j,\chi(x_i^m)} + \sum_{m'=1, m'\neq m}^{P}\sum_{i=1}^{N}\beta_m^{m'} L_{ij}}$\\
+                        with $L_{ij} = {(\widetilde{K}^m_{j, \chi{x_i}} - \widetilde{K}^{m'}_{j, \chi{x_i}})}^2$ and $\Delta_i^m = (x_i^m - w)$
                             }
                         }
                     }
@@ -87,7 +87,8 @@
 	
 	The quantization error can be defined in our case by the following expression:
 	\begin{equation}
-	qe = \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i - \omega_{\chi(x_i)}\|^2
+\label{eq:som_qe}
+	qe = \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i - w_{\chi(x_i)}\|^2
 	\end{equation}
 	
 	The purity of a neuron is defined by the proportion of the most represented class, and the purity of a map is equal to the average purity of its neurons. 

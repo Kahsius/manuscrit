@@ -99,7 +99,7 @@ A MLP is made of several layers of several neurons (see Figure~\ref{fig:neuron})
             \frac{1}{|V_i|}\sum_{x \in V_i}{(x - \hat{x})}^2
 		\end{equation}
 		
-        With $\hat{x}$ being the output of the Autoencoder used in the $i$-th view for the input vector $x$ and $|V_i|$ being the number of elements of $V_i$.
+        With $\hat{x}$ being the output of the Autoencoder used in the $i$-th view for the input vector $x$ and $|V_i|$ being the number of elements of $V_i$. The MSE is simply the quantization error as presented in Equation~\ref{eq:som_qe}, but using the target individual rather than the nearest prototype in a SOM.\@
 
     A graphical representation of both the MLP and the Autoencoder are presented on Figure~\ref{fig:mlp_ae}, and their uses in the Collaborative Reconstruction system are detailed in Section~\ref{sec:crs}.
 
@@ -203,13 +203,8 @@ where $x_i^k$ is the $k$-th coordinate of the individual $x_i$. The differentiat
 			&= \frac{2}{|V_i|}\sum_{x_i \in V_i} x_{i|j}^k \, \big(\,\widetilde{x}_i^k - x_i^k\:\big)
 		\end{align}
 		
-		This latter formula makes possible to update the weight $w_{i|j}^k$ using the usual gradient formula
+        This latter formula makes possible to update the weight $w_{i|j}^k$ using the usual gradient formula as described in Section~\ref{sec:theo_grad_desc}.
 		
-		\begin{equation}
-            {(w_{i|j}^k)}^{new} = {(w_{i|j}^k)}^{old} - \epsilon \, \frac{\partial E}{\partial w_{i|j}^k}
-		\end{equation}
-		
-		where $\epsilon > 0$ is the parameter defining the learning rate of the process. This update process is performed on every weight until convergence. In practice, the learning is stopped when the norm of the update value defined in Eq.~\ref{eq:partialE} goes under a threshold fixed by the user. 
 		
 		\subsubsection{Iterative update}:
 It is also possible to update weights based on the minimum of $E_i$ found using
@@ -444,7 +439,6 @@ In the Cube example, the information is either totally shared (same values if th
     \caption{Mean and standard deviation of the values of the masks coefficients depending on the feature they are weighting}
 \label{tab:results_mwm}
 \begin{tabular}{ccc}
-\cmidrule{2-3}
 \textbf{}                                       & \parbox[c]{3cm}{\centering Mean} & \parbox[c]{3cm}{\centering Standard deviation} \\ \midrule
 \textbf{Shared feature}                         & 0.920    & 0.026                  \\ \midrule
 \multicolumn{1}{l}{\textbf{Non shared feature}} & 0.143    & 0.034                  \\ \midrule
