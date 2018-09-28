@@ -30,7 +30,7 @@ We are therefore mainly interested in finding the positive weights $\beta^j_i$ t
 Moreover, as we restrict our study to the case of horizontal clustering, we would like to mention that in our theoretical model all data sets describe the same observations and all these collaborative data sets have the same number of observations but a different number of variables.  
 
 
-For fixed local maps $w$, our strategy to minimize Equation~\eqref{eq:globalC} is to minimize the second term. Indeed, since the collaboration weights are only in the collaborative term and because the local likelihood are fixed, we can ignore the local term in Equation~\eqref{eq:globalC}.
+For fixed local maps $w$, our strategy to minimize Equation~\eqref{eq:globalC} is to minimize the second term. Indeed, since the collaboration weights are only in the collaborative term and because the local likelihoods are fixed, we can ignore the local term in Equation~\eqref{eq:globalC}.
 
 The minimization of the collaborative term is based on the dual form of the problem. We do so under the Karush-Kuhn-Tucker conditions (KKT) 
 \cite{KKT1} assuming that the weights $\beta^j_i$ respect the following conditions:
@@ -149,10 +149,10 @@ The datasets used in our experiments are from the UCI website: \textit{Waveform 
 The two main criteria used here were the quantization error (or distorsion, one of the most used criteria to evaluate the quality of a Kohonen's topological map) and the purity (accuracy index).
 
 The quantization error is computed using the following expression presented in the previous chapter in Equation~\ref{eq:som_qe}.
-where $N_{batch}$ is replaced by the dataset size. The values of the quantization error depends on the size of the dataset and the size of built maps. Strong differencies may therefore arise when dealing with different datasets or Kohonen map sizes.\\
+where $N_{batch}$ is replaced by the dataset size. The values of the quantization error depend on the size of the dataset and the size of built maps. Strong differences may therefore arise when dealing with different datasets or Kohonen map sizes.\\
 
 The purity (accuracy) of the map is equal to the average purity of all the neurons.
-A good SOM map should have a high degree of the purity index.
+A good SOM should have a high degree of the purity index.
 The purity of a neuron is the percentage of data belonging to its majority class.
 Knowing the data labels set $L = \{l_{1}, l_{2}, \ldots,  l_{|L|}\}$ and the prototypes set
 $C = \{c_{1}, c_{2}, \ldots, c_{|C|}\}$, the formula for the purity of a map is the following:\\
@@ -177,7 +177,7 @@ In a first experiment, we will investigate the evolution of the fitness function
 The point of this criterion is to make the $\beta^j_i$ act as weighting coefficients summing to 1, allowing to compare both versions of CC with and without $\beta$ optimization. \\
 
 In the second experiment, the values of betas depending on the quality of the view is investigated: in order to analyze the capacity of the method to define which collaborations are useful, a view only made of uniform noise was added to each dataset (except for waveform which already has several features only made of noise). This noisy view was added only for this experiment.
-For each dataset, we split the data into three (WDBC, Spambase, VHR Strasbourg) or four (Isolet, Waveform) views of equal size, and we added a view of uniform noise. We then learn a SOM map for each database. \\
+For each dataset, we split the data into three (WDBC, Spambase, VHR Strasbourg) or four (Isolet, Waveform) views of equal size, and we added a view of uniform noise. We then learn a SOM for each database. \\
 The goal was to analyze if the method was able to limit the impact of the noisy view on the learning process of the other views. Because we put the constraint $\prod_{j \neq i}^N \beta^j_i = 1$ for every view $j$, the previous assertion would lead to $\beta_{noisy}^i < 1$ for every other view $i$. In this first experiment, we show that our optimization method is able to detect the noisy view and to mitigate its impact during the learning process by properly weakening the values of the weights linked to it, i.e $\beta_{noisy}^j$ low compared to the others.
 
 
@@ -205,16 +205,16 @@ The choice of this size was made heuristically, based on the most appropriate nu
 \subsection{Results}
 
 
-\paragraph{Relative Difference of the criterion}
+\paragraph{Relative Difference of the criterion:}
 The first experiment is about the evolution of the modified criterion presented in Eq.~\ref{eq:globalC2}. Figure~\ref{fig:relative_difference} shows the relative difference (RD) of this criterion between the original version of the collaborative SOM algorithm and our proposed version with the smart weights $\beta$. It appears that the relative difference between the criterion is always positive, meaning that the version with the $\beta$-weighting always improves the learning compared to the standard version. This can be understood knowing the interpretation in Sec.~\ref{sec:interpretation}: the algorithm tends to make views that agree with each others collaborate, so the $\beta$-weighting favors lower values of $C^j_i$ (better collaboration), improving the global criterion.
 
-However, it also appears that all datasets are not treated equally by this method: the best mean RD goes from 0.4\
+However, it also appears that all datasets are not treated equally by this method: the best mean RD goes from 0.4\% (Spambase) to 12\% (WDBC and VHR). Moreover, the gap size does not evolve the same way for all data bases: for WDBC, Waveform, Isolet and VHR Strasbourg, the gap is growing during several steps, while for Spambase, the evolution seems to stop quickly. We think that this phenomenon is partly caused by the information contained in each view: in some cases, a $\beta$-weighting will be useful because it will favor a collaboration that will greatly improve the global results, while in some other cases the results will approximately be the same than with the standard method, and therefore the RD is caped more quickly.
 
-\paragraph{$\beta$ analysis}
+\paragraph{$\beta$ analysis:}
 Now considering $\beta$ coefficients themselves, Figure~\ref{fig:betas} presents the different $\beta$ values obtained at the end of the collaboration process for each dataset. Table~\ref{tab:minmax} gives their corresponding minimum and maximum values. To recall, the value $\beta^j_i$ can be read as ``how much does view $j$ exchanges with view $i$ compared to the others''. The values on the diagonal -which are of no importance- are fixed to 1 to make the comparison easier. The last row of each matrix corresponds to the collaboration between each view and the artificially added noisy view of each data set (except for Waveform, for which the two last views were already noisy). 
 
 
-Several points can be mentioned concerning these images. First, as one can see collaborations with noisy views are mostly weak:  the method presented here tends to minimize the impact of the collaboration between a useful view and a noisy one. This is particularly clear for the WDBC and VHR datasets where all $\beta$ on the last row are below 1, while all other factors are at least around 1. Secondly, one can see that the strong collaborations are mostly symmetrical. To continue with the WDBC example, we got $\beta_1^3 \approx \beta_3^1 > 1$. However this phenomenon is not true for less strong collaborations: for WDBC and VHR, we got $\beta_1^2 \neq \beta_2^1$ and $\beta_2^3 \neq \beta_3^2$. It appears that the algorithm leads to the creation of subgroups of views: when two views tends to collaborate, their other $\beta$ are approximately identical. This property can be seen as the continuation of the interpretation given in Sec.~\ref{sec:interpretation}: our method will favor the collaboration between agreeing views, leading to the creation of subgroups of views which have the same common behavior towards views outside of their group.
+Several points can be mentioned concerning these images. First, as one can see collaborations with noisy views are mostly weak:  the method presented here tends to minimize the impact of the collaboration between a useful view and a noisy one. This is particularly clear for the WDBC and VHR datasets where all $\beta$ on the last row are below 1, while all other factors are at least around 1. Secondly, one can see that the strong collaborations are mostly symmetrical. To continue with the WDBC example, we got $\beta_1^3 \approx \beta_3^1 > 1$. However this phenomenon is not true for less strong collaborations: for WDBC and VHR, we got $\beta_1^2 \neq \beta_2^1$ and $\beta_2^3 \neq \beta_3^2$. It appears that the algorithm leads to the creation of subgroups of views: when two views tend to collaborate, their other $\beta$ are approximately identical. This property can be seen as the continuation of the interpretation given in Sec.~\ref{sec:interpretation}: our method will favor the collaboration between agreeing views, leading to the creation of subgroups of views which have the same common behavior towards views outside of their group.
 
 \begin{figure}[!h]
 	\centering
@@ -248,7 +248,7 @@ Several points can be mentioned concerning these images. First, as one can see c
 	\end{center}
 \end{table}
 
-\paragraph{Purity and QE analysis}
+\paragraph{Purity and QE analysis:}
 The last experiment consisted in the analysis of two criterion commonly met in the Kohonen's map literature, namely the purity and the quantization error. This analysis has been conducted in order to make sure that the collaborative phase and the $\beta$ weighting did not damage the final result of the learning. Table~\ref{tab:criterion} displays the mean values of each criterion for all the views, except the added noisy one. The results shows that our proposed weighting method, while succesful with unsupervised indexes has little to no impact on supervised criterions such as purity or quantization error. This result was to be expected since our proposed optimization does not bring any extra supervision compared to the original one, and it is therefore good already that it does not negatively impact supervised results.
 
 \begin{table}[!h]
@@ -267,7 +267,7 @@ The last experiment consisted in the analysis of two criterion commonly met in t
 						& $\beta$-weighting    & 65.40 & 6.16  \\ \midrule 
 			SpamBase    & standard     		& 80.34 & 14.56 \\ 
 						& $\beta$-weighting    & 80.24 & 14.54 \\ \midrule
-			VHR Stransbourg    & standard     		& 48.94 & 3.37 \\ 
+			VHR Strasbourg    & standard     		& 48.94 & 3.37 \\ 
 						& $\beta$-weighting    & 48.93 & 3.38 \\ \bottomrule
 		\end{tabular}
 	\end{center}
