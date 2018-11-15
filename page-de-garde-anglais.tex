@@ -16,6 +16,7 @@
 \usepackage[french]{babel}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
+\usepackage[export]{adjustbox}
 % - - - - - - - d\'{e}but de la page 
 \setlength{\textwidth}{16cm}
 \setlength{\textheight}{25cm}
@@ -29,15 +30,23 @@
 
 %changepage{text height}{text width}{even-side margin}{odd-side margin}{column sep}{topmargin}{headheight}{headsep}{footskip}
 
-\includegraphics[scale=0.12]{upmc-logo.png}
+\begin{figure}[!htb]
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[scale=.9]{img/logo.png}
+    \end{minipage}\hfill
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[scale=0.60, right]{isep.jpeg}
+    \end{minipage}
+\end{figure}
+
 
 {\large
 
-\vspace*{1cm}
+\vspace*{0cm}
 
 \begin{center}
 
-{\bf DOCTORAL THESIS BY \\ l'UNIVERSIT\'{E} PIERRE ET MARIE CURIE}
+{\bf DOCTORAL THESIS BY \\ l'UNIVERSIT\'{E} SORBONNE UNIVERSIT\'{E}}
 
 \vspace*{0.5cm}
 
@@ -61,7 +70,7 @@ Presented by \ \\
 
 \vspace*{1cm}
 To obtain the grade of \ \\[1ex]
-{\bf Doctor of the UNIVERSIT\'{E} PIERRE ET MARIE CURIE} \ \\
+{\bf Doctor of the UNIVERSIT\'{E} SORBONNE UNIVERSIT\'{E}} \ \\
 
 \vspace*{1cm}
 
@@ -72,15 +81,18 @@ To obtain the grade of \ \\[1ex]
 {\Large {\bf Contributions to inter-views communications applied to collaborative learning\\ }}
   
 
-\vspace*{1.5cm} 
-\flushleft{defended on XX/01/2019}\\[2ex]
+\vspace*{1.0cm} 
+\flushleft{defended on 10/12/2018}\\[2ex]
 \flushleft{Jury:  }\\[1ex]
 \flushleft{\begin{tabular}{r@{\ }ll}
   & Mme. Raja {\sc Chiky} & Directrice de th\`{e}se\\
+  & M. Antoine {\sc Cornu\'{e}jols} & Examinateur \\
+  & Mme. Pascale {\sc Kuntz} & Rapportrice \\
+  & M. Sylvain {\sc Lefebvre} & Encadrant \\
+  & M. Christophe {\sc Marsala} & Examinateur \\
+  & M. Marcilio {\sc de Souto} & Examinateur \\
   & M. J\'{e}r\'{e}mie {\sc Sublime} & Encadrant \\
-  & M. Pr\'{e}nom {\sc Nom} & Rapporteur  \\
-  & M. Pr\'{e}nom {\sc Nom} & Examinateur  \\
-  & M. Pr\'{e}nom {\sc Nom} & Examinateur  \\
+  & Mme. Rosanna {\sc Verde} & Rapportrice \\
 \end{tabular}}
 
 }}

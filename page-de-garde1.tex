@@ -21,6 +21,7 @@
 \setlength{\textheight}{25cm}
 \setlength{\oddsidemargin}{-0cm}
 \setlength{\topmargin}{-1cm}
+\usepackage[export]{adjustbox}
 \title{}     
 \date{} 
 \author{}
@@ -29,15 +30,23 @@
 
 %changepage{text height}{text width}{even-side margin}{odd-side margin}{column sep}{topmargin}{headheight}{headsep}{footskip}
 
-\includegraphics[scale=0.12]{upmc-logo.png}
+
+\begin{figure}[!htb]
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[scale=0.90]{img/logo.png}
+    \end{minipage}\hfill
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[scale=0.60, right]{isep.jpeg}
+    \end{minipage}
+\end{figure}
 
 {\large
 
-\vspace*{1cm}
+\vspace*{0cm}
 
 \begin{center}
 
-{\bf TH\`{E}SE DE DOCTORAT DE \\ l'UNIVERSIT\'{E} PIERRE ET MARIE CURIE}
+    {\bf TH\`{E}SE DE DOCTORAT DE \\ l'UNIVERSIT\'{E} SORBONNE UNIVERSIT\'{E}}
 
 \vspace*{0.5cm}
 
@@ -61,7 +70,7 @@ Pr\'{e}sent\'{e}e par \ \\
 
 \vspace*{1cm}
 Pour obtenir le grade de \ \\[1ex]
-{\bf DOCTEUR de l'UNIVERSIT\'{E} PIERRE ET MARIE CURIE} \ \\
+{\bf DOCTEUR de l'UNIVERSIT\'{E} SORBONNE UNIVERSIT\'{E}} \ \\
 
 \vspace*{1cm}
 
@@ -72,16 +81,18 @@ Pour obtenir le grade de \ \\[1ex]
 {\Large {\bf Contributions aux communications inter-vues pour l'apprentissage collaboratif \\ }}
   
 
-\vspace*{1.5cm} 
-\flushleft{soutenue le XX janvier 2019}\\[2ex]
+\vspace*{1.0cm} 
+\flushleft{soutenue le 10 D\'{e}cembre 2018}\\[2ex]
 \flushleft{devant le jury compos\'{e} de :  }\\[1ex]
 \flushleft{\begin{tabular}{r@{\ }ll}
   & Mme. Raja {\sc Chiky} & Directrice de th\`{e}se\\
+  & M. Antoine {\sc Cornu\'{e}jols} & Examinateur \\
+  & Mme. Pascale {\sc Kuntz} & Rapportrice \\
+  & M. Sylvain {\sc Lefebvre} & Encadrant \\
+  & M. Christophe {\sc Marsala} & Examinateur \\
+  & M. Marcilio {\sc de Souto} & Examinateur \\
   & M. J\'{e}r\'{e}mie {\sc Sublime} & Encadrant \\
-  & M. Pr\'{e}nom {\sc Nom} & Rapporteur  \\
-  & M. Pr\'{e}nom {\sc Nom} & Rapporteur  \\
-  & M. Pr\'{e}nom {\sc Nom} & Examinateur  \\
-  & M. Pr\'{e}nom {\sc Nom} & Examinateur  \\
+  & Mme. Rosanna {\sc Verde} & Rapportrice \\
 \end{tabular}}
 
 }}
