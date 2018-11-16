@@ -6,6 +6,7 @@
 \usepackage{subcaption}
 \usepackage{subfig}
 \usepackage[round]{natbib}
+\usepackage[titlenumbered, ruled]{algorithm2e}
 
 \usetheme[progressbar=frametitle]{metropolis}           % Use metropolis theme
 \setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
@@ -520,6 +521,68 @@
 
         \only<2->{$\forall j \quad \prod_{i \neq j}^J \beta_{i,j} = 1$} \\
         \only<3->{$\forall (i,j) \quad \beta_{i,j} >0$}
+
+        \only<4->{Affranchissement des $\alpha$: comme il s'agit de pondérations
+            relatives, on peut fixer $\alpha=1$.
+            $\b^* =  \operatornamewithlimits{argmin}_{\b}  \sum_{i \neq j}
+        \b_{i,j}  C _{i,j} $}
+    \end{frame}
+
+    \begin{frame}{Optimisation de paramètres: méthode de Karush-Kuhn-Tucker}
+        Critère + contrainte d'égalité + contrainte d'inégalité
+        $\rightarrow$ méthode de Karush-Kuhn-Tucker (KKT)
+
+        \begin{equation*}
+        L(\beta,\nu,\lambda)=\sum_{j=1}^J  \sum_{i \neq j}^J ( \beta_{i,j}  C_{i,j}
+        - \nu_j  \lambdan  \beta_{i,j}  - \lambda_{i,j}   \beta_{i,j} ).
+        \end{equation*}
+
+        \begin{equation*}
+            \frac{\partial L}{\partial \beta_{i,j}} = 0
+            \quad
+            \frac{\partial L}{\partial \nu} = 0
+            \quad
+            \frac{\partial L}{\partial \lambda} = 0
+        \end{equation*}
+    \end{frame}
+    
+    \begin{frame}
+        \begin{equation}
+            \b_{i,j} =  \frac{(\prod_{k\neq j} C _{k,j})^{\frac 1 {J-1}}}
+            {C_{i,j}} \qquad
+        \end{equation} 
+
+        L'importance d'une vue externe relativement à une vue locale est
+        proportionnelle au rapport entre la moyenne géométrique de toutes les
+        dissimilarités par rapport à la dissimilarité entre les deux vues
+        .\\
+        $\rightarrow$ plus 2 vues sont similaires, plus elles collaboreront.
+    \end{frame}
+
+    \begin{frame}
+        \begin{algorithm}[!h]
+            \caption{Algorithme topologique de collaboration horizontale}
+            \textbf{Initialisation:} Initialiser toutes les cartes de
+            prototypes $W$ aléatoirement. \\
+            \textbf{Étape locale:} Initialisation des cartes\\
+            \ForAll{Vue $i$} {
+                Minimiser la fonction objectif des cartes auto-adaptatrices
+                standards.
+            } 
+            \textbf{Étape collaborative:}\\
+            \ForAll{Vue $i$} {
+                Pour $w$ fixé, calculer:
+                $\beta$ en à l'aide de l'équation~\ref{eq:sum_kkt_alpha}\\
+                Mettre à jour les prototypes de toutes les cartes:
+                $ 
+                w^{*} =  argmin_{w}\mathcal{C}(w,\alpha,\beta) 
+                $
+            }	 
+        \end{algorithm}
+    \end{frame}
+
+    \begin{frame}{Expérimentations}
+        
     \end{frame}
 
     \section{Système de reconstruction collaboratif}
