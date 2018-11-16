@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 %\usepackage[utf8]{inputenc}
 \usepackage{subcaption}
+\usepackage{subfig}
 \usepackage[round]{natbib}
 
 \usetheme[progressbar=frametitle]{metropolis}           % Use metropolis theme
@@ -14,7 +15,7 @@
 \graphicspath{{./img/}}
 
 \title{Contributions aux communications multi-vues\\pour l'apprentissage collaboratif}
-\date{10 DÃ©cembre 2018}
+\date{10 Décembre 2018}
 \author{Denis Maurel}
 
 \begin{document}
@@ -23,30 +24,30 @@
     \section{Introduction}
     \begin{frame}{Machine Learning}
         L'apprentissage machine (ou \textit{Machine Learning} en anglais) est le 
-        domaine de recherche regroupant les algorithmes et les mÃ©thodes 
-        permettant \textbf{d'apprendre automatiquement} un rÃ©sultat Ã  partir 
-        d'un ensemble de donnÃ©es, aussi appelÃ©s \textbf{individus}.
+        domaine de recherche regroupant les algorithmes et les méthodes 
+        permettant \textbf{d'apprendre automatiquement} un résultat à partir 
+        d'un ensemble de données, aussi appelés \textbf{individus}.
         Les trois principaux sous-domaines du Machine Learning sont:
         \begin{itemize}
             \item<2-> {\only<5>{\color{lightgray}}\textbf{La classification}: 
-                    apprentissage des correspondances entre une donnÃ©e et son 
+                    apprentissage des correspondances entre une donnée et son 
                 label.}
-            \item<3-> \textbf{Le clustering}: dÃ©tection de groupes d'individus 
+            \item<3-> \textbf{Le clustering}: détection de groupes d'individus 
                 similaires.
             \item<4-> {\only<5>{\color{lightgray}}\textbf{L'apprentissage par 
-                renforcement}: apprentissage d'un comportement permettant Ã  un 
-            modÃ¨le de rÃ©agir Ã  un environnement dynamique.}
+                renforcement}: apprentissage d'un comportement permettant à un 
+            modèle de réagir à un environnement dynamique.}
         \end{itemize}
         Ã€ noter que les domaines ne sont pas exclusifs (apprentissage 
-        semi-supervisÃ©, apprentissage par renforcement profond\ldots)
+        semi-supervisé, apprentissage par renforcement profond\ldots)
     \end{frame}
 
     \begin{frame}{Clustering}
         \begin{itemize}
-            \item TÃ¢che d'apprentissage \textbf{non supervisÃ©e} consistant Ã  
-                rassembler des groupes d'individus (a.k.a. clusters) de sorte Ã  
-                \textbf{maximiser la similaritÃ© intra-groupe} et Ã  
-                \textbf{minimiser la similaritÃ© inter-groupes}.
+            \item TÃ¢che d'apprentissage \textbf{non supervisée} consistant à 
+                rassembler des groupes d'individus (a.k.a. clusters) de sorte à 
+                \textbf{maximiser la similarité intra-groupe} et à 
+                \textbf{minimiser la similarité inter-groupes}.
         \end{itemize}
 
         \begin{figure}[b]
@@ -55,12 +56,12 @@
         \end{figure}
     \end{frame}
 
-    \begin{frame}{Clustering: similaritÃ© entre individus}
+    \begin{frame}{Clustering: similarité entre individus}
         \begin{itemize}
-            \item La notion de \textbf{similaritÃ©} est souvent confondue avec la 
+            \item La notion de \textbf{similarité} est souvent confondue avec la 
                 notion de \textbf{distance}.
-            \item La similaritÃ© doit Ãªtre \textbf{adaptÃ©e Ã  la nature des 
-                donnÃ©es}.
+            \item La similarité doit Ãªtre \textbf{adaptée à la nature des 
+                données}.
         \end{itemize}
 
         \begin{table}[!h]
@@ -84,8 +85,8 @@
     \end{frame}
 
     \begin{frame}{Clustering: types de partitions}
-        AprÃ¨s un clustering, on obtient une partition de l'espace ainsi que les 
-        appartenances des individus Ã  chaque groupe de cette partition. Ces 
+        Après un clustering, on obtient une partition de l'espace ainsi que les 
+        appartenances des individus à chaque groupe de cette partition. Ces 
         appartenances peuvent Ãªtre \textbf{dures}, \textbf{molles} ou 
         \textbf{floues}.
 
@@ -136,44 +137,44 @@
                 \end{tabular}
                 \caption{Clustering flou}
             \end{subtable}
-            \caption{Les trois principaux types d'appartenances Ã  des clusters}
+            \caption{Les trois principaux types d'appartenances à des clusters}
         \end{table}
     \end{frame}
 
-    \begin{frame}{Clustering: diffÃ©rentes approches}
-        On peut regrouper les algorithmes de clustering en sous-catÃ©gories 
+    \begin{frame}{Clustering: différentes approches}
+        On peut regrouper les algorithmes de clustering en sous-catégories 
         suivant l'approche qu'ils utilisent:
         \begin{itemize}
-            \item \textbf{MÃ©thodes hiÃ©rarchiques}: crÃ©ation d'un arbre de 
+            \item \textbf{Méthodes hiérarchiques}: création d'un arbre de 
                 correspondance entre les individus (Agglomerative method).
-            \item \textbf{MÃ©thodes de quantification de vecteurs}: dÃ©finition 
-                d'individus prototypes pour synthÃ©tiser les individus en entrÃ©e 
+            \item \textbf{Méthodes de quantification de vecteurs}: définition 
+                d'individus prototypes pour synthétiser les individus en entrée 
                 (K-Means).
-            \item \textbf{MÃ©thodes de densitÃ©}: estimation des clusters suivant 
-                les zones les plus densÃ©ment peuplÃ©es de l'espace d'entrÃ©e 
+            \item \textbf{Méthodes de densité}: estimation des clusters suivant 
+                les zones les plus densément peuplées de l'espace d'entrée 
                 (DBSCAN).
-            \item \textbf{MÃ©thodes stochastiques}: crÃ©ation de modÃ¨les 
-                probabilistes dÃ©finissant la probabilitÃ© d'appartenance d'un 
-                individu Ã  un cluster donnÃ© (GMM).
+            \item \textbf{Méthodes stochastiques}: création de modèles 
+                probabilistes définissant la probabilité d'appartenance d'un 
+                individu à un cluster donné (GMM).
         \end{itemize}
     \end{frame}
 
     \begin{frame}{Clustering: approche multi-vues}
         Apparition d'un nouveau contexte: \textbf{un mÃªme ensemble d'individu} 
-        est dÃ©crit dans plusieurs base de donnÃ©es indÃ©pendantes appelÃ©es 
+        est décrit dans plusieurs base de données indépendantes appelées 
         \textbf{vues}.
 
-        \textbf{ProblÃ¨me}: comment obtenir un clustering de cet ensemble 
+        \textbf{Problème}: comment obtenir un clustering de cet ensemble 
         d'individus ?
 
         Deux approches:
         \begin{itemize}
-            \item<2-> {\only<4>{\color{lightgray}}\textbf{CoopÃ©rative}: chaque 
-                vue effectue un clustering de ses donnÃ©es locales avant de 
-            transfÃ©rer ses rÃ©sultats Ã  une entitÃ© tiers qui devra fusionner les 
-        rÃ©sultats.}
+            \item<2-> {\only<4>{\color{lightgray}}\textbf{Coopérative}: chaque 
+                vue effectue un clustering de ses données locales avant de 
+            transférer ses résultats à une entité tiers qui devra fusionner les 
+        résultats.}
             \item<3-> \textbf{Collaborative}: chaque vue effectue un premier 
-                clustering local, puis le modifie en fonction des rÃ©sultats 
+                clustering local, puis le modifie en fonction des résultats 
                 obtenus par les autres vues.
         \end{itemize}
     \end{frame}
@@ -181,25 +182,25 @@
     \begin{frame}{Clustering: approche multi-vues}
         Exemple multi-vues
         \begin{itemize}
-            \item \textbf{Vue 1}: Ensemble des achats rÃ©cent d'un individus 
+            \item \textbf{Vue 1}: Ensemble des achats récent d'un individus 
                 sur des sites d'e-commerce
-            \item \textbf{Vue 2}: Salaire et rÃ©gime alimentaire
+            \item \textbf{Vue 2}: Salaire et régime alimentaire
             \item \textbf{Vue 3}: Contenu des derniers repas de chaque 
                 individu
         \end{itemize}
     \end{frame}
 
-    \begin{frame}{Clustering collaboratif: dÃ©finition}
-        Le \textbf{clustering collaboratif} est un domaine rÃ©cent dÃ©signant 
-        l'ensemble des mÃ©thodes permettant Ã  \textbf{plusieurs algorithmes de 
-        clustering} opÃ©rant sur des \textbf{sources de donnÃ©es diffÃ©rentes} de 
-        collaborer pour \textbf{amÃ©liorer localement} leurs rÃ©sultats.
+    \begin{frame}{Clustering collaboratif: définition}
+        Le \textbf{clustering collaboratif} est un domaine récent désignant 
+        l'ensemble des méthodes permettant à \textbf{plusieurs algorithmes de 
+        clustering} opérant sur des \textbf{sources de données différentes} de 
+        collaborer pour \textbf{améliorer localement} leurs résultats.
 
         \begin{itemize}
-            \item Les algorithmes utilisÃ©s peuvent Ãªtre \textbf{diffÃ©rents}.
+            \item Les algorithmes utilisés peuvent Ãªtre \textbf{différents}.
             \item Les vues doivent partager soit leurs descripteurs (clustering 
                 vertical), soit \textbf{leurs individus} (clustering horizontal) 
-                pour pouvoir Ãªtre comparÃ©es.
+                pour pouvoir Ãªtre comparées.
         \end{itemize}
         \begin{figure}[b]
             \centering
@@ -217,82 +218,82 @@
         \end{figure}
     \end{frame}
 
-    \begin{frame}{Clustering collaboratif: thÃ©orie}
-        DÃ©finition d'un critÃ¨re $Q^i$ Ã  optimiser pour chaque vue $V_i$:
+    \begin{frame}{Clustering collaboratif: théorie}
+        Définition d'un critère $Q^i$ à optimiser pour chaque vue $V_i$:
         \begin{align*}
-            Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
-            &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, V_j)
+            $Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
+            &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, V_j)$
         \end{align*}
         Avec:
         \begin{itemize}
-            \item $\alpha_i$ et $\beta_j^i$ les coeffcients de pondÃ©ration.
+            \item $\alpha_i$ et $\beta_j^i$ les coeffcients de pondération.
             \item $Q^i_{local}$ et $Q^i_{collab}$ respectivement les 
                 contributions de la vue locale et des vues externes.
-            \item $C_j^i$ la contribution de la vue externe $V_j$, dÃ©termine le 
-                degrÃ¨s de similaritÃ© entre $V_i$ et $V_j$.
+            \item $C_j^i$ la contribution de la vue externe $V_j$, détermine le 
+                degrès de similarité entre $V_i$ et $V_j$.
         \end{itemize}
     \end{frame}
 
-    \begin{frame}{Clustering collaboratif: thÃ©orie}
-        DÃ©finition d'un algorithme de clustering collaboratif:
+    \begin{frame}{Clustering collaboratif: théorie}
+        Définition d'un algorithme de clustering collaboratif:
         \begin{itemize}
-            \item $Q^i_{local}$ est gÃ©nÃ©ralement basÃ© sur \textbf{le critÃ¨re de 
-                l'algorithme local} Ã  optimiser.
-            \item $Q^i_{collab}$ se base sur \textbf{l'Ã©change d'information 
+            \item $Q^i_{local}$ est généralement basé sur \textbf{le critère de 
+                l'algorithme local} à optimiser.
+            \item $Q^i_{collab}$ se base sur \textbf{l'échange d'information 
                 entre vues}, typiquement les appartenances des individus aux 
                 clusters respectifs de chaque vue.
-            \item $\alpha_i$ et $\beta_j^i$ sont dÃ©finis \textbf{Ã  la main}.  
+            \item $\alpha_i$ et $\beta_j^i$ sont définis \textbf{à la main}.  
                 L'approximation $\forall j, \beta_j^i = \alpha_i^2$ est parfois 
-                utilisÃ©e car donnant de bons rÃ©sultats en pratique.
+                utilisée car donnant de bons résultats en pratique.
         \end{itemize}
     \end{frame}
 
-    \section{Clustering collaboratif incrÃ©mental}
+    \section{Clustering collaboratif incrémental}
         \begin{frame}{Contexte}
-            \textit{Objectif du clustering collaboratif}: dÃ©finir un ensemble de 
-            clusters suivant \textbf{la distribution} des donnÃ©es fournies en 
-            entrÃ©e.
+            \textit{Objectif du clustering collaboratif}: définir un ensemble de 
+            clusters suivant \textbf{la distribution} des données fournies en 
+            entrée.
 
-            \textbf{ProblÃ¨me}: il arrive que cette distribution \textbf{Ã©volue 
+            \textbf{Problème}: il arrive que cette distribution \textbf{évolue 
             au cours du temps}
 
-            \textbf{Exemple}: Ã©volution du rÃ©gime alimentaire d'un individu ou 
-            de la rÃ©partition des salaires Ã  l'Ã©chelle d'une population.
+            \textbf{Exemple}: évolution du régime alimentaire d'un individu ou 
+            de la répartition des salaires à l'échelle d'une population.
 
             \begin{figure}[b]
                 \centering
                 \includegraphics[scale=.2]{changedistrib}
             \end{figure}
 
-            Utilisation du clustering \textbf{incrÃ©mental}: les clusters sont 
-            appris au cours du temps afin de \textbf{s'adapter} aux Ã©ventuels 
+            Utilisation du clustering \textbf{incrémental}: les clusters sont 
+            appris au cours du temps afin de \textbf{s'adapter} aux éventuels 
             changements de distribution. On utilise les $N_{batch}$ derniers 
-            individus comme Ã©chantillon d'apprentissage.
+            individus comme échantillon d'apprentissage.
 
         \end{frame}
 
-        \begin{frame}{Clustering collaboratif incrÃ©mental}
-            DÃ©finition d'une mÃ©thode de clustering incrÃ©mental:
+        \begin{frame}{Clustering collaboratif incrémental}
+            Définition d'une méthode de clustering incrémental:
             \begin{itemize}
-                \item<2-> Choix de la mÃ©thode de clustering
-                \item<3-> Adaptation de la mÃ©thode de clustering pour de 
-                    l'apprentissage incrÃ©mental
-                \item<4-> Adaptation du clustering collaboratif au modÃ¨le de 
+                \item<2-> Choix de la méthode de clustering
+                \item<3-> Adaptation de la méthode de clustering pour de 
+                    l'apprentissage incrémental
+                \item<4-> Adaptation du clustering collaboratif au modèle de 
                     clustering obtenu
             \end{itemize}
         \end{frame}
 
-        \begin{frame}{Choix de la mÃ©thode de clustering}
+        \begin{frame}{Choix de la méthode de clustering}
 
             Dans notre cas, utilisation des \textbf{cartes auto-adaptatrices de 
-            Kohonen} (ou Self-Organizing Maps (SOM) en anglais) comme mÃ©thode de 
+            Kohonen} (ou Self-Organizing Maps (SOM) en anglais) comme méthode de 
             clustering.
 
             \begin{itemize}
-                \item \textbf{$\mathbf{1^{Ã¨re}}$ contrainte}: des individus 
-                    correspondants doivent appartenir Ã  des \textbf{prototypes 
-                    correspondants} oÃ¹ Ã  leurs voisinnages proches.
-                \item \textbf{$\mathbf{2^{Ã¨me}}$ contrainte}: \textbf{mÃªme 
+                \item \textbf{$\mathbf{1^{ère}}$ contrainte}: des individus 
+                    correspondants doivent appartenir à des \textbf{prototypes 
+                    correspondants} oÃ¹ à leurs voisinnages proches.
+                \item \textbf{$\mathbf{2^{ème}}$ contrainte}: \textbf{mÃªme 
                     topologie des cartes} pour toutes les vues pour les rendre 
                     comparables.
             \end{itemize}
@@ -306,12 +307,12 @@
 
         \begin{frame}{Cartes Auto-Adaptatrices (SOM)}
             \begin{itemize}
-                \item MÃ©thode Ã  base de \textbf{prototypes} (quantification de 
+                \item Méthode à base de \textbf{prototypes} (quantification de 
                     vecteurs)
-                \item Permet la \textbf{visualisation} de donnÃ©es en hautes 
+                \item Permet la \textbf{visualisation} de données en hautes 
                     dimensions
                 \item Notion de \textbf{voisinage}: utilisation d'une 
-                    \textbf{fonction de tempÃ©rature}.
+                    \textbf{fonction de température}.
             \end{itemize}
 
             \begin{equation*}
@@ -326,27 +327,27 @@
                 \begin{subfigure}[b]{0.45\textwidth}
                     \centering
                     \includegraphics[scale=.2]{somhot}
-                    \caption{TempÃ©rature Ã©levÃ©e}
+                    \caption{Température élevée}
                 \end{subfigure}
                 \begin{subfigure}[b]{0.45\textwidth}
                     \centering
                     \includegraphics[scale=.25]{somcold}
-                    \caption{TempÃ©rature faible}
+                    \caption{Température faible}
                 \end{subfigure}
             \end{figure}
         \end{frame}
 
-        \begin{frame}{SOM: version incrÃ©mentale}
-            Les SOM incrÃ©mentales ont dÃ©jÃ  Ã©tÃ© Ã©tudiÃ©es, mais les solutions 
-            proposÃ©es se basent toutes sur \textbf{l'ajout de prototypes} 
+        \begin{frame}{SOM: version incrémentale}
+            Les SOM incrémentales ont déjà été étudiées, mais les solutions 
+            proposées se basent toutes sur \textbf{l'ajout de prototypes} 
             (\cite{paplinski2012incremental} et \cite{deng2000esom}).\\
             $\rightarrow$ \textbf{Non applicable au clustering collaboratif} du 
             fait de la seconde contrainte: la topologie doit rester la mÃªme pour 
             toutes les cartes.
 
-            \textbf{Limitation}: fonction de tempÃ©rature dÃ©pendante du 
+            \textbf{Limitation}: fonction de température dépendante du 
             \textbf{temps}\\
-            \textbf{Solution}: rendre la fonction dÃ©pendante des 
+            \textbf{Solution}: rendre la fonction dépendante des 
             \textbf{individus}
             \begin{equation*}
                 \lambda(t) = 
@@ -360,7 +361,7 @@
 
         \begin{frame}{SOM et clustering collaboratif}
             L'application des SOM au clustering collaboratif se fait en 
-            dÃ©finissant les termes prÃ©cemment dÃ©finis:
+            définissant les termes précemment définis:
 
             \begin{equation*}
             \label{criterion2}
@@ -385,8 +386,8 @@
         \end{frame}
     
 
-        \begin{frame}{SOM incrÃ©mentale et clustering collaboratif}
-            Adaptation de notre version de SOM incrÃ©mentale au clustering 
+        \begin{frame}{SOM incrémentale et clustering collaboratif}
+            Adaptation de notre version de SOM incrémentale au clustering 
             collaboratif:
             \begin{center}
             $\lambda \rightarrow \widetilde{\lambda}$
@@ -398,25 +399,130 @@
             Q_{collab}^m (\widetilde{K_{i,j}}) \rightarrow 
             \widetilde{Q}_{local}^m / \widetilde{Q}_{collab}^m$
             \end{center}
-            Le nouveau critÃ¨re dÃ©pendant dÃ©pendant uniquement des $N_batch$ 
+            Le nouveau critère dépendant dépendant uniquement des $N_batch$ 
             derniers individus apparus, il est possible d'effectuer un 
-            \textbf{apprentissage collaboratif incrÃ©mental} sur l'ensemble des 
+            \textbf{apprentissage collaboratif incrémental} sur l'ensemble des 
             vues.
 
-            Les rÃ¨gles de mise Ã  jour sont obtenus par \textbf{descente de 
-            gradient} appliquÃ©e sur ce critÃ¨re.
+            Les règles de mise à jour sont obtenus par \textbf{descente de 
+            gradient} appliquée sur ce critère.
         \end{frame}
 
-        \begin{frame}{ExpÃ©rimentations}
-
+        \begin{frame}{Expérimentations}
+            \begin{itemize}
+                \item Analyse de l'impact du clustering collaboratif sur
+                    l'apprentissage incrémental.
+                \item Application directe de la phase collaborative pour le
+                    clustering collaboratif pour pouvoir comparer les
+                    résultats aux version locales.
+                \item Variation de la taille du batch pour étudier l'impact
+                    sur l'apprentissage.
+            \end{itemize}
         \end{frame}
-
-    \section{Optimisation de paramÃ¨tres pour le clustering collaboratif}
-    \begin{frame}
         
+        \begin{frame}{Expérimentations}
+            Test de notre méthode sur 4 jeux de données différents
+            \begin{itemize}
+                \item Spambase
+                \item Waveform
+                \item Wisconsin Breast Cancer Diagnosis (WDBC)
+                \item Isolet
+            \end{itemize}
+
+            \textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.
+            \textbf{Pureté d'un prototype}: classe majoritaire parmi les
+            individus associés à ce prototype
+
+            \textbf{Erreur moyenne de quantification}: distance moyenne
+            entre un prototype et les individus qui y sont associés.
+
+            \begin{equation*}
+                qe = \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i -
+                \omega_{\chi(x_i)}\|^2
+            \end{equation*}
+        \end{frame}
+
+        \begin{frame}{Expérimentations: résultats}
+            \begin{table}[!h]
+                \caption{Erreur de quantification moyenne pour chaque base
+                de donnÃ©e. Les nombres en gras sont les plus petits pour
+            chaque ligne}
+                \begin{center}
+                    \begin{tabular}{cccc}
+                                   & Vue & SOM Incrémentales & \begin{tabular}[c]{@{}c@{}}Clustering Collaboratif\\Incrémentale\end{tabular} \\ \midrule
+        \multirow{3}{*}{Spam Base} & 1    & 0.31            & \textbf{0.26}                                                                  \\
+                                   & 2    & \textbf{0.18}   & 0.19                                                                           \\
+                                   & 3    & 0.18            & \textbf{0.16}                                                                  \\ \midrule
+        \multirow{3}{*}{Waveform}  & 1    & \textbf{0.18}   & 0.23                                                                           \\
+                                   & 2    & \textbf{0.17}   & 0.19                                                                           \\
+                                   & 3    & \textbf{0.24}   & 0.30                                                                           \\ \midrule
+        \multirow{3}{*}{WDBC}      & 1    & \textbf{0.19}   & 0.19                                                                           \\
+                                   & 2    & \textbf{0.16}   & 0.19                                                                           \\
+                                   & 3    & 0.20            & \textbf{0.16}                                                                  \\ \midrule
+        \multirow{3}{*}{Isolet}    & 1    & 2.15            & \textbf{1.27}                                                                  \\
+                                   & 2    & 2.84            & \textbf{1.38}                                                                  \\
+                                   & 3    & 2.85            & \textbf{1.37}                                                                 \\ \midrule
+                    \end{tabular}
+                \end{center}
+            \end{table}
+        \end{frame}
+
+        \begin{frame}{Expérimentations: résultats}
+            Présentation des résultats sur Isolet uniquement.
+            \begin{figure}[!h]
+                \centering
+                \subfloat[$N_{batch}=10$, View 1]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/11.png}\label{img1}}
+                \subfloat[$N_{batch}=10$, View 2]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 1.73cm, clip]{img/22.png}\label{img2}}
+                \subfloat[$N_{batch}=10$, View 3]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/33.png}\label{img3}}\\
+                \subfloat[$N_{batch}=3$, View 1]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 1.9cm, clip]{img/p1.png}\label{img4}}
+                \subfloat[$N_{batch}=3$, View 2]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/p2.png}\label{img5}}
+                \subfloat[$N_{batch}=3$, View 3]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/p3.png}\label{img6}}
+            \caption{Évolution des puretés pour la base de données Isolet. Les lignes rouges représentes les SOM incrémentales tandis que les lignes noires représentent les SOM incrémentales collaboratives. Chaque itération correspond à l'arrivée d'une nouvelle donnée}
+            \end{figure}
+        \end{frame}
+
+        \begin{frame}{Expérimentations: résultats}
+            \begin{itemize}
+                \item Score en quantification à long termes comparables: le
+                    clustering collaboratif n'endommage pas les résultats
+                    locaux.
+                \item Le clustering collaboratif permet de limiter l'impact
+                    du bruit dans les vues.
+                \item Les SOM incrémentales collaboratives apprennent plus
+                    vite que les SOM incrémentales seules: meilleure
+                    exploitation de l'information via le partage.
+                \item Les SOM collaboratives sont globalement plus instables
+                    que les SOM incrémentales.
+                \item La stabilité de l'apprentissage augmente avec la
+                    taille du batch: plus d'informations à exploiter. 
+            \end{itemize}
+        \end{frame}
+
+    \section{Optimisation de paramètres pour le clustering collaboratif}
+    \begin{frame}{Optimisation de paramètres pour le clustering collaboratif}
+        Rappel du critère du clustering collaboratif:
+        \begin{align*}
+            $Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
+            &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, V_j)$
+        \end{align*}
+        Nous avons proposé une nouvelle méthode de pondération permettant
+        d'apprendre automatiquement les poids fixant les importances
+        relatives des différents scores.\\
+
+        \textbf{Objectif}: Apprendre automatiquement les $\alpha$ et les
+        $\beta$ en s'affranchissant de simplifications telles que $\beta =
+        \alpha^2$.
     \end{frame}
 
-    \section{SystÃ¨me de reconstruction collaboratif}
+    \begin{frame}{Optimisation de paramètres: définition du problème}
+        La définition des $\alpha$ et des $\beta$ passe par la résolution
+        d'un problème sous contrainte. Les contraintes sont les suivantes :
+
+        \only<2->{$\forall j \quad \prod_{i \neq j}^J \beta_{i,j} = 1$} \\
+        \only<3->{$\forall (i,j) \quad \beta_{i,j} >0$}
+    \end{frame}
+
+    \section{Système de reconstruction collaboratif}
     \begin{frame}
         
     \end{frame}
