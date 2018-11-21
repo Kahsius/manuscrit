@@ -2,15 +2,17 @@
 
 \usepackage[absolute, overlay]{textpos}
 \usepackage{graphicx}
-%\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{multirow}
 \usepackage{subcaption}
-\usepackage{subfig}
 \usepackage[round]{natbib}
 \usepackage[titlenumbered, ruled]{algorithm2e}
 
 \usetheme[progressbar=frametitle]{metropolis}           % Use metropolis theme
 \setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
 \setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
+%\usepackage{polyglossia}
+%\setmainlanguage{french}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
 \graphicspath{{./img/}}
@@ -39,7 +41,7 @@
                 renforcement}: apprentissage d'un comportement permettant à un 
             modèle de réagir à un environnement dynamique.}
         \end{itemize}
-        Ã€ noter que les domaines ne sont pas exclusifs (apprentissage 
+        À noter que les domaines ne sont pas exclusifs (apprentissage 
         semi-supervisé, apprentissage par renforcement profond\ldots)
     \end{frame}
 
@@ -61,13 +63,12 @@
         \begin{itemize}
             \item La notion de \textbf{similarité} est souvent confondue avec la 
                 notion de \textbf{distance}.
-            \item La similarité doit Ãªtre \textbf{adaptée à la nature des 
+            \item La similarité doit être \textbf{adaptée à la nature des 
                 données}.
         \end{itemize}
 
         \begin{table}[!h]
             \centering
-               %\tabcolsep = 1\tabcolsep
                \begin{tabular}{cc}
                \hline
                Euclidienne & $ ||a - b ||_2  = \sqrt{ \sum_{i} (a_i - b_i)^2} $    \\	
@@ -88,7 +89,7 @@
     \begin{frame}{Clustering: types de partitions}
         Après un clustering, on obtient une partition de l'espace ainsi que les 
         appartenances des individus à chaque groupe de cette partition. Ces 
-        appartenances peuvent Ãªtre \textbf{dures}, \textbf{molles} ou 
+        appartenances peuvent être \textbf{dures}, \textbf{molles} ou 
         \textbf{floues}.
 
         \begin{table}[htbp]
@@ -161,7 +162,7 @@
     \end{frame}
 
     \begin{frame}{Clustering: approche multi-vues}
-        Apparition d'un nouveau contexte: \textbf{un mÃªme ensemble d'individu} 
+        Apparition d'un nouveau contexte: \textbf{un même ensemble d'individu} 
         est décrit dans plusieurs base de données indépendantes appelées 
         \textbf{vues}.
 
@@ -198,10 +199,10 @@
         collaborer pour \textbf{améliorer localement} leurs résultats.
 
         \begin{itemize}
-            \item Les algorithmes utilisés peuvent Ãªtre \textbf{différents}.
+            \item Les algorithmes utilisés peuvent être \textbf{différents}.
             \item Les vues doivent partager soit leurs descripteurs (clustering 
                 vertical), soit \textbf{leurs individus} (clustering horizontal) 
-                pour pouvoir Ãªtre comparées.
+                pour pouvoir être comparées.
         \end{itemize}
         \begin{figure}[b]
             \centering
@@ -219,21 +220,21 @@
         \end{figure}
     \end{frame}
 
-    \begin{frame}{Clustering collaboratif: théorie}
-        Définition d'un critère $Q^i$ à optimiser pour chaque vue $V_i$:
-        \begin{align*}
-            $Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
-            &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, V_j)$
-        \end{align*}
-        Avec:
-        \begin{itemize}
-            \item $\alpha_i$ et $\beta_j^i$ les coeffcients de pondération.
-            \item $Q^i_{local}$ et $Q^i_{collab}$ respectivement les 
-                contributions de la vue locale et des vues externes.
-            \item $C_j^i$ la contribution de la vue externe $V_j$, détermine le 
-                degrès de similarité entre $V_i$ et $V_j$.
-        \end{itemize}
-    \end{frame}
+    %\begin{frame}{Clustering collaboratif: théorie}
+        %Définition d'un critère $Q^i$ à optimiser pour chaque vue $V_i$:
+        %\begin{align*}
+            %$Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
+            %&= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, V_j)$
+        %\end{align*}
+        %Avec:
+        %\begin{itemize}
+            %\item $\alpha_i$ et $\beta_j^i$ les coeffcients de pondération.
+            %\item $Q^i_{local}$ et $Q^i_{collab}$ respectivement les 
+                %contributions de la vue locale et des vues externes.
+            %\item $C_j^i$ la contribution de la vue externe $V_j$, détermine le 
+                %degrès de similarité entre $V_i$ et $V_j$.
+        %\end{itemize}
+    %\end{frame}
 
     \begin{frame}{Clustering collaboratif: théorie}
         Définition d'un algorithme de clustering collaboratif:
@@ -293,8 +294,8 @@
             \begin{itemize}
                 \item \textbf{$\mathbf{1^{ère}}$ contrainte}: des individus 
                     correspondants doivent appartenir à des \textbf{prototypes 
-                    correspondants} oÃ¹ à leurs voisinnages proches.
-                \item \textbf{$\mathbf{2^{ème}}$ contrainte}: \textbf{mÃªme 
+                    correspondants} ou à leurs voisinnages proches.
+                \item \textbf{$\mathbf{2^{ème}}$ contrainte}: \textbf{même 
                     topologie des cartes} pour toutes les vues pour les rendre 
                     comparables.
             \end{itemize}
@@ -343,7 +344,7 @@
             proposées se basent toutes sur \textbf{l'ajout de prototypes} 
             (\cite{paplinski2012incremental} et \cite{deng2000esom}).\\
             $\rightarrow$ \textbf{Non applicable au clustering collaboratif} du 
-            fait de la seconde contrainte: la topologie doit rester la mÃªme pour 
+            fait de la seconde contrainte: la topologie doit rester la même pour 
             toutes les cartes.
 
             \textbf{Limitation}: fonction de température dépendante du 
@@ -421,165 +422,203 @@
             \end{itemize}
         \end{frame}
         
-        \begin{frame}{Expérimentations}
-            Test de notre méthode sur 4 jeux de données différents
-            \begin{itemize}
-                \item Spambase
-                \item Waveform
-                \item Wisconsin Breast Cancer Diagnosis (WDBC)
-                \item Isolet
-            \end{itemize}
+        %\begin{frame}{Expérimentations}
+            %Test de notre méthode sur 4 jeux de données différents
+            %\begin{itemize}
+                %\item Spambase
+                %\item Waveform
+                %\item Wisconsin Breast Cancer Diagnosis (WDBC)
+                %\item Isolet
+            %\end{itemize}
 
-            \textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.
-            \textbf{Pureté d'un prototype}: classe majoritaire parmi les
-            individus associés à ce prototype
+            %\textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.
+            %\textbf{Pureté d'un prototype}: classe majoritaire parmi les
+            %individus associés à ce prototype
 
-            \textbf{Erreur moyenne de quantification}: distance moyenne
-            entre un prototype et les individus qui y sont associés.
+            %\textbf{Erreur moyenne de quantification}: distance moyenne
+            %entre un prototype et les individus qui y sont associés.
 
-            \begin{equation*}
-                qe = \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i -
-                \omega_{\chi(x_i)}\|^2
-            \end{equation*}
-        \end{frame}
+            %\begin{equation*}
+                %qe = \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i -
+                %\omega_{\chi(x_i)}\|^2
+            %\end{equation*}
+        %\end{frame}
 
-        \begin{frame}{Expérimentations: résultats}
-            \begin{table}[!h]
-                \caption{Erreur de quantification moyenne pour chaque base
-                de donnÃ©e. Les nombres en gras sont les plus petits pour
-            chaque ligne}
-                \begin{center}
-                    \begin{tabular}{cccc}
-                                   & Vue & SOM Incrémentales & \begin{tabular}[c]{@{}c@{}}Clustering Collaboratif\\Incrémentale\end{tabular} \\ \midrule
-        \multirow{3}{*}{Spam Base} & 1    & 0.31            & \textbf{0.26}                                                                  \\
-                                   & 2    & \textbf{0.18}   & 0.19                                                                           \\
-                                   & 3    & 0.18            & \textbf{0.16}                                                                  \\ \midrule
-        \multirow{3}{*}{Waveform}  & 1    & \textbf{0.18}   & 0.23                                                                           \\
-                                   & 2    & \textbf{0.17}   & 0.19                                                                           \\
-                                   & 3    & \textbf{0.24}   & 0.30                                                                           \\ \midrule
-        \multirow{3}{*}{WDBC}      & 1    & \textbf{0.19}   & 0.19                                                                           \\
-                                   & 2    & \textbf{0.16}   & 0.19                                                                           \\
-                                   & 3    & 0.20            & \textbf{0.16}                                                                  \\ \midrule
-        \multirow{3}{*}{Isolet}    & 1    & 2.15            & \textbf{1.27}                                                                  \\
-                                   & 2    & 2.84            & \textbf{1.38}                                                                  \\
-                                   & 3    & 2.85            & \textbf{1.37}                                                                 \\ \midrule
-                    \end{tabular}
-                \end{center}
-            \end{table}
-        \end{frame}
+        %\begin{frame}{Expérimentations: résultats}
+            %\begin{table}[!h]
+                %\caption{Erreur de quantification moyenne pour chaque base
+                %de donnÃ©e. Les nombres en gras sont les plus petits pour
+            %chaque ligne}
+                %\begin{center}
+                    %\begin{tabular}{cccc}
+                                   %& Vue & SOM Incrémentales & \begin{tabular}[c]{@{}c@{}}Clustering Collaboratif\\Incrémentale\end{tabular} \\ \midrule
+        %\multirow{3}{*}{Spam Base} & 1    & 0.31            & \textbf{0.26}                                                                  \\
+                                   %& 2    & \textbf{0.18}   & 0.19                                                                           \\
+                                   %& 3    & 0.18            & \textbf{0.16}                                                                  \\ \midrule
+        %\multirow{3}{*}{Waveform}  & 1    & \textbf{0.18}   & 0.23                                                                           \\
+                                   %& 2    & \textbf{0.17}   & 0.19                                                                           \\
+                                   %& 3    & \textbf{0.24}   & 0.30                                                                           \\ \midrule
+        %\multirow{3}{*}{WDBC}      & 1    & \textbf{0.19}   & 0.19                                                                           \\
+                                   %& 2    & \textbf{0.16}   & 0.19                                                                           \\
+                                   %& 3    & 0.20            & \textbf{0.16}                                                                  \\ \midrule
+        %\multirow{3}{*}{Isolet}    & 1    & 2.15            & \textbf{1.27}                                                                  \\
+                                   %& 2    & 2.84            & \textbf{1.38}                                                                  \\
+                                   %& 3    & 2.85            & \textbf{1.37}                                                                 \\ \midrule
+                    %\end{tabular}
+                %\end{center}
+            %\end{table}
+        %\end{frame}
 
-        \begin{frame}{Expérimentations: résultats}
-            Présentation des résultats sur Isolet uniquement.
-            \begin{figure}[!h]
-                \centering
-                \subfloat[$N_{batch}=10$, View 1]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/11.png}\label{img1}}
-                \subfloat[$N_{batch}=10$, View 2]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 1.73cm, clip]{img/22.png}\label{img2}}
-                \subfloat[$N_{batch}=10$, View 3]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/33.png}\label{img3}}\\
-                \subfloat[$N_{batch}=3$, View 1]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 1.9cm, clip]{img/p1.png}\label{img4}}
-                \subfloat[$N_{batch}=3$, View 2]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/p2.png}\label{img5}}
-                \subfloat[$N_{batch}=3$, View 3]{\includegraphics[width=0.33\textwidth, trim= 0 0.5cm 1cm 2cm, clip]{img/p3.png}\label{img6}}
-            \caption{Évolution des puretés pour la base de données Isolet. Les lignes rouges représentes les SOM incrémentales tandis que les lignes noires représentent les SOM incrémentales collaboratives. Chaque itération correspond à l'arrivée d'une nouvelle donnée}
-            \end{figure}
-        \end{frame}
+        %\begin{frame}{Expérimentations: résultats}
+            %Présentation des résultats sur Isolet uniquement.
+            %\begin{figure}[b]
+                %\centering
+                %\begin{subfigure}[b]{0.45\textwidth}
+                    %\centering
+                    %\includegraphics[scale=.2]{somhot}
+                    %\caption{Température élevée}
+                %\end{subfigure}
+                %\begin{subfigure}[b]{0.45\textwidth}
+                    %\centering
+                    %\includegraphics[scale=.25]{somcold}
+                    %\caption{Température faible}
+                %\end{subfigure}
+            %\end{figure}
+            %\begin{figure}[!h]
+                %\centering
+                %\begin{subfigure}[b]{0.33\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.33\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/11.png}
+                    %\caption{$N_{batch}=10$, View 1}
+                %\end{subfigure}
+                %\begin{subfigure}[b]{0.33\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.33\textwidth, trim= 0cm 0.5cm 1cm 1.73cm, clip]{img/22.png}
+                    %\caption{$N_{batch}=10$, View 2}
+                %\end{subfigure}
+                %\begin{subfigure}[b]{0.33\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.33\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/33.png}
+                    %\caption{$N_{batch}=10$, View 3}
+                %\end{subfigure}\\
+                %\begin{subfigure}[b]{0.33\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.33\textwidth, trim= 0cm 0.5cm 1cm 1.9cm, clip]{img/p1.png}
+                    %\caption{$N_{batch}=3$, View 1}
+                %\end{subfigure}
+                %\begin{subfigure}[b]{0.33\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.33\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/p2.png}
+                    %\caption{$N_{batch}=3$, View 2}
+                %\end{subfigure}
+                %\begin{subfigure}[b]{0.33\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.33\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/p3.png}
+                    %\caption{$N_{batch}=3$, View 3}
+                %\end{subfigure}
+                %\caption{Évolution des puretés pour la base de données Isolet.  Les lignes rouges représentes les SOM incrémentales tandis que les lignes noires représentent les SOM incrémentales collaboratives.  Chaque itération correspond à l'arrivée d'une nouvelle donnée}
+            %\end{figure}
+        %\end{frame}
 
-        \begin{frame}{Expérimentations: résultats}
-            \begin{itemize}
-                \item Score en quantification à long termes comparables: le
-                    clustering collaboratif n'endommage pas les résultats
-                    locaux.
-                \item Le clustering collaboratif permet de limiter l'impact
-                    du bruit dans les vues.
-                \item Les SOM incrémentales collaboratives apprennent plus
-                    vite que les SOM incrémentales seules: meilleure
-                    exploitation de l'information via le partage.
-                \item Les SOM collaboratives sont globalement plus instables
-                    que les SOM incrémentales.
-                \item La stabilité de l'apprentissage augmente avec la
-                    taille du batch: plus d'informations à exploiter. 
-            \end{itemize}
-        \end{frame}
+        %\begin{frame}{Expérimentations: résultats}
+            %\begin{itemize}
+                %\item Score en quantification à long termes comparables: le
+                    %clustering collaboratif n'endommage pas les résultats
+                    %locaux.
+                %\item Le clustering collaboratif permet de limiter l'impact
+                    %du bruit dans les vues.
+                %\item Les SOM incrémentales collaboratives apprennent plus
+                    %vite que les SOM incrémentales seules: meilleure
+                    %exploitation de l'information via le partage.
+                %\item Les SOM collaboratives sont globalement plus instables
+                    %que les SOM incrémentales.
+                %\item La stabilité de l'apprentissage augmente avec la
+                    %taille du batch: plus d'informations à exploiter. 
+            %\end{itemize}
+        %\end{frame}
 
-    \section{Optimisation de paramètres pour le clustering collaboratif}
-    \begin{frame}{Optimisation de paramètres pour le clustering collaboratif}
-        Rappel du critère du clustering collaboratif:
-        \begin{align*}
-            $Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
-            &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, V_j)$
-        \end{align*}
-        Nous avons proposé une nouvelle méthode de pondération permettant
-        d'apprendre automatiquement les poids fixant les importances
-        relatives des différents scores.\\
+    %\section{Optimisation de paramètres pour le clustering collaboratif}
 
-        \textbf{Objectif}: Apprendre automatiquement les $\alpha$ et les
-        $\beta$ en s'affranchissant de simplifications telles que $\beta =
-        \alpha^2$.
-    \end{frame}
+    %\begin{frame}{Optimisation de paramètres pour le clustering collaboratif}
+        %Rappel du critère du clustering collaboratif:
+        %\begin{align*}
+            %$Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
+            %&= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, V_j)$
+        %\end{align*}
+        %Nous avons proposé une nouvelle méthode de pondération permettant
+        %d'apprendre automatiquement les poids fixant les importances
+        %relatives des différents scores.\\
 
-    \begin{frame}{Optimisation de paramètres: définition du problème}
-        La définition des $\alpha$ et des $\beta$ passe par la résolution
-        d'un problème sous contrainte. Les contraintes sont les suivantes :
+        %\textbf{Objectif}: Apprendre automatiquement les $\alpha$ et les
+        %$\beta$ en s'affranchissant de simplifications telles que $\beta =
+        %\alpha^2$.
+    %\end{frame}
 
-        \only<2->{$\forall j \quad \prod_{i \neq j}^J \beta_{i,j} = 1$} \\
-        \only<3->{$\forall (i,j) \quad \beta_{i,j} >0$}
+    %\begin{frame}{Optimisation de paramètres: définition du problème}
+        %La définition des $\alpha$ et des $\beta$ passe par la résolution
+        %d'un problème sous contrainte. Les contraintes sont les suivantes :
 
-        \only<4->{Affranchissement des $\alpha$: comme il s'agit de pondérations
-            relatives, on peut fixer $\alpha=1$.
-            $\b^* =  \operatornamewithlimits{argmin}_{\b}  \sum_{i \neq j}
-        \b_{i,j}  C _{i,j} $}
-    \end{frame}
+        %\only<2->{$\forall j \quad \prod_{i \neq j}^J \beta_{i,j} = 1$} \\
+        %\only<3->{$\forall (i,j) \quad \beta_{i,j} >0$}
 
-    \begin{frame}{Optimisation de paramètres: méthode de Karush-Kuhn-Tucker}
-        Critère + contrainte d'égalité + contrainte d'inégalité
-        $\rightarrow$ méthode de Karush-Kuhn-Tucker (KKT)
+        %\only<4->{Affranchissement des $\alpha$: comme il s'agit de pondérations
+            %relatives, on peut fixer $\alpha=1$.
+            %$\beta^* =  \operatornamewithlimits{argmin}_{\beta}  \sum_{i \neq j}
+        %\beta_{i,j}  C _{i,j} $}
+    %\end{frame}
 
-        \begin{equation*}
-        L(\beta,\nu,\lambda)=\sum_{j=1}^J  \sum_{i \neq j}^J ( \beta_{i,j}  C_{i,j}
-        - \nu_j  \lambdan  \beta_{i,j}  - \lambda_{i,j}   \beta_{i,j} ).
-        \end{equation*}
+    %\begin{frame}{Optimisation de paramètres: méthode de Karush-Kuhn-Tucker}
+        %Critère + contrainte d'égalité + contrainte d'inégalité
+        %$\rightarrow$ méthode de Karush-Kuhn-Tucker (KKT)
 
-        \begin{equation*}
-            \frac{\partial L}{\partial \beta_{i,j}} = 0
-            \quad
-            \frac{\partial L}{\partial \nu} = 0
-            \quad
-            \frac{\partial L}{\partial \lambda} = 0
-        \end{equation*}
-    \end{frame}
+        %\begin{equation*}
+        %L(\beta,\nu,\lambda)=\sum_{j=1}^J  \sum_{i \neq j}^J ( \beta_{i,j}  C_{i,j}
+        %- \nu_j  \lambdan  \beta_{i,j}  - \lambda_{i,j}   \beta_{i,j} ).
+        %\end{equation*}
+
+        %\begin{equation*}
+            %\frac{\partial L}{\partial \beta_{i,j}} = 0
+            %\quad
+            %\frac{\partial L}{\partial \nu} = 0
+            %\quad
+            %\frac{\partial L}{\partial \lambda} = 0
+        %\end{equation*}
+    %\end{frame}
     
-    \begin{frame}
-        \begin{equation}
-            \b_{i,j} =  \frac{(\prod_{k\neq j} C _{k,j})^{\frac 1 {J-1}}}
-            {C_{i,j}} \qquad
-        \end{equation} 
+    %\begin{frame}
+        %\begin{equation}
+            %\b_{i,j} =  \frac{(\prod_{k\neq j} C _{k,j})^{\frac 1 {J-1}}}
+            %{C_{i,j}} \qquad
+        %\end{equation} 
 
-        L'importance d'une vue externe relativement à une vue locale est
-        proportionnelle au rapport entre la moyenne géométrique de toutes les
-        dissimilarités par rapport à la dissimilarité entre les deux vues
-        .\\
-        $\rightarrow$ plus 2 vues sont similaires, plus elles collaboreront.
-    \end{frame}
+        %L'importance d'une vue externe relativement à une vue locale est
+        %proportionnelle au rapport entre la moyenne géométrique de toutes les
+        %dissimilarités par rapport à la dissimilarité entre les deux vues
+        %.\\
+        %$\rightarrow$ plus 2 vues sont similaires, plus elles collaboreront.
+    %\end{frame}
 
-    \begin{frame}
-        \begin{algorithm}[!h]
-            \caption{Algorithme topologique de collaboration horizontale}
-            \textbf{Initialisation:} Initialiser toutes les cartes de
-            prototypes $W$ aléatoirement. \\
-            \textbf{Étape locale:} Initialisation des cartes\\
-            \ForAll{Vue $i$} {
-                Minimiser la fonction objectif des cartes auto-adaptatrices
-                standards.
-            } 
-            \textbf{Étape collaborative:}\\
-            \ForAll{Vue $i$} {
-                Pour $w$ fixé, calculer:
-                $\beta$ en à l'aide de l'équation~\ref{eq:sum_kkt_alpha}\\
-                Mettre à jour les prototypes de toutes les cartes:
-                $ 
-                w^{*} =  argmin_{w}\mathcal{C}(w,\alpha,\beta) 
-                $
-            }	 
-        \end{algorithm}
-    \end{frame}
+    %\begin{frame}
+        %\begin{algorithm}[!h]
+            %\caption{Algorithme topologique de collaboration horizontale}
+            %\textbf{Initialisation:} Initialiser toutes les cartes de
+            %prototypes $W$ aléatoirement. \\
+            %\textbf{Étape locale:} Initialisation des cartes\\
+            %\ForAll{Vue $i$} {
+                %Minimiser la fonction objectif des cartes auto-adaptatrices
+                %standards.
+            %} 
+            %\textbf{Étape collaborative:}\\
+            %\ForAll{Vue $i$} {
+                %Pour $w$ fixé, calculer:
+                %$\beta$ en à l'aide de l'équation~\ref{eq:sum_kkt_alpha}\\
+                %Mettre à jour les prototypes de toutes les cartes:
+                %$ 
+                %w^{*} =  argmin_{w}\mathcal{C}(w,\alpha,\beta) 
+                %$
+            %}	 
+        %\end{algorithm}
+    %\end{frame}
 
     \begin{frame}{Expérimentations}
         
