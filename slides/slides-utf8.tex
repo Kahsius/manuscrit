@@ -15,7 +15,7 @@
 %\setmainlanguage{french}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
-\graphicspath{{./img/}}
+\graphicspath{{../img/}}
 
 \title{Contributions aux communications multi-vues\\pour l'apprentissage collaboratif}
 \date{10 Décembre 2018}
@@ -47,7 +47,7 @@
 
     \begin{frame}{Clustering}
         \begin{itemize}
-            \item TÃ¢che d'apprentissage \textbf{non supervisée} consistant à 
+            \item Tâche d'apprentissage \textbf{non supervisée} consistant à 
                 rassembler des groupes d'individus (a.k.a. clusters) de sorte à 
                 \textbf{maximiser la similarité intra-groupe} et à 
                 \textbf{minimiser la similarité inter-groupes}.
@@ -633,11 +633,12 @@
     \begin{frame}{Expérimentations}
         Deux axes d'analyse:
         \begin{itemize}
-            \item Analyse de \textbf{l'évolution du critère 
-                collaboratif} avec et sans apprentissage automatique des 
-                poids.
-            \item Analyse des \textbf{valeurs prises par les} $\beta$ en 
-                fin d'apprentissage.
+            \item Analyse de \textbf{l'évolution du critère collaboratif} avec 
+                et sans apprentissage automatique des poids (critère: différence 
+                relative).
+            \item Analyse des \textbf{valeurs prises par les} $\beta$ en fin 
+                d'apprentissage. (critère: différences relatives entre les 
+                poids).
         \end{itemize}
 
         \onslide<2->{Ce que l'on s'attend à trouver:
@@ -658,6 +659,10 @@
     \begin{frame}{Expérimentations: évolution du critère}
         \begin{figure}[!h]
             \centering
+            \caption{Différences relatives du critère collaboratif avec et sans 
+                optimisation des $\beta$ tout au long du processus 
+                d'apprentissage.
+            }
             %\begin{subfigure}[b]{0.3\textwidth}
                 %\centering
                 %\includegraphics[width=0.8\textwidth]{wdbc_RD.png}
@@ -670,70 +675,288 @@
             %\end{subfigure}
             \begin{subfigure}[b]{0.32\textwidth}
                 \centering
-                \includegraphics[width=1.0\textwidth]{spambase_RD3.png}
+                \includegraphics[width=0.8\textwidth]{spambase_RD3.png}
                 \caption{Spambase}
             \end{subfigure}
             \begin{subfigure}[b]{0.32\textwidth}
                 \centering
-                \includegraphics[width=1.0\textwidth]{isolet_RD2}
+                \includegraphics[width=0.8\textwidth]{isolet_RD2}
                 \caption{Isolet}
             \end{subfigure}
             \begin{subfigure}[b]{0.32\textwidth}
                 \centering
-                \includegraphics[width=1.0\textwidth]{vhr_RD}
+                \includegraphics[width=0.8\textwidth]{vhr_RD}
                 \caption{VHR Strasbourg}
             \end{subfigure}
-            \caption{Relative differences of the weighted criterion with 
-                and without $\beta$ optimization all along the learning 
-                process
-            }
         \end{figure}
-    \end{frame}
 
-    \begin{frame}{Expérimentations: évolution du critère}
         \begin{itemize}
-            \item \textbf{Amélioration du critère} de manière 
-                significative dans la majorité des cas\\~\\
-            \item Tous les jeux de données \textbf{ne sont pas traités 
-                de la même manière}.
-                \begin{itemize}
-                    \item Hypothèse: La quantité d'information à 
-                        partagée n'est pas toujours la même suivant les 
-                        bases considérées.
-                \end{itemize}
+            \item \textbf{Amélioration du critère} de manière significative dans 
+                la majorité des cas
+            \item Tous les jeux de données \textbf{ne sont pas traités de la 
+                même manière} (dépend de la quantité d'informations à partager).
         \end{itemize}
-
-        Si le critère a été améliorée, c'est peut être parce qu'entre 
-        autre, les vues bruitées ont été identifiées ?
     \end{frame}
 
     \begin{frame}{Expérimentations: identifications des vues bruitées}
-        \begin{subfigure}[b]{0.32\textwidth}
+        \begin{figure}[b]
             \centering
-            \includegraphics[width=0.33\textwidth]{wdbc_bw}
-            \caption{WDBC}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.32\textwidth}
-            \centering
-            \includegraphics[width=0.33\textwidth]{waveform_bw}
-            \caption{Waveform}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.32\textwidth}
-            \centering
-            \includegraphics[width=0.33\textwidth]{isolet_bw}
-            \caption{Isolet}
-        \end{subfigure}
-        \caption{Heatmap of the $\beta$ matrices for each dataset.  
-            Colors go from white (strong collaboration) to black (weak 
-            collaboration). The gray color on the diagonal stands for 
-            $\beta=1$.
-        }
+            \caption{Cartes de chaleur des matrices de $\beta$ pour chaque jeu 
+                de données. $M(i,j)$ correspond à l'importance accordée à la Vue 
+                j par la Vue i.\\Blanc = forte collaboration - noir = faible 
+                collaboration -  diagonale représente $\beta=1$.
+            }
+            \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[width=0.8\textwidth]{wdbc_bw}
+                \caption{WDBC}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[width=0.8\textwidth]{waveform_bw}
+                \caption{Waveform}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[width=0.8\textwidth]{isolet_bw}
+                \caption{Isolet}
+            \end{subfigure}
         \end{figure}
+
+        \begin{itemize}
+            \item\textbf{Identification des vues bruitées.}
+            \item Apparition de \textbf{méta-clusters} (des clusters de 
+                clusters). Les vues auront tendance à se regrouper en 
+                sous-groupe mutuellement d'accord.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Optimisation des paramètres: résumé}
+        \begin{itemize}
+            \item Proposition d'un \textbf{système de pondération automatique 
+                des vues externes} pour le clustering collaboratif.\\~\\
+            \item Amélioration de la valeur du critère collaboratif
+            \item Identification des vues bruitées
+            \item (BONUS) Apparition de méta-clusters de vues\\~\\
+        \end{itemize}
+
+        \begin{center}
+            \fontsize{14pt}{15pt}
+            \onslide<2>{\textbf{Est-il possible d'étendre l'idée de 
+                collaboration\\à d'autres problèmes que le clustering ?}
+            }
+        \end{center}
     \end{frame}
 
     \section{Système de reconstruction collaboratif}
     \begin{frame}
-        
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.26]{idee_reconstruction_collaborative1}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.26]{idee_reconstruction_collaborative2}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.26]{idee_reconstruction_collaborative3}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.26]{idee_reconstruction_collaborative4}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.26]{idee_reconstruction_collaborative5}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.26]{idee_reconstruction_collaborative6}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.26]{idee_reconstruction_collaborative7}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: définition}
+        Comment définir le problème de \textbf{reconstruction collaborative} ?
+        \begin{itemize}
+            \item Application du \textbf{paradigme collaboratif} à un autre 
+                problème
+            \item Le clustering collaboratif nécessite la \textbf{description 
+                d'un même individu dans chacune des vues}
+            \item En pratique, les données souvent sont \textbf{soit manquantes, 
+                soit incomplètes}.
+        \end{itemize}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=.15]{missing}
+        \end{figure}
+
+        La reconstruction collaborative devrait permettre d'obtenir \textbf{une 
+        approximation} d'un individu dans une vue connaissant 
+        \textbf{l'information présente dans les autres vues}.
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: défis}
+        \begin{enumerate}
+            \item \textbf{Compresser et anonymiser} les données
+            \item \textbf{Transférer de l'information} d'une vue externe à une 
+                vue locale
+            \item \textbf{Combiner les informations} en provenance de 
+                différentes sources
+        \end{enumerate}
+
+        \onslide<2->{Ce que nous proposons:}
+        \begin{enumerate}[<+(1)->]
+            \item \textbf{Des réseaux de neurones} (autoencodeurs).
+            \item \textbf{D'autres réseaux de neurones} (perceptrons 
+                multi-couches).
+            \item \textbf{Une nouvelle méthode de combinaison}.
+        \end{enumerate}
+    \end{frame}
+
+    \begin{frame}{Réseaux de neurones: backpropagation}
+        \begin{columns}
+            \begin{column}{0.4\textwidth}
+                \begin{itemize}
+                    \item Méthode utilisée pour \textbf{mettre à jour des 
+                        paramètres} en utilisant la méthode de \textbf{descente 
+                        de gradient}.\\~\\
+                    \item L'erreur est propagée \textbf{de la sortie vers l'entrée} du 
+                        réseau.
+                \end{itemize}
+            \end{column}
+            \begin{column}{0.6\textwidth}
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[scale=.20]{backprop}
+                \end{figure}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}{Réseaux de neurones: MLP et autoencodeurs}
+        \begin{columns}
+            \begin{column}{0.5\textwidth}
+                Perceptron multi-couches
+                \begin{itemize}
+                    \item entrées et sorties \textbf{différentes}
+                    \item apprentissage \textbf{supervisé}
+                \end{itemize}
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[scale=.18]{mlp}
+                \end{figure}
+            \end{column}
+            \begin{column}{0.5 \textwidth}
+                Autoencodeur
+                \begin{itemize}
+                    \item entrées et sorties \textbf{identiques}
+                    item apprentissage \textbf{non supervisé}
+                \end{itemize}
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[scale=.18]{ae}
+                \end{figure}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: rappel}
+        Rappel de la problèmatique
+        \begin{itemize}
+            \item Un individu décrit dans \textbf{toutes les vues sauf une}
+            \item Utilisation des informations externes pour obtenir \textbf{une 
+                approximation locale}
+        \end{itemize}
+        \vspace{-0.5cm}
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.21]{idee_reconstruction_collaborative7}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: système}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=.28]{base_system.pdf}
+            \caption{Architecture d'un système de reconstruction collaborative}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: système}
+        \begin{columns}
+            \fontsize{10pt}{12pt}
+            \begin{column}{0.5\textwidth}
+                \textbf{Autoencodeurs}
+                \begin{itemize}
+                    \item Un par vue: encoder chaque espace
+                    \item Rend difficile la reconstruction des données 
+                        originales sans le décodeur
+                \end{itemize}
+            \end{column}
+            \begin{column}{0.5\textwidth}
+                \textbf{Perceptron multi-couches}
+                \begin{itemize}
+                    \item Décode les représentations externes
+                    \item Passe d'un espace codé à l'espace local
+                \end{itemize}
+            \end{column}
+        \end{columns}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=.20]{base_system.pdf}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: combinaison}
+        \begin{itemize}
+            \item<+-> Pour chaque individu et avec $N$ vues, on peut avoir 
+                jusqu'à $N-1$ \textbf{reconstructions différentes}.
+            \item<.-> Comment les combiner ?\\~\\
+            \item<+-> Habituellement, combinaison \textbf{pondérée} des 
+                différentes reconstructions.
+                \begin{itemize}
+                    \item Un scalaire par vue
+                    \item Différentes façons d'apprendre les poids\\~\\
+                \end{itemize}
+            \item<+-> \textit{MAIS} cela implique une hypothèse forte: chaque 
+                vue contient exactement \textbf{la même information} sur les 
+                individus $\rightarrow$ irréaliste.
+            \item<.-> À la place d'un poids unique, nous utilisons un 
+                \textbf{masque}.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: combinaison}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=.2]{mwm.png}
+            \caption{Méthode de pondération par masque (Masked Weighting Method 
+                (MWM) en anglais).
+            }
+        \end{figure}
     \end{frame}
 
     \section{Perspectives}
