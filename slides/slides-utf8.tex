@@ -15,7 +15,7 @@
 %\setmainlanguage{french}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
-\graphicspath{{../img/}}
+\graphicspath{{../img/sample/}{../img/moches/}{../img/original/}{../img/}}
 
 \title{Contributions aux communications multi-vues\\pour l'apprentissage collaboratif}
 \date{10 Décembre 2018}
@@ -953,10 +953,382 @@
         \begin{figure}[h]
             \centering
             \includegraphics[scale=.2]{mwm.png}
-            \caption{Méthode de pondération par masque (Masked Weighting Method 
-                (MWM) en anglais).
+            \caption{Pondération par masque (Masked Weighting Method
+                en anglais).
             }
         \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: combinaison}
+        \begin{itemize}
+            \item Chaque vue possède $N-1$ masques, un par vue externe, utilisés 
+                pour \textbf{pondérer chaque représentation externe}.
+            \item Chaque masque est entraîné de manière itérative
+            \item \textbf{Avantage}: les masques peuvent se concentrer sur 
+                \textbf{les parties les mieux reconstruites} par la vue externe.
+        \end{itemize}
+        \begin{figure}[b]
+            \centering
+            \includegraphics[scale=.17]{mwm.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: combinaison}
+        Idée de base pour la mise à jour des poids
+        \begin{equation*}
+             E_i = \frac{1}{|V_i|}\sum_{x_i \in V_i}||x_i - \widetilde{x}_i||^2 
+             \quad puis \quad \frac{\partial E_i}{\partial w_{i|j}^k} = 0
+        \end{equation*}
+        \begin{itemize}
+            \item $E_i$ = erreur de la $i$-ème vue
+            \item $V_i$ = $i$-ème vue
+            \item $x_i$ = individu de $V_i$
+            \item $w_{i|j}^k$ = $k$-ème coordonnée du masque attribué à la 
+                $j$-ème vue
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: combinaison}
+        Après calcul:
+        \begin{equation*}
+            w_{i|j}^k = \frac{\sum_{x_i \in V_i} x_{i|j}^k\big(x_i^k - 
+            \only<1>{\sum_{j'\in[1..N]\backslash \{i,j\}} w_{i|j'}^k x_{i|j'}^k}
+            \only<2>{\textcolor{red}{\sum_{j'\in[1..N]\backslash \{i,j\}} w_{i|j'}^k} x_{i|j'}^k}
+            \big)}{\sum_{x_i \in V_i}(x_{i|j}^k)^2}
+        \end{equation*}
+        \begin{itemize}
+            \item<2> La mise à jour d'un poids dépend de \textbf{tous les autres 
+                paramètres}\\$\rightarrow$ Définition d'une règle de mise à jour 
+                \textbf{itérative}.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: entraînement}
+        \begin{itemize}
+            \item Entraînement\textbf{séquentiel}
+                \begin{itemize}
+                    \item les autoencodeurs pour \textbf{encoder} les données
+                    \item les perceptrons multi couches pour 
+                        \textbf{reconstruire} les individus
+                    \item les masques pour \textbf{combiner} les échantillons 
+                        reconstruits\\~\\
+                \end{itemize}
+            \item Une vue n'a \textbf{\textit{jamais}} accès aux données 
+                originales de deux vues différentes.
+                \begin{itemize}
+                    \item \textbf{autoencodeurs}: données originales locales
+                    \item \textbf{perceptrons}: données externes encodées + 
+                        données originales locales
+                    \item \textbf{masques}: échantillons reconstruits + données 
+                        originales locales
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: entraînement}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=.10]{sequence}
+            \caption{Apprentissage séquentiel des éléments du système}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: expériences}
+        \begin{itemize}
+            \item Wisconsin Diagnostic Breast Cancer (WDBC)
+                \begin{itemize}
+                    \item 569 individus
+                    \item 32 descripteurs
+                \end{itemize}
+            \item Multi-Features Digital Dataset (MFDD)
+                \begin{itemize}
+                    \item 2000 individus
+                    \begin{itemize}
+                        \item 76 coefficients de Fourier
+                        \item 216 correlations profile
+                        \item 64 coefficients Karhunen-Love
+                        \item\textbf{240 pixels moyennés en fenêtres de 2 
+                            $\times$ 3}
+                        \item 47 moments de Zernike
+                    \end{itemize}
+                \end{itemize}
+            \item Madelon
+                \begin{itemize}
+                    \item 4400 individus
+                    \item 20 (utiles) 480 (bruits) variables
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: critères}
+        \begin{itemize}
+            \item Distance quadratique moyenne
+                \begin{equation*}
+                    MSE(x, y) = \frac{1}{K}\sum_{i = 1}^{K}(x_i - y_i)^2
+                \end{equation*}
+            \item Différence relative moyenne
+                \begin{equation*}
+                    MRD(X, Y) = \frac{1}{K}\sum_{i=1}^{K}\Big|\frac{x_i - y_i}{y_i}\Big|
+                \end{equation*}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: résultats}
+        \begin{figure}[!h]
+            \centering
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.21]{mse_wdbc}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.21]{mse_mfeat}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.21]{mse_madelon}
+            \end{subfigure}
+            \\
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.21]{mrd_wdbc}
+                \caption{WDBC}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.21]{mrd_mfeat}
+                \caption{MFDD}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.21]{mrd_madelon}
+                \caption{Madelon}
+            \end{subfigure}
+            \caption{Erreur par vue et par jeu de données}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: images originales}
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o0}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o1}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o2}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o3}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o4}
+            \end{subfigure}
+            \\
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o5}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o6}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o7}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o8}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{o9}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: images reconstruites}
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{0}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{1}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{2}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{3}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{4}
+            \end{subfigure}
+            \\
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{5}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{6}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{7}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{8}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{9}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: images améliorables}
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{00}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{11}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{22}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{33}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{44}
+            \end{subfigure}
+            \\
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{55}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{66}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{77}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{88}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.18\textwidth}
+                \includegraphics[scale=.12]{99}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: un peu plus loin}
+        \begin{itemize}
+            \item Les données sont reconstruites pour \textbf{ensuite} être 
+                utilisées
+            \item Cas d'application: \textbf{la classification} (ici avec des 
+                Random Forests)
+            \item Est-ce que les individus reconstruits sont utilisables pour 
+                dans des applications ultérieures.\\~\\
+            \item \textbf{Différence en classification}: différence entre le 
+                score utilisant les données originales et celui utilisant les 
+                données reconstruites.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: un peu plus loin}
+        \begin{figure}[!h]
+            \centering
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.22]{cs_wdbc}
+                \caption{WDBC}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.22]{cs_mfeat}
+                \caption{MFDD}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.32\textwidth}
+                \includegraphics[scale=.22]{cs_madelon}
+                \caption{Madelon}
+            \end{subfigure}
+            \caption{Différences en classification par vue et par jeu de 
+            données}
+        \end{figure}
+        \begin{itemize}
+            \item Résultats \textbf{proches des résultats originaux}
+            \item Impact de notre méthode de pondération \textbf{dépendant du 
+                jeu de données}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: efficacité de la MWM}
+
+        Pour tester notre méthode de pondération, on définit le jeu de données 
+        Cube
+        \begin{itemize}
+            \item jeu de données \textbf{artificiel}
+            \item 100 individus décrits par 
+                3 descripteurs
+            \item chaque vue est créée en \textbf{supprimant} (projetant 
+                suivant) une des dimensions
+            \item \textbf{Objectif}: Tester la capacité de la méthode de 
+                pondération par masque à \textbf{détecter quels descripteurs 
+                sont pertinents}.
+        \end{itemize}
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[h]{0.24\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{data}
+                \caption{Jeu de données Cube}
+            \end{subfigure}
+            \begin{subfigure}[h]{0.24\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{projection0}
+                \caption{projection 1}
+            \end{subfigure}
+            \begin{subfigure}[h]{0.24\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{projection1}
+                \caption{projection 2}
+            \end{subfigure}
+            \begin{subfigure}[h]{0.24\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{projection2}
+                \caption{projection 3}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: efficacité de la MWM}
+        \begin{itemize}
+            \item La méthode de pondération par masque \textbf{améliore les 
+                résultats en reconstruction}.
+            \item La sélection des features reconstruits \textbf{fonctionne 
+                t-elle en pratique} ?
+        \end{itemize}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=.30]{process_mwm}
+            \caption{Combinaison de deux individus partiellement corrects}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: efficacité de la MWM}
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{ccc}
+                \textbf{}                                       & 
+                \parbox[c]{3cm}{\centering Moyenne} & \parbox[c]{3cm}{\centering 
+                Écart type} \\ \midrule
+                \textbf{Descripteur partagé}                         & 0.920    
+                & 
+                0.026                  \\ \midrule
+                \multicolumn{1}{l}{\textbf{Descripteur non partagé}} & 0.143    
+                & 
+                0.034                  \\ \midrule
+            \end{tabular}
+            \caption{Moyenne et écart-type des paramètres des masques en 
+            fonction du descripteur qu'elles pondèrent}
+        \end{table}
+        \begin{itemize}
+            \item Les masques arrivent à \textbf{cibler les descripteurs 
+                partagés} tout en \textbf{limitant l'utilisation des 
+                descripteurs non partagés}.
+            \item Le faible écart type indique une certaine \textbf{stabilité} 
+                de la méthode
+        \end{itemize}
     \end{frame}
 
     \section{Perspectives}
