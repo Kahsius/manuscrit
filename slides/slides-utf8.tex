@@ -9,10 +9,8 @@
 \usepackage[titlenumbered, ruled]{algorithm2e}
 
 \usetheme[progressbar=frametitle]{metropolis}           % Use metropolis theme
-\setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
-\setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
-%\usepackage{polyglossia}
-%\setmainlanguage{french}
+%\setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
+%\setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
 \graphicspath{{../img/sample/}{../img/moches/}{../img/original/}{../img/}}
@@ -530,6 +528,23 @@
             \end{itemize}
         \end{frame}
 
+        \begin{frame}{Clustering collaboratif incrémental: résumé}
+            Contributions
+            \begin{itemize}
+                \item Définition d'une nouvelle méthode de cartes
+                    auto-adaptatives incrémentales
+                \item Adaptation de la méthode précédente au clustering
+                    collaboratif\\~\\
+            \end{itemize}
+            Perspectives
+            \begin{itemize}
+                \item 
+
+
+            \end{itemize}<++>
+
+        \end{frame}<++>
+
     \section{Optimisation de paramètres pour le clustering collaboratif}
 
     \begin{frame}{Optimisation de paramètres pour le clustering collaboratif}
@@ -735,9 +750,9 @@
         \begin{itemize}
             \item Proposition d'un \textbf{système de pondération automatique 
                 des vues externes} pour le clustering collaboratif.\\~\\
-            \item Amélioration de la valeur du critère collaboratif
-            \item Identification des vues bruitées
-            \item (BONUS) Apparition de méta-clusters de vues\\~\\
+            \item \textbf{Amélioration} de la valeur du critère collaboratif
+            \item \textbf{Identification des vues bruitées}. 
+            \item \textbf{(BONUS)} Apparition de méta-clusters de vues\\~\\
         \end{itemize}
 
         \begin{center}
@@ -1070,6 +1085,7 @@
                 \begin{equation*}
                     MRD(X, Y) = \frac{1}{K}\sum_{i=1}^{K}\Big|\frac{x_i - y_i}{y_i}\Big|
                 \end{equation*}
+            \item Analyse visuelle d'images reconstruites (MFDD)
         \end{itemize}
     \end{frame}
 
@@ -1220,8 +1236,8 @@
             \item Cas d'application: \textbf{la classification} (ici avec des 
                 Random Forests)
             \item Est-ce que les individus reconstruits sont utilisables pour 
-                dans des applications ultérieures.\\~\\
-            \item \textbf{Différence en classification}: différence entre le 
+                dans des applications ultérieures ?\\~\\
+            \item \textbf{Critère: différence en classification}: différence entre le 
                 score utilisant les données originales et celui utilisant les 
                 données reconstruites.
         \end{itemize}
@@ -1248,45 +1264,32 @@
         \begin{itemize}
             \item Résultats \textbf{proches des résultats originaux}
             \item Impact de notre méthode de pondération \textbf{dépendant du 
-                jeu de données}
+                jeu de données} et \textbf{limité}.
         \end{itemize}
     \end{frame}
 
     \begin{frame}{Reconstruction collaborative: efficacité de la MWM}
 
-        Pour tester notre méthode de pondération, on définit le jeu de données 
-        Cube
         \begin{itemize}
-            \item jeu de données \textbf{artificiel}
+            \item Nouveau jeu de données \textbf{artificiel}: Cube
             \item 100 individus décrits par 
                 3 descripteurs
-            \item chaque vue est créée en \textbf{supprimant} (projetant 
-                suivant) une des dimensions
+            \item chaque vue est créée en \textbf{supprimant} une des dimensions
             \item \textbf{Objectif}: Tester la capacité de la méthode de 
                 pondération par masque à \textbf{détecter quels descripteurs 
                 sont pertinents}.
         \end{itemize}
         \begin{figure}[h]
             \centering
-            \begin{subfigure}[h]{0.24\textwidth}
+            \begin{subfigure}[h]{0.49\textwidth}
                 \centering
                 \includegraphics[width=0.9\textwidth]{data}
                 \caption{Jeu de données Cube}
             \end{subfigure}
-            \begin{subfigure}[h]{0.24\textwidth}
+            \begin{subfigure}[h]{0.49\textwidth}
                 \centering
                 \includegraphics[width=0.9\textwidth]{projection0}
-                \caption{projection 1}
-            \end{subfigure}
-            \begin{subfigure}[h]{0.24\textwidth}
-                \centering
-                \includegraphics[width=0.9\textwidth]{projection1}
-                \caption{projection 2}
-            \end{subfigure}
-            \begin{subfigure}[h]{0.24\textwidth}
-                \centering
-                \includegraphics[width=0.9\textwidth]{projection2}
-                \caption{projection 3}
+                \caption{Projection}
             \end{subfigure}
         \end{figure}
     \end{frame}
@@ -1328,6 +1331,24 @@
                 descripteurs non partagés}.
             \item Le faible écart type indique une certaine \textbf{stabilité} 
                 de la méthode
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Reconstruction collaborative: résumé}
+        \begin{itemize}
+            \item Définition d'un nouveau \textbf{cas d'application du paradigme
+                collaboratif}.
+            \item Définition d'un système permettant de \textbf{reconstruire de manière
+                collaborative} et basé sur des \textbf{réseaux de neurones}.
+            \item Définition d'une méthode permettant de \textbf{combiner efficacement
+                un ensemble de reconstructions}.\\~\\
+        \end{itemize}
+        \begin{itemize}
+            \item Scores \textbf{améliorables} en reconstruction.
+            \item Suffisamment d'information préservée pour permettre
+                \textbf{une classification}.
+            \item \textbf{Adaptation des masques} suivant la qualité des
+                reconstructions.
         \end{itemize}
     \end{frame}
 
