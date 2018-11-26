@@ -9,8 +9,8 @@
 \usepackage[titlenumbered, ruled]{algorithm2e}
 
 \usetheme[progressbar=frametitle]{metropolis}           % Use metropolis theme
-%\setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
-%\setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
+\setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
+\setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
 \graphicspath{{../img/sample/}{../img/moches/}{../img/original/}{../img/}}
@@ -21,6 +21,10 @@
 
 \begin{document}
     \maketitle
+
+    \begin{frame}{Plan}
+        \tableofcontents[hideallsubsections]
+	\end{frame}
 
     \section{Introduction}
     \begin{frame}{Machine Learning}
@@ -39,8 +43,9 @@
                 renforcement}: apprentissage d'un comportement permettant à un 
             modèle de réagir à un environnement dynamique.}
         \end{itemize}
-        À noter que les domaines ne sont pas exclusifs (apprentissage 
-        semi-supervisé, apprentissage par renforcement profond\ldots)
+        \only<4->{À noter que les domaines ne sont pas exclusifs (apprentissage 
+            semi-supervisé, apprentissage par renforcement profond\ldots)
+        }
     \end{frame}
 
     \begin{frame}{Clustering}
@@ -59,7 +64,7 @@
 
     \begin{frame}{Clustering: similarité entre individus}
         \begin{itemize}
-            \item La notion de \textbf{similarité} est souvent confondue avec la 
+            \item La notion de \textbf{similarité} est souvent assimilée à la 
                 notion de \textbf{distance}.
             \item La similarité doit être \textbf{adaptée à la nature des 
                 données}.
@@ -179,16 +184,16 @@
         \end{itemize}
     \end{frame}
 
-    \begin{frame}{Clustering: approche multi-vues}
-        Exemple multi-vues
-        \begin{itemize}
-            \item \textbf{Vue 1}: Ensemble des achats récent d'un individus 
-                sur des sites d'e-commerce
-            \item \textbf{Vue 2}: Salaire et régime alimentaire
-            \item \textbf{Vue 3}: Contenu des derniers repas de chaque 
-                individu
-        \end{itemize}
-    \end{frame}
+    %\begin{frame}{Clustering: approche multi-vues}
+        %Exemple multi-vues
+        %\begin{itemize}
+            %\item \textbf{Vue 1}: Ensemble des achats récent d'un individus 
+                %sur des sites d'e-commerce
+            %\item \textbf{Vue 2}: Salaire et régime alimentaire
+            %\item \textbf{Vue 3}: Contenu des derniers repas de chaque 
+                %individu
+        %\end{itemize}
+    %\end{frame}
 
     \begin{frame}{Clustering collaboratif: définition}
         Le \textbf{clustering collaboratif} est un domaine récent désignant 
@@ -235,13 +240,19 @@
     %\end{frame}
 
     \begin{frame}{Clustering collaboratif: théorie}
-        Définition d'un algorithme de clustering collaboratif:
+        Définition du critère collaboratif:
+        \begin{align*}
+            Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
+            &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, 
+            V_j)
+        \end{align*}
         \begin{itemize}
             \item $Q^i_{local}$ est généralement basé sur \textbf{le critère de 
                 l'algorithme local} à optimiser.
             \item $Q^i_{collab}$ se base sur \textbf{l'échange d'information 
                 entre vues}, typiquement les appartenances des individus aux 
-                clusters respectifs de chaque vue.
+                clusters respectifs de chaque vue. $C_j^i$ représente \textbf{la 
+                dissimilarité} entre les vues i et j.
             \item $\alpha_i$ et $\beta_j^i$ sont définis \textbf{à la main}.  
                 L'approximation $\forall j, \beta_j^i = \alpha_i^2$ est parfois 
                 utilisée car donnant de bons résultats en pratique.
@@ -275,27 +286,25 @@
         \begin{frame}{Clustering collaboratif incrémental}
             Définition d'une méthode de clustering incrémental:
             \begin{itemize}
-                \item<2-> Choix de la méthode de clustering
-                \item<3-> Adaptation de la méthode de clustering pour de 
-                    l'apprentissage incrémental
-                \item<4-> Adaptation du clustering collaboratif au modèle de 
-                    clustering obtenu
+                \item<2-> Choix de la \textbf{méthode de clustering}
+                \item<3-> \textbf{Adaptation de la méthode de clustering} pour 
+                    de l'apprentissage incrémental
+                \item<4-> \textbf{Adaptation du clustering collaboratif} au 
+                    modèle de clustering obtenu
             \end{itemize}
         \end{frame}
 
-        \begin{frame}{Choix de la méthode de clustering}
-
+        \begin{frame}{Cartes Auto-Adaptatrices (SOM)}
             Dans notre cas, utilisation des \textbf{cartes auto-adaptatrices de 
             Kohonen} (ou Self-Organizing Maps (SOM) en anglais) comme méthode de 
             clustering.
-
             \begin{itemize}
-                \item \textbf{$\mathbf{1^{ère}}$ contrainte}: des individus 
-                    correspondants doivent appartenir à des \textbf{prototypes 
-                    correspondants} ou à leurs voisinnages proches.
-                \item \textbf{$\mathbf{2^{ème}}$ contrainte}: \textbf{même 
-                    topologie des cartes} pour toutes les vues pour les rendre 
-                    comparables.
+                \item Méthode à base de \textbf{prototypes} (quantification de 
+                    vecteurs)
+                \item Permet la \textbf{visualisation} de données en hautes 
+                    dimensions
+                \item Notion de \textbf{voisinage}: utilisation d'une 
+                    \textbf{fonction de température}.
             \end{itemize}
 
             \begin{figure}[b]
@@ -306,27 +315,26 @@
         \end{frame}
 
         \begin{frame}{Cartes Auto-Adaptatrices (SOM)}
-            \begin{itemize}
-                \item Méthode à base de \textbf{prototypes} (quantification de 
-                    vecteurs)
-                \item Permet la \textbf{visualisation} de données en hautes 
-                    dimensions
-                \item Notion de \textbf{voisinage}: utilisation d'une 
-                    \textbf{fonction de température}.
-            \end{itemize}
-
+            \begin{center}
+                
+            \end{center}
             \begin{equation*}
+                \text{Fonction de température:} \qquad
                 \lambda(t) = 
                 \lambda_{min}\left(\frac{\lambda_{max}}{\lambda_{min}}\right)^{\frac{1}{t}}
-                \qquad
-                K_{i,j} = \exp\left(-\frac{d^2_1(i,j)}{\lambda(t)}\right)
+            \end{equation*}
+
+            
+            \begin{equation*}
+                \text{Fonction de voisinage:} \qquad K_{i,j} = 
+                \exp\left(-\frac{d^2_1(i,j)}{\lambda(t)}\right)
             \end{equation*}
 
             \begin{figure}[b]
                 \centering
                 \begin{subfigure}[b]{0.45\textwidth}
                     \centering
-                    \includegraphics[scale=.2]{somhot}
+                    \includegraphics[scale=.20]{somhot}
                     \caption{Température élevée}
                 \end{subfigure}
                 \begin{subfigure}[b]{0.45\textwidth}
@@ -337,29 +345,36 @@
             \end{figure}
         \end{frame}
 
-        \begin{frame}{SOM: version incrémentale}
-            Les SOM incrémentales ont déjà été étudiées, mais les solutions 
-            proposées se basent toutes sur \textbf{l'ajout de prototypes} 
-            (\cite{paplinski2012incremental} et \cite{deng2000esom}).\\
-            $\rightarrow$ \textbf{Non applicable au clustering collaboratif} du 
-            fait de la seconde contrainte: la topologie doit rester la même pour 
-            toutes les cartes.
+        \begin{frame}{SOM incrémentale et clustering collaboratif}
+            \begin{itemize}
+                \item \textbf{$\mathbf{1^{ère}}$ contrainte}: des individus 
+                    correspondants doivent appartenir à des \textbf{prototypes 
+                    correspondants} ou à leurs voisinnages proches.
+                \item \textbf{$\mathbf{2^{ème}}$ contrainte}: \textbf{même 
+                    topologie des cartes} pour toutes les vues pour les rendre 
+                    comparables.
+            \end{itemize}
 
-            \textbf{Limitation}: fonction de température dépendante du 
-            \textbf{temps}\\
-            \textbf{Solution}: rendre la fonction dépendante des 
-            \textbf{individus}
-            \begin{equation*}
-                \lambda(t) = 
-                \lambda_{min}\left(\frac{\lambda_{max}}{\lambda_{min}}\right)^{\frac{1}{t}}
-                \quad\rightarrow\quad
-                \widetilde{\lambda}(B, W) = 
-                \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i - \chi(x_i)\|_2
-            \end{equation*}
-            \vspace{.1cm}
+            Les solutions existantes pour les SOM incrémentales se basent toutes 
+            sur \textbf{l'ajout de prototypes} ([Paplinski2012] et 
+            [Deng2000]).\\
+            $\rightarrow$ \textbf{Non applicable au clustering collaboratif} du 
+            fait de la seconde contrainte.
+            \onslide<2->{
+                $\rightarrow$ rendre la fonction dépendante des 
+                \textbf{individus} plutôt que du \textbf{temps}.
+                \begin{equation*}
+                    \lambda(t) = 
+                    \lambda_{min}\left(\frac{\lambda_{max}}{\lambda_{min}}\right)^{\frac{1}{t}}
+                    \quad\rightarrow\quad
+                    \widetilde{\lambda}(B, W) = 
+                    \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i - \chi(x_i)\|_2
+                \end{equation*}
+                \vspace{.1cm}
+            }
         \end{frame}
 
-        \begin{frame}{SOM et clustering collaboratif}
+        \begin{frame}{SOM incrémentale et clustering collaboratif}
             L'application des SOM au clustering collaboratif se fait en 
             définissant les termes précemment définis:
 
@@ -399,7 +414,7 @@
             Q_{collab}^m (\widetilde{K_{i,j}}) \rightarrow 
             \widetilde{Q}_{local}^m / \widetilde{Q}_{collab}^m$
             \end{center}
-            Le nouveau critère dépendant dépendant uniquement des $N_batch$ 
+            Le nouveau critère dépendant dépendant uniquement des $N_{batch}$ 
             derniers individus apparus, il est possible d'effectuer un 
             \textbf{apprentissage collaboratif incrémental} sur l'ensemble des 
             vues.
@@ -408,17 +423,17 @@
             gradient} appliquée sur ce critère.
         \end{frame}
 
-        \begin{frame}{Expérimentations}
-            \begin{itemize}
-                \item Analyse de l'impact du clustering collaboratif sur
-                    l'apprentissage incrémental.
-                \item Application directe de la phase collaborative pour le
-                    clustering collaboratif pour pouvoir comparer les
-                    résultats aux version locales.
-                \item Variation de la taille du batch pour étudier l'impact
-                    sur l'apprentissage.
-            \end{itemize}
-        \end{frame}
+        %\begin{frame}{Expérimentations}
+            %\begin{itemize}
+                %\item Analyse de l'impact du clustering collaboratif sur
+                    %l'apprentissage incrémental.
+                %\item Application directe de la phase collaborative pour le
+                    %clustering collaboratif pour pouvoir comparer les
+                    %résultats aux version locales.
+                %\item Variation de la taille du batch pour étudier l'impact
+                    %sur l'apprentissage.
+            %\end{itemize}
+        %\end{frame}
         
         \begin{frame}{Expérimentations}
             Test de notre méthode sur 4 jeux de données différents
@@ -429,7 +444,7 @@
                 \item Isolet
             \end{itemize}
 
-            \textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.
+            \textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.\\
             \textbf{Pureté d'un prototype}: classe majoritaire parmi les
             individus associés à ce prototype
 
@@ -445,33 +460,37 @@
         \begin{frame}{Expérimentations: résultats}
             \begin{table}[!h]
                 \caption{Erreur de quantification moyenne pour chaque base
-                de donnée. Les nombres en gras sont les plus petits pour
-            chaque ligne}
+                de donnée.}
                 \begin{center}
-                    \resizebox{.6\columnwidth}{!}{
-                        \begin{tabular}{cccc}
-                                       & Vue & SOM Incrémentales & \begin{tabular}[c]{@{}c@{}}Clustering Collaboratif\\Incrémentale\end{tabular} \\ \midrule
-            \multirow{3}{*}{Spam Base} & 1    & 0.31            & \textbf{0.26}                                                                  \\
-                                       & 2    & \textbf{0.18}   & 0.19                                                                           \\
-                                       & 3    & 0.18            & \textbf{0.16}                                                                  \\ \midrule
-            \multirow{3}{*}{Waveform}  & 1    & \textbf{0.18}   & 0.23                                                                           \\
-                                       & 2    & \textbf{0.17}   & 0.19                                                                           \\
-                                       & 3    & \textbf{0.24}   & 0.30                                                                           \\ \midrule
-            \multirow{3}{*}{WDBC}      & 1    & \textbf{0.19}   & 0.19                                                                           \\
-                                       & 2    & \textbf{0.16}   & 0.19                                                                           \\
-                                       & 3    & 0.20            & \textbf{0.16}                                                                  \\ \midrule
-            \multirow{3}{*}{Isolet}    & 1    & 2.15            & \textbf{1.27}                                                                  \\
-                                       & 2    & 2.84            & \textbf{1.38}                                                                  \\
-                                       & 3    & 2.85            & \textbf{1.37}                                                                 \\ \midrule
-                        \end{tabular}
-                    }
+                    \begin{tabular}{cccc}
+                              & SOM incrémentales & 
+                              \begin{tabular}[c]{@{}c@{}}clustering 
+                              collaboratif\\ incrémental\end{tabular} & $\Delta$            
+                              \\ \hline
+                    Spam Base & 0.223             & 0.203                                                                         
+                    & \textbf{- 0.02}  \\ \hline
+                    Waveform  & 0.197             & 0.24                                                                          
+                    & \textbf{+ 0.043} \\ \hline
+                    WDBC      & 0.183             & 0.18                                                                          
+                    & \textbf{- 0.003} \\ \hline
+                    Isolet    & 2.61              & 1.34                                                                          & \textbf{- 1.27} 
+                    \end{tabular}
                 \end{center}
             \end{table}
+            \begin{itemize}
+                \item \textbf{Score en quantification à long termes 
+                    comparables}: le clustering collaboratif n'endommage pas les 
+                    résultats locaux.
+                \item Le clustering collaboratif permet de \textbf{limiter 
+                        l'impact
+                    du bruit} dans les vues.
+            \end{itemize}
         \end{frame}
 
         \begin{frame}{Expérimentations: résultats sur Isolet}
             \begin{figure}[!h]
                 \centering
+                \caption{Évolution des puretés pour Isolet.  Les lignes rouges représentes les SOM incrémentales tandis que les lignes noires représentent les SOM incrémentales collaboratives.  Chaque itération correspond à l'arrivée d'une nouvelle donnée}
                 \begin{subfigure}[b]{0.3\textwidth}
                     \centering
                     \includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/11.png}
@@ -487,71 +506,75 @@
                     \includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/33.png}
                     \caption{$N_{batch}=10$, View 3}
                 \end{subfigure}\\
+                %\begin{subfigure}[b]{0.3\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 1.9cm, clip]{img/p1.png}
+                    %\caption{$N_{batch}=3$, View 1}
+                %\end{subfigure}
+                %\begin{subfigure}[b]{0.3\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/p2.png}
+                    %\caption{$N_{batch}=3$, View 2}
+                %\end{subfigure}
+                %\begin{subfigure}[b]{0.3\textwidth}
+                    %\centering
+                    %\includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/p3.png}
+                    %\caption{$N_{batch}=3$, View 3}
+                %\end{subfigure}
+            \end{figure}
+            \begin{itemize}
+                \item Les SOM incrémentales collaboratives \textbf{apprennent 
+                    plus vite que les SOM incrémentales seules}:                 
+                    exploitation de l'information via le partage.
+                \item Les SOM collaboratives sont globalement \textbf{plus 
+                    instables} que les SOM incrémentales.
+            \end{itemize}
+        \end{frame}
+
+        \begin{frame}{Expérimentations: résultats}
+            \begin{figure}[!h]
+                \centering
                 \begin{subfigure}[b]{0.3\textwidth}
                     \centering
-                    \includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 1.9cm, clip]{img/p1.png}
-                    \caption{$N_{batch}=3$, View 1}
-                \end{subfigure}
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \centering
-                    \includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/p2.png}
-                    \caption{$N_{batch}=3$, View 2}
+                    \includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/33.png}
+                    \caption{$N_{batch}=10$, View 3}
                 \end{subfigure}
                 \begin{subfigure}[b]{0.3\textwidth}
                     \centering
                     \includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/p3.png}
                     \caption{$N_{batch}=3$, View 3}
                 \end{subfigure}
-                \caption{Évolution des puretés pour Isolet.  Les lignes rouges représentes les SOM incrémentales tandis que les lignes noires représentent les SOM incrémentales collaboratives.  Chaque itération correspond à l'arrivée d'une nouvelle donnée}
+                \caption{Évolution des puretés pour Isolet: impact de la taille 
+                du batch sur la stabilité de l'apprentissage.}
             \end{figure}
-        \end{frame}
-
-        \begin{frame}{Expérimentations: résultats}
             \begin{itemize}
-                \item \textbf{Score en quantification à long termes 
-                    comparables}: le
-                    clustering collaboratif n'endommage pas les 
-                    résultats
-                    locaux.
-                \item Le clustering collaboratif permet de 
-                    \textbf{limiter l'impact
-                    du bruit} dans les vues.
-                \item Les SOM incrémentales collaboratives 
-                    \textbf{apprennent plus
-                    vite que les SOM incrémentales seules}: meilleure
-                    exploitation de l'information via le partage.
-                \item Les SOM collaboratives sont globalement 
-                    \textbf{plus instables} que les SOM incrémentales.
-                \item La stabilité de l'apprentissage \textbf{augmente 
-                    avec la taille du batch}: plus d'informations à 
-                    exploiter.
+                \item La stabilité de l'apprentissage \textbf{augmente avec la 
+                    taille du batch}: plus d'informations à exploiter.
             \end{itemize}
         \end{frame}
 
         \begin{frame}{Clustering collaboratif incrémental: résumé}
             Contributions
             \begin{itemize}
-                \item Définition d'une nouvelle méthode de cartes
-                    auto-adaptatives incrémentales
-                \item Adaptation de la méthode précédente au clustering
-                    collaboratif\\~\\
+                \item Définition d'une \textbf{nouvelle méthode de cartes
+                    auto-adaptatives incrémentales}
+                \item Adaptation de la méthode précédente au \textbf{clustering
+                    collaboratif}
+                \item Analyse de l'impact de \textbf{la taille du batch sur la 
+                    stabilité de l'apprentissage}.
             \end{itemize}
-            Perspectives
-            \begin{itemize}
-                \item 
 
-
-            \end{itemize}<++>
-
-        \end{frame}<++>
+            \begin{center}
+                \fontsize{14pt}{15pt}
+                \onslide<2>{\textbf{Comment déterminer quelles sont les 
+                    meilleures collaborations inter-vues ?}
+                }
+            \end{center}
+        \end{frame}
 
     \section{Optimisation de paramètres pour le clustering collaboratif}
 
     \begin{frame}{Optimisation de paramètres pour le clustering collaboratif}
-        \textbf{Objectif}: Apprendre automatiquement les $\alpha$ et les
-        $\beta$ en s'affranchissant de simplifications telles que $\beta =
-        \alpha^2$.
-
         Rappel du critère du clustering collaboratif:
         \begin{align*}
             Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, 
@@ -559,9 +582,14 @@
             &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j 
             C_j^i(V_i, V_j)
         \end{align*}
-        Nous avons proposé une nouvelle méthode de pondération permettant
-        d'apprendre automatiquement les poids fixant les importances
-        relatives des différents scores.\\
+
+        \textbf{Objectif}: Apprendre automatiquement les $\alpha$ et les
+        $\beta$ en s'affranchissant de simplifications telles que $\beta =
+        \alpha^2$.
+
+        Nous avons proposé \textbf{une nouvelle méthode de pondération} 
+        permettant d'apprendre automatiquement les poids fixant \textbf{les 
+        importances relatives des différents scores}.\\
     \end{frame}
 
     \begin{frame}{Optimisation de paramètres: définition du problème}
@@ -617,7 +645,7 @@
         \vspace{1cm}
         L'importance d'une vue externe relativement à une vue locale est
         proportionnelle au rapport entre la moyenne géométrique de toutes les
-        dissimilarités par rapport à la dissimilarité entre les deux vues
+        dissimilarités sur à la dissimilarité entre les deux vues
         .\\
         \onslide<2->{$\rightarrow$ \textbf{plus 2 vues sont similaires, 
             plus elles collaboreront.}
@@ -709,7 +737,8 @@
             \item \textbf{Amélioration du critère} de manière significative dans 
                 la majorité des cas
             \item Tous les jeux de données \textbf{ne sont pas traités de la 
-                même manière} (dépend de la quantité d'informations à partager).
+                même manière} (dépend de la quantité et de la qualité de 
+                l'informations à partager).
         \end{itemize}
     \end{frame}
 
@@ -717,8 +746,8 @@
         \begin{figure}[b]
             \centering
             \caption{Cartes de chaleur des matrices de $\beta$ pour chaque jeu 
-                de données. $M(i,j)$ correspond à l'importance accordée à la Vue 
-                j par la Vue i.\\Blanc = forte collaboration - noir = faible 
+                de données.\\$M(i,j)$ correspond à l'importance accordée à la 
+                Vue j par la Vue i.\\Blanc = forte collaboration - noir = faible 
                 collaboration -  diagonale représente $\beta=1$.
             }
             \begin{subfigure}[b]{0.32\textwidth}
@@ -751,8 +780,9 @@
             \item Proposition d'un \textbf{système de pondération automatique 
                 des vues externes} pour le clustering collaboratif.\\~\\
             \item \textbf{Amélioration} de la valeur du critère collaboratif
-            \item \textbf{Identification des vues bruitées}. 
-            \item \textbf{(BONUS)} Apparition de méta-clusters de vues\\~\\
+            \item \textbf{Identification des vues bruitées}.
+            \item \textbf{(BONUS)} Apparition de \textbf{méta-clusters} de 
+                vues\\~\\
         \end{itemize}
 
         \begin{center}
@@ -851,13 +881,14 @@
         \end{enumerate}
     \end{frame}
 
-    \begin{frame}{Réseaux de neurones: backpropagation}
+    \begin{frame}{Réseaux de neurones}
         \begin{columns}
             \begin{column}{0.4\textwidth}
                 \begin{itemize}
-                    \item Méthode utilisée pour \textbf{mettre à jour des 
-                        paramètres} en utilisant la méthode de \textbf{descente 
-                        de gradient}.\\~\\
+                    \item Réseau de neurone: \textbf{approximateur universel de 
+                        fonction}.\\~\\
+                    \item \textbf{Backpropagation}: Méthode utilisée pour 
+                        \textbf{mettre à jour des paramètres}.\\~\\
                     \item L'erreur est propagée \textbf{de la sortie vers l'entrée} du 
                         réseau.
                 \end{itemize}
@@ -888,7 +919,7 @@
                 Autoencodeur
                 \begin{itemize}
                     \item entrées et sorties \textbf{identiques}
-                    item apprentissage \textbf{non supervisé}
+                    \item apprentissage \textbf{non supervisé}
                 \end{itemize}
                 \begin{figure}[h]
                     \centering
@@ -939,10 +970,12 @@
                 \end{itemize}
             \end{column}
         \end{columns}
+        \vspace{-0.3cm}
         \begin{figure}[h]
             \centering
-            \includegraphics[scale=.20]{base_system.pdf}
+            \includegraphics[scale=.23]{base_system.pdf}
         \end{figure}
+        \vspace{-0.3cm}
     \end{frame}
 
     \begin{frame}{Reconstruction collaborative: combinaison}
@@ -956,9 +989,9 @@
                     \item Un scalaire par vue
                     \item Différentes façons d'apprendre les poids\\~\\
                 \end{itemize}
-            \item<+-> \textit{MAIS} cela implique une hypothèse forte: chaque 
-                vue contient exactement \textbf{la même information} sur les 
-                individus $\rightarrow$ irréaliste.
+            \item<+-> \textit{MAIS} hypothèse forte: chaque vue contient 
+                exactement \textbf{la même information} sur chaque descripteur 
+                $\rightarrow$ irréaliste.
             \item<.-> À la place d'un poids unique, nous utilisons un 
                 \textbf{masque}.
         \end{itemize}
@@ -1020,7 +1053,7 @@
 
     \begin{frame}{Reconstruction collaborative: entraînement}
         \begin{itemize}
-            \item Entraînement\textbf{séquentiel}
+            \item Entraînement \textbf{séquentiel}
                 \begin{itemize}
                     \item les autoencodeurs pour \textbf{encoder} les données
                     \item les perceptrons multi couches pour 
@@ -1236,7 +1269,7 @@
             \item Cas d'application: \textbf{la classification} (ici avec des 
                 Random Forests)
             \item Est-ce que les individus reconstruits sont utilisables pour 
-                dans des applications ultérieures ?\\~\\
+                des applications ultérieures ?\\~\\
             \item \textbf{Critère: différence en classification}: différence entre le 
                 score utilisant les données originales et celui utilisant les 
                 données reconstruites.
@@ -1352,19 +1385,61 @@
         \end{itemize}
     \end{frame}
 
-    \section{Perspectives}
-    \begin{frame}
-        
+    \section{Conclusion et Perspectives}
+    \begin{frame}{Contributions}
+        Dans cette thèse, nous avons proposé les trois contributions suivantes:
+        \begin{itemize}
+            \item Un algorithme de clustering collaboratif incrémental 
+                permettant une adaptation des clusters aux éventuelles 
+                évolutions de la distribution des données.
+            \item Une méthode de pondération automatique des vues externes 
+                permettant d'améliorer la qualité des collaborations lors d'un 
+                clustering collaboratif.
+            \item L'application du paradigme collaboratif au problème de la 
+                reconstruction de données manquantes.
+        \end{itemize}
     \end{frame}
 
-    \section{Conclusion}
-    \begin{frame}
-        
+    \begin{frame}{Apports de la thèse}
+        Les apports de la thèse concernent les deux domaines suivants:
+        \begin{itemize}
+            \item Le clustering collaboratif
+                \begin{itemize}
+                    \item (article) ICONIP 2017
+                    \item (article) EGC 2018
+                    \item (article) IJCNN 2018
+                \end{itemize}
+            \item La reconstruction collaborative
+                \begin{itemize}
+                    \item (journal, en cours de soumission) KAIS
+                \end{itemize}
+        \end{itemize}
     \end{frame}
 
-    \begin{frame}{Bibliographie}
-        \bibliographystyle{abbrvnat}
-        \bibliography{./bib}
+    \begin{frame}{Perspectives}
+        \begin{itemize}
+            \item Analyse du comportement aux limites de la méthode de 
+                clustering collaboratif incrémental.\\~\\
+            \item Amélioration de chaque module utilisé pour le système de 
+                reconstruction collaborative, en particulier les liens 
+                permettant d'obtenir les reconstructions intermédiaires.\\~\\
+            \item Étude théorique et approfondissement du paradigme de 
+                reconstruction collaborative: définition des conditions de 
+                transférabilité des informations inter-vues, attestation de la 
+                qualité des individus reconstruits.
+        \end{itemize}
     \end{frame}
+
+    \begin{frame}
+        \begin{center}
+            Merci pour votre attention.\\
+            Questions ?
+        \end{center}
+    \end{frame}
+
+    %\begin{frame}{Bibliographie}
+        %\bibliographystyle{abbrvnat}
+        %\bibliography{./bib}
+    %\end{frame}
 
 \end{document}
