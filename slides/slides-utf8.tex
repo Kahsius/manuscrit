@@ -32,7 +32,7 @@
         domaine de recherche regroupant les algorithmes et les méthodes 
         permettant \textbf{d'apprendre automatiquement} un résultat à partir 
         d'un ensemble de données, aussi appelés \textbf{individus}.
-        Les trois principaux sous-domaines du Machine Learning sont:
+        Les trois principales problématiques du Machine Learning sont:
         \begin{itemize}
             \item<2-> {\only<5>{\color{lightgray}}\textbf{La classification}: 
                     apprentissage des correspondances entre une donnée et son 
@@ -43,9 +43,6 @@
                 renforcement}: apprentissage d'un comportement permettant à un 
             modèle de réagir à un environnement dynamique.}
         \end{itemize}
-        \only<4->{À noter que les domaines ne sont pas exclusifs (apprentissage 
-            semi-supervisé, apprentissage par renforcement profond\ldots)
-        }
     \end{frame}
 
     \begin{frame}{Clustering}
@@ -150,17 +147,18 @@
         On peut regrouper les algorithmes de clustering en sous-catégories 
         suivant l'approche qu'ils utilisent:
         \begin{itemize}
-            \item \textbf{Méthodes hiérarchiques}: création d'un arbre de 
-                correspondance entre les individus (Agglomerative method).
+            \item {\only<2>{\color{lightgray}}\textbf{Méthodes hiérarchiques}: 
+                    création d'un arbre de correspondance entre les individus 
+                (Agglomerative method).}
             \item \textbf{Méthodes de quantification de vecteurs}: définition 
-                d'individus prototypes pour synthétiser les individus en entrée 
-                (K-Means).
-            \item \textbf{Méthodes de densité}: estimation des clusters suivant 
-                les zones les plus densément peuplées de l'espace d'entrée 
-                (DBSCAN).
-            \item \textbf{Méthodes stochastiques}: création de modèles 
-                probabilistes définissant la probabilité d'appartenance d'un 
-                individu à un cluster donné (GMM).
+            d'individus prototypes pour synthétiser les individus en entrée 
+            (K-Means, SOM).
+            \item {\only<2>{\color{lightgray}}\textbf{Méthodes de densité}: 
+                    estimation des clusters suivant les zones les plus densément 
+                peuplées de l'espace d'entrée (DBSCAN).}
+            \item {\only<2>{\color{lightgray}}\textbf{Méthodes stochastiques}: 
+                    création de modèles probabilistes définissant la probabilité 
+                d'appartenance d'un individu à un cluster donné (GMM).}
         \end{itemize}
     \end{frame}
 
@@ -345,82 +343,110 @@
             \end{figure}
         \end{frame}
 
-        \begin{frame}{SOM incrémentale et clustering collaboratif}
-            \begin{itemize}
-                \item \textbf{$\mathbf{1^{ère}}$ contrainte}: des individus 
-                    correspondants doivent appartenir à des \textbf{prototypes 
-                    correspondants} ou à leurs voisinnages proches.
-                \item \textbf{$\mathbf{2^{ème}}$ contrainte}: \textbf{même 
-                    topologie des cartes} pour toutes les vues pour les rendre 
-                    comparables.
-            \end{itemize}
+        \begin{frame}{SOM incrémentale}
+            %\begin{itemize}
+                %\item \textbf{$\mathbf{1^{ère}}$ contrainte}: des individus 
+                    %correspondants doivent appartenir à des \textbf{prototypes 
+                    %correspondants} ou à leurs voisinnages proches.
+                %\item \textbf{$\mathbf{2^{ème}}$ contrainte}: \textbf{même 
+                    %topologie des cartes} pour toutes les vues pour les rendre 
+                    %comparables.
+            %\end{itemize}
 
             Les solutions existantes pour les SOM incrémentales se basent toutes 
-            sur \textbf{l'ajout de prototypes} ([Paplinski2012] et 
-            [Deng2000]).\\
-            $\rightarrow$ \textbf{Non applicable au clustering collaboratif} du 
-            fait de la seconde contrainte.
-            \onslide<2->{
+            sur l'ajout de prototypes ([Paplinski2012] et [Deng2000]).\\~\\
+            \only<2->{\textbf{Problème 1}: Est-il possible de trouver une 
+            solution \textbf{conservant la topologie de la carte} ?\\}
+            \only<3->{\textbf{Problème 2}: $\lambda$ est \textbf{dépendante du 
+            temps}, ce qui pose problème avec le clustering incrémental.\\~\\}
+
+            %$\rightarrow$ \textbf{Non applicable au clustering collaboratif} du 
+            %fait de la seconde contrainte.
+            \onslide<4->{
                 $\rightarrow$ rendre la fonction dépendante des 
-                \textbf{individus} plutôt que du \textbf{temps}.
+                \textbf{individus}
                 \begin{equation*}
                     \lambda(t) = 
                     \lambda_{min}\left(\frac{\lambda_{max}}{\lambda_{min}}\right)^{\frac{1}{t}}
                     \quad\rightarrow\quad
                     \widetilde{\lambda}(B, W) = 
-                    \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i - \chi(x_i)\|_2
+                    \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i - 
+                    \chi(x_i)\|_2
+                \end{equation*}
+                \begin{equation*}
+                    K_{i,j}\left(\lambda(t)\right) \rightarrow 
+                    K_{i,j}\left(\widetilde{  \lambda}(B,W)\right) \rightarrow 
+                    \widetilde{K}_{i,j}
                 \end{equation*}
                 \vspace{.1cm}
             }
         \end{frame}
 
-        \begin{frame}{SOM incrémentale et clustering collaboratif}
-            L'application des SOM au clustering collaboratif se fait en 
-            définissant les termes précemment définis:
+        %\begin{frame}{SOM incrémentale et clustering collaboratif}
+            %L'application des SOM au clustering collaboratif se fait en 
+            %définissant les termes précemment définis:
 
-            \begin{equation*}
-            {Q}^m_{local} = 
-            \alpha_m\sum_{i=1}^{N}\sum_{j=1}^{|W|}{K}^m_{j, 
-            \chi(x_i)}\|x_i^m - \omega_j^m\|^2
-            \end{equation*}
+            %\begin{equation*}
+            %{Q}^m_{local} = 
+            %\alpha_m\sum_{i=1}^{N}\sum_{j=1}^{|W|}{K}^m_{j, 
+            %\chi(x_i)}\|x_i^m - \omega_j^m\|^2
+            %\end{equation*}
 
-            \begin{equation*}
-            {Q}^m_{collab} = \sum_{m'=1, m'\neq 
-            m}^{P}\beta_m^{m'}\sum_{i=1}^{N}\sum_{j=1}^{|W|}({K}^m_{j, 
-            \chi(x_i)} - {K}^{m'}_{j, \chi(x_i)})^2  \|x_i^m - \omega_j^m\|^2
-            \end{equation*}
+            %\begin{equation*}
+            %{Q}^m_{collab} = \sum_{m'=1, m'\neq 
+            %m}^{P}\beta_m^{m'}\sum_{i=1}^{N}\sum_{j=1}^{|W|}({K}^m_{j, 
+            %\chi(x_i)} - {K}^{m'}_{j, \chi(x_i)})^2  \|x_i^m - \omega_j^m\|^2
+            %\end{equation*}
 
-            \begin{itemize}
-                \item $W$ $\rightarrow$ la carte de prototypes
-                \item $\chi(x_i)$ $\rightarrow$ la fonction retournant le 
-                    prototype le plus proche de $x_i$.
-                \item $x_i^k$ $\rightarrow$ l'individu $i$ dans la vue $m$
-                \item $\omega_j^m$ $\rightarrow$ le prototype $j$ de la SOM de 
-                    la vue m.
-            \end{itemize}
-        \end{frame}
+            %\begin{itemize}
+                %\item $W$ $\rightarrow$ la carte de prototypes
+                %\item $\chi(x_i)$ $\rightarrow$ la fonction retournant le 
+                    %prototype le plus proche de $x_i$.
+                %\item $x_i^k$ $\rightarrow$ l'individu $i$ dans la vue $m$
+                %\item $\omega_j^m$ $\rightarrow$ le prototype $j$ de la SOM de 
+                    %la vue m.
+            %\end{itemize}
+        %\end{frame}
     
 
         \begin{frame}{SOM incrémentale et clustering collaboratif}
-            Adaptation de notre version de SOM incrémentale au clustering 
-            collaboratif:
-            \begin{center}
-            $\lambda \rightarrow \widetilde{\lambda}$
-            \\~\\
-            $K_{i,j}(\lambda) \rightarrow K_{i,j}(\widetilde{\lambda}) 
-            \rightarrow \widetilde{K_{i,j}}$
-            \\~\\
-            $Q_{local}^m / Q_{collab}^m (K_{i,j}) \rightarrow Q_{local}^m / 
-            Q_{collab}^m (\widetilde{K_{i,j}}) \rightarrow 
-            \widetilde{Q}_{local}^m / \widetilde{Q}_{collab}^m$
-            \end{center}
-            Le nouveau critère dépendant dépendant uniquement des $N_{batch}$ 
-            derniers individus apparus, il est possible d'effectuer un 
-            \textbf{apprentissage collaboratif incrémental} sur l'ensemble des 
-            vues.
+            \begin{itemize}
+                \item<2-> \textbf{$\mathbf{1^{ère}}$ contrainte}: des individus 
+                    correspondants doivent appartenir à des \textbf{prototypes 
+                    correspondants} ou à leurs voisinnages proches.
+                \item<3-> \textbf{$\mathbf{2^{ème}}$ contrainte}: \textbf{même 
+                    topologie des cartes} pour toutes les vues pour les rendre 
+                    comparables.
+            \end{itemize}
 
-            Les règles de mise à jour sont obtenus par \textbf{descente de 
-            gradient} appliquée sur ce critère.
+            \onslide<4->{
+                Adaptation de notre version de SOM incrémentale au clustering 
+                collaboratif:
+                \begin{columns}
+                    \begin{column}{0.6\textwidth}
+                        \begin{align*}
+                            & Q_{local}^m(K_{i,j}) / Q_{collab}^m (\Delta K_{i,j}) \\
+                            \Rightarrow\quad & Q_{local}^m(\widetilde{K}_{i,j}) / 
+                            Q_{collab}^m (\Delta \widetilde{K}_{i,j})\\
+                            \Rightarrow\quad & \widetilde{Q}_{local}^m / 
+                            \widetilde{Q}_{collab}^m
+                        \end{align*}
+                    \end{column}
+                    \begin{column}{0.4\textwidth}
+                        \begin{equation*}
+                            K_{i,j} = 
+                            \exp\left(-\frac{d^2_1(i,j)}{\lambda(t)}\right)
+                        \end{equation*}
+                    \end{column}
+                \end{columns}
+                Le nouveau critère dépendant uniquement des $N_{batch}$ derniers 
+                individus apparus, il est possible d'effectuer un 
+                \textbf{apprentissage collaboratif incrémental} sur l'ensemble des 
+                vues.
+            }
+
+            %Les règles de mise à jour sont obtenus par \textbf{descente de 
+            %gradient} appliquée sur ce critère.
         \end{frame}
 
         %\begin{frame}{Expérimentations}
@@ -444,16 +470,15 @@
                 \item Isolet
             \end{itemize}
 
-            \textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.\\
             \textbf{Pureté d'un prototype}: classe majoritaire parmi les
-            individus associés à ce prototype
-
+            individus associés à ce prototype.
+            \textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.
             \textbf{Erreur moyenne de quantification}: distance moyenne
             entre un prototype et les individus qui y sont associés.
 
             \begin{equation*}
                 qe = \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i -
-                \omega_{\chi(x_i)}\|^2
+                \chi(x_i)\|^2
             \end{equation*}
         \end{frame}
 
@@ -645,33 +670,33 @@
         \vspace{1cm}
         L'importance d'une vue externe relativement à une vue locale est
         proportionnelle au rapport entre la moyenne géométrique de toutes les
-        dissimilarités sur à la dissimilarité entre les deux vues
+        dissimilarités sur la dissimilarité entre les deux vues
         .\\
         \onslide<2->{$\rightarrow$ \textbf{plus 2 vues sont similaires, 
             plus elles collaboreront.}
         }
     \end{frame}
 
-    \begin{frame}
-        \begin{algorithm}[H]
-            \caption{Algorithme topologique de collaboration horizontale}
-            \textbf{Initialisation:} Initialiser toutes les cartes de
-            prototypes $W$ aléatoirement. \\
-            \textbf{Étape locale:} Initialisation des cartes\\
-            \ForAll{Vue} {
-                Minimiser la fonction objectif des cartes auto-adaptatrices
-                standards.
-            } 
-            \textbf{Étape collaborative:}\\
-            \ForAll{Vue} {
-                Pour $w$ fixé, mettre à jour $\beta$\\
-                $ \beta^{*} =  argmin_{\beta}Q(w,\alpha,\beta) $\\
-                Pour $\beta$ fixés, mettre à jour les prototypes de 
-                toutes les cartes:\\
-                $ w^{*} =  argmin_{w}Q(w,\alpha,\beta) $
-            }	 
-        \end{algorithm}
-    \end{frame}
+    %\begin{frame}
+        %\begin{algorithm}[H]
+            %\caption{Algorithme topologique de collaboration horizontale}
+            %\textbf{Initialisation:} Initialiser toutes les cartes de
+            %prototypes $W$ aléatoirement. \\
+            %\textbf{Étape locale:} Initialisation des cartes\\
+            %\ForAll{Vue} {
+                %Minimiser la fonction objectif des cartes auto-adaptatrices
+                %standards.
+            %} 
+            %\textbf{Étape collaborative:}\\
+            %\ForAll{Vue} {
+                %Pour $w$ fixé, mettre à jour $\beta$\\
+                %$ \beta^{*} =  argmin_{\beta}Q(w,\alpha,\beta) $\\
+                %Pour $\beta$ fixés, mettre à jour les prototypes de 
+                %toutes les cartes:\\
+                %$ w^{*} =  argmin_{w}Q(w,\alpha,\beta) $
+            %}	 
+        %\end{algorithm}
+    %\end{frame}
 
     \begin{frame}{Expérimentations}
         Deux axes d'analyse:
@@ -1368,6 +1393,7 @@
     \end{frame}
 
     \begin{frame}{Reconstruction collaborative: résumé}
+        Contributions
         \begin{itemize}
             \item Définition d'un nouveau \textbf{cas d'application du paradigme
                 collaboratif}.
@@ -1376,16 +1402,17 @@
             \item Définition d'une méthode permettant de \textbf{combiner efficacement
                 un ensemble de reconstructions}.\\~\\
         \end{itemize}
+        Résultats
         \begin{itemize}
             \item Scores \textbf{améliorables} en reconstruction.
-            \item Suffisamment d'information préservée pour permettre
-                \textbf{une classification}.
-            \item \textbf{Adaptation des masques} suivant la qualité des
-                reconstructions.
+            \item Reconstruction \textbf{conserve une information intrinsèque}.
+            \item Proof of concept, mais le système global doit être 
+                \textbf{amélioré}.
+
         \end{itemize}
     \end{frame}
 
-    \section{Conclusion et Perspectives}
+    \section{Contributions et Perspectives}
     \begin{frame}{Contributions}
         Dans cette thèse, nous avons proposé les trois contributions suivantes:
         \begin{itemize}
