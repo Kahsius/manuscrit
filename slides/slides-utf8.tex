@@ -355,9 +355,9 @@
 
             Les solutions existantes pour les SOM incrémentales se basent toutes 
             sur l'ajout de prototypes ([Paplinski2012] et [Deng2000]).\\~\\
-            \only<2->{\textbf{Problème 1}: Est-il possible de trouver une 
+            \onslide<2->{\textbf{Problème 1}: Est-il possible de trouver une 
             solution \textbf{conservant la topologie de la carte} ?\\}
-            \only<3->{\textbf{Problème 2}: $\lambda$ est \textbf{dépendante du 
+            \onslide<3->{\textbf{Problème 2}: $\lambda$ est \textbf{dépendante du 
             temps}, ce qui pose problème avec le clustering incrémental.\\~\\}
 
             %$\rightarrow$ \textbf{Non applicable au clustering collaboratif} du 
@@ -471,8 +471,8 @@
             \end{itemize}
 
             \textbf{Pureté d'un prototype}: classe majoritaire parmi les
-            individus associés à ce prototype.
-            \textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.
+            individus associés à ce prototype.\\
+            \textbf{Pureté d'une SOM}: pureté moyenne de ses prototypes.\\
             \textbf{Erreur moyenne de quantification}: distance moyenne
             entre un prototype et les individus qui y sont associés.
 
@@ -1065,8 +1065,9 @@
         Après calcul:
         \begin{equation*}
             w_{i|j}^k = \frac{\sum_{x_i \in V_i} x_{i|j}^k\big(x_i^k - 
-            \only<1>{\sum_{j'\in[1..N]\backslash \{i,j\}} w_{i|j'}^k x_{i|j'}^k}
-            \only<2>{\textcolor{red}{\sum_{j'\in[1..N]\backslash \{i,j\}} w_{i|j'}^k} x_{i|j'}^k}
+                    \only<1>{\sum_{j'\in[1..N]\backslash \{i,j\}} w_{i|j'}^k 
+                    x_{i|j'}^k}\only<2>{\textcolor{red}{ 
+                    \sum_{j'\in[1..N]\backslash \{i,j\}} w_{i|j'}^k} x_{i|j'}^k}
             \big)}{\sum_{x_i \in V_i}(x_{i|j}^k)^2}
         \end{equation*}
         \begin{itemize}
