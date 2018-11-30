@@ -11,7 +11,6 @@
 \usetheme[progressbar=frametitle]{metropolis}           % Use metropolis theme
 \setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
 \setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
-
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
 \graphicspath{{../img/sample/}{../img/moches/}{../img/original/}{../img/}}
 
@@ -20,6 +19,58 @@
 \author{Denis Maurel}
 
 \begin{document}
+
+    \titlegraphic{%
+        \begin{columns}
+            \begin{column}{0.4\textwidth}
+                \flushleft{
+                    \resizebox{1.0\textwidth}{!}{
+                        \begin{tabular}{r@{\ }ll}
+                            & Mme. Raja {\sc Chiky} & Directrice de th\`{e}se\\
+                            & M. Antoine {\sc Cornu\'{e}jols} & Examinateur \\
+                            & Mme. Pascale {\sc Kuntz} & Rapportrice \\
+                            & M. Sylvain {\sc Lefebvre} & Encadrant \\
+                            & M. Christophe {\sc Marsala} & Pr\'{e}sident du jury \\
+                            & M. Marcilio {\sc de Souto} & Examinateur \\
+                            & M. J\'{e}r\'{e}mie {\sc Sublime} & Encadrant \\
+                            & Mme. Rosanna {\sc Verde} & Rapportrice \\
+                        \end{tabular}
+                    }
+                }
+            \end{column}
+            \begin{column}{0.55\textwidth}
+                \begin{figure}[b]
+                    \hfill
+                    \begin{subfigure}[c]{0.4\textwidth}
+                        \includegraphics[width=\textwidth]{isep}
+                    \end{subfigure}
+                    \qquad
+                    \begin{subfigure}[c]{0.4\textwidth}
+                        \includegraphics[width=\textwidth]{logo}
+                    \end{subfigure}
+                \end{figure}
+            \end{column}
+        \end{columns}
+    }
+
+    \makeatletter
+    \setbeamertemplate{title page}{%
+        \begin{minipage}[b][\paperheight]{\textwidth}
+            \vfill%
+            \ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
+            \ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+            \usebeamertemplate*{title separator}
+            \ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+            \ifx\insertdate\@empty\else\usebeamertemplate*{date}\fi
+            \ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+            \vfill
+            \ifx\inserttitlegraphic\@empty\else\inserttitlegraphic\fi
+            \vspace*{1cm}
+        \end{minipage}
+    }
+    \makeatother
+
+
     \maketitle
 
     \begin{frame}{Plan}
@@ -239,11 +290,11 @@
 
     \begin{frame}{Clustering collaboratif: théorie}
         Définition du critère collaboratif:
-        \begin{align*}
+        \begin{align}
             Q^i &= \alpha_i Q^i_{local}(V_i) + Q^i_{collab}(V_i, V_{j\neq i})\\
             &= \alpha_i Q^i_{local}(V_i) + \sum_{j\neq i} \beta^i_j C_j^i(V_i, 
             V_j)
-        \end{align*}
+        \end{align}
         \begin{itemize}
             \item $Q^i_{local}$ est généralement basé sur \textbf{le critère de 
                 l'algorithme local} à optimiser.
@@ -316,16 +367,16 @@
             \begin{center}
                 
             \end{center}
-            \begin{equation*}
-                \text{Fonction de température:} \qquad
-                \lambda(t) = 
-                \lambda_{min}\left(\frac{\lambda_{max}}{\lambda_{min}}\right)^{\frac{1}{t}}
-            \end{equation*}
-
             
             \begin{equation*}
                 \text{Fonction de voisinage:} \qquad K_{i,j} = 
                 \exp\left(-\frac{d^2_1(i,j)}{\lambda(t)}\right)
+            \end{equation*}
+
+            \begin{equation*}
+                \text{Fonction de température:} \qquad
+                \lambda(t) = 
+                \lambda_{min}\left(\frac{\lambda_{max}}{\lambda_{min}}\right)^{\frac{1}{t}}
             \end{equation*}
 
             \begin{figure}[b]
@@ -420,16 +471,16 @@
             \end{itemize}
 
             \onslide<4->{
-                Adaptation de notre version de SOM incrémentale au clustering 
-                collaboratif:
                 \begin{columns}
                     \begin{column}{0.6\textwidth}
                         \begin{align*}
-                            & Q_{local}^m(K_{i,j}) / Q_{collab}^m (\Delta K_{i,j}) \\
-                            \Rightarrow\quad & Q_{local}^m(\widetilde{K}_{i,j}) / 
-                            Q_{collab}^m (\Delta \widetilde{K}_{i,j})\\
-                            \Rightarrow\quad & \widetilde{Q}_{local}^m / 
-                            \widetilde{Q}_{collab}^m
+                            & Q_{local}^m(K_{i,j}) \quad / \quad Q_{collab}^m ( 
+                            K^m_{i,j} - K^{m'}_{i,j}) \\
+                            \Rightarrow\quad & Q_{local}^m(\widetilde{K}_{i,j}) 
+                            \quad / \quad Q_{collab}^m ( \widetilde{K}^m_{i,j} - 
+                            \widetilde{K}^{m'}_{i,j})\\
+                            \Rightarrow\quad & \widetilde{Q}_{local}^m \quad / 
+                            \quad \widetilde{Q}_{collab}^m
                         \end{align*}
                     \end{column}
                     \begin{column}{0.4\textwidth}
@@ -490,25 +541,26 @@
                     \begin{tabular}{cccc}
                               & SOM incrémentales & 
                               \begin{tabular}[c]{@{}c@{}}clustering 
-                              collaboratif\\ incrémental\end{tabular} & $\Delta$            
+                              collaboratif\\ incrémental\end{tabular} & Gain            
                               \\ \hline
                     Spam Base & 0.223             & 0.203                                                                         
-                    & \textbf{- 0.02}  \\ \hline
+                    & \textbf{+ 8.9\%}  \\ \hline
                     Waveform  & 0.197             & 0.24                                                                          
-                    & \textbf{+ 0.043} \\ \hline
+                    & \textbf{- 21.8\%} \\ \hline
+
                     WDBC      & 0.183             & 0.18                                                                          
-                    & \textbf{- 0.003} \\ \hline
-                    Isolet    & 2.61              & 1.34                                                                          & \textbf{- 1.27} 
+                    & \textbf{+ 1,6\%} \\ \hline
+                    Isolet    & 2.61              & 1.34                                                                          
+                    & \textbf{+ 48,7\%}
                     \end{tabular}
                 \end{center}
             \end{table}
             \begin{itemize}
-                \item \textbf{Score en quantification à long termes 
+                \item \textbf{Score en quantification à long termes globalement 
                     comparables}: le clustering collaboratif n'endommage pas les 
                     résultats locaux.
-                \item Le clustering collaboratif permet de \textbf{limiter 
-                        l'impact
-                    du bruit} dans les vues.
+                \item Le clustering collaboratif est sensible \textbf{à la 
+                    présence de vues bruitées}.
             \end{itemize}
         \end{frame}
 
@@ -643,7 +695,7 @@
         $\rightarrow$ \textbf{méthode de Karush-Kuhn-Tucker (KKT)} 
 
         \begin{equation*}
-        L(\beta,\nu,\lambda)=\sum_{j=1}^J  \sum_{i \neq j}^J ( \beta_{i,j}  C_{i,j}
+        L(\beta,\nu,\lambda)=\sum_{j=1}^J  \sum_{i \neq j}^J ( \beta_{i,j}  C_j^i
         - \nu_j  \ln  \beta_{i,j}  - \lambda_{i,j}   \beta_{i,j} ).
         \end{equation*}
 
@@ -663,8 +715,8 @@
 
         \begin{equation*}
             \forall (i,j), \quad i\neq j \qquad \beta_{i,j} =  
-            \frac{(\prod_{k\neq j} C _{k,j})^{\frac 
-            1 {J-1}}}{C_{i,j}}
+            \frac{(\prod_{k\neq j} C_k^i)^{\frac 
+            1 {J-1}}}{C_j^i}
         \end{equation*} 
 
         \vspace{1cm}
@@ -1112,7 +1164,7 @@
             \item Wisconsin Diagnostic Breast Cancer (WDBC)
                 \begin{itemize}
                     \item 569 individus
-                    \item 32 descripteurs
+                    \item 32 descripteurs répartis en 3 vues
                 \end{itemize}
             \item Multi-Features Digital Dataset (MFDD)
                 \begin{itemize}
@@ -1151,31 +1203,50 @@
     \begin{frame}{Reconstruction collaborative: résultats}
         \begin{figure}[!h]
             \centering
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.21]{mse_wdbc}
-            \end{subfigure}
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.21]{mse_mfeat}
-            \end{subfigure}
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.21]{mse_madelon}
-            \end{subfigure}
-            \\
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.21]{mrd_wdbc}
+            \begin{subfigure}[c]{0.45\textwidth}
+                \includegraphics[scale=.26]{mrd_wdbc}
                 \caption{WDBC}
             \end{subfigure}
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.21]{mrd_mfeat}
+            \begin{subfigure}[c]{0.45\textwidth}
+                \includegraphics[scale=.26]{mrd_mfeat}
                 \caption{MFDD}
-            \end{subfigure}
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.21]{mrd_madelon}
+            \end{subfigure}\\
+            \begin{subfigure}[c]{0.45\textwidth}
+                \includegraphics[scale=.26]{mrd_madelon}
                 \caption{Madelon}
             \end{subfigure}
             \caption{Erreur par vue et par jeu de données}
         \end{figure}
     \end{frame}
+
+    %\begin{frame}{Reconstruction collaborative: résultats}
+        %\begin{figure}[!h]
+            %\centering
+            %\begin{subfigure}[c]{0.32\textwidth}
+                %\includegraphics[scale=.21]{mse_wdbc}
+            %\end{subfigure}
+            %\begin{subfigure}[c]{0.32\textwidth}
+                %\includegraphics[scale=.21]{mse_mfeat}
+            %\end{subfigure}
+            %\begin{subfigure}[c]{0.32\textwidth}
+                %\includegraphics[scale=.21]{mse_madelon}
+            %\end{subfigure}
+            %\\
+            %\begin{subfigure}[c]{0.32\textwidth}
+                %\includegraphics[scale=.21]{mrd_wdbc}
+                %\caption{WDBC}
+            %\end{subfigure}
+            %\begin{subfigure}[c]{0.32\textwidth}
+                %\includegraphics[scale=.21]{mrd_mfeat}
+                %\caption{MFDD}
+            %\end{subfigure}
+            %\begin{subfigure}[c]{0.32\textwidth}
+                %\includegraphics[scale=.21]{mrd_madelon}
+                %\caption{Madelon}
+            %\end{subfigure}
+            %\caption{Erreur par vue et par jeu de données}
+        %\end{figure}
+    %\end{frame}
 
     \begin{frame}{Reconstruction collaborative: images originales}
         \begin{figure}[h]
@@ -1211,6 +1282,7 @@
             \begin{subfigure}[c]{0.18\textwidth}
                 \includegraphics[scale=.12]{o9}
             \end{subfigure}
+            \caption{Échantillon d'images originales}
         \end{figure}
     \end{frame}
 
@@ -1248,6 +1320,22 @@
             \begin{subfigure}[c]{0.18\textwidth}
                 \includegraphics[scale=.12]{9}
             \end{subfigure}
+            \caption{Échantillon d'images reconstruites de bonne qualité 
+            (~90\%)}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Comparaison}
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[c]{0.3\textwidth}
+                \includegraphics[scale=.20]{o6}
+            \end{subfigure}
+            \begin{subfigure}[c]{0.3\textwidth}
+                \includegraphics[scale=.20]{6}
+            \end{subfigure}
+            \hfill
+            \caption{Capture de l'information intrinsèque.}
         \end{figure}
     \end{frame}
 
@@ -1285,6 +1373,8 @@
             \begin{subfigure}[c]{0.18\textwidth}
                 \includegraphics[scale=.12]{99}
             \end{subfigure}
+            \caption{Échantillon d'images reconstruites de mauvaise qualité 
+            (~10\%)}
         \end{figure}
     \end{frame}
 
@@ -1305,26 +1395,21 @@
     \begin{frame}{Reconstruction collaborative: un peu plus loin}
         \begin{figure}[!h]
             \centering
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.22]{cs_wdbc}
+            \begin{subfigure}[c]{0.45\textwidth}
+                \includegraphics[scale=.26]{cs_wdbc}
                 \caption{WDBC}
             \end{subfigure}
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.22]{cs_mfeat}
+            \begin{subfigure}[c]{0.45\textwidth}
+                \includegraphics[scale=.26]{cs_mfeat}
                 \caption{MFDD}
-            \end{subfigure}
-            \begin{subfigure}[c]{0.32\textwidth}
-                \includegraphics[scale=.22]{cs_madelon}
+            \end{subfigure}\\
+            \begin{subfigure}[c]{0.45\textwidth}
+                \includegraphics[scale=.26]{cs_madelon}
                 \caption{Madelon}
             \end{subfigure}
             \caption{Différences en classification par vue et par jeu de 
             données}
         \end{figure}
-        \begin{itemize}
-            \item Résultats \textbf{proches des résultats originaux}
-            \item Impact de notre méthode de pondération \textbf{dépendant du 
-                jeu de données} et \textbf{limité}.
-        \end{itemize}
     \end{frame}
 
     \begin{frame}{Reconstruction collaborative: efficacité de la MWM}
@@ -1362,7 +1447,7 @@
         \end{itemize}
         \begin{figure}[h]
             \centering
-            \includegraphics[scale=.30]{process_mwm}
+            \includegraphics[scale=.24]{process_mwm.png}
             \caption{Combinaison de deux individus partiellement corrects}
         \end{figure}
     \end{frame}
