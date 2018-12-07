@@ -9,8 +9,8 @@
 \usepackage[titlenumbered, ruled]{algorithm2e}
 
 \usetheme[progressbar=frametitle]{metropolis}           % Use metropolis theme
-%\setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
-%\setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
+\setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
+\setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
 \graphicspath{{../img/sample/}{../img/moches/}{../img/original/}{../img/}}
 
@@ -109,8 +109,8 @@
                     \item SOM [Grozavu2010], Fuzzy C-Means [Pedrycz2004], GTM
                         [Ghassany2012]
                 \end{itemize}
-            \item<+-> 2 phases d'apprentissage: la phase \textbf{locale} et la 
-                phase \textbf{collaborative}. [Pedrycz2002]
+            \item<+-> 2 phases: phase \textbf{locale} et phase 
+                \textbf{collaborative} [Pedrycz2002]
         \end{itemize}
 
         \onslide<+->{
@@ -561,9 +561,9 @@
         $\beta$ en s'affranchissant de simplifications telles que $\beta =
         \alpha^2$.
 
-        Nous avons proposé \textbf{une nouvelle méthode de pondération} 
-        permettant d'apprendre automatiquement les poids fixant \textbf{les 
-        importances relatives des différents scores}.\\
+        Nous proposons \textbf{une nouvelle méthode de pondération} permettant 
+        d'apprendre automatiquement les poids fixant \textbf{les importances 
+        relatives des différents scores}.\\
     \end{frame}
 
     \begin{frame}{Optimisation de paramètres: définition du problème}
@@ -571,14 +571,14 @@
         d'un problème sous contrainte. Les contraintes sont les suivantes :
 
         \begin{itemize}
-            \item<2-> $\beta^* =  
+            \item<2->{Affranchissement des $\alpha$: comme il s'agit de 
+                pondérations relatives, on peut fixer $\alpha=1$.}
+            \item<3-> $\beta^* =  
                 \operatornamewithlimits{argmin}_{\beta}  \sum_{i \neq j}
         \beta_{i,j}  C _{i,j} $
-            \item<3-> $\forall j \quad \prod_{i \neq j}^J \beta_{i,j} = 
+            \item<4-> $\forall j \quad \prod_{i \neq j}^J \beta_{i,j} = 
                 1$ (prise en compte des avis \textbf{divergents})
-            \item<4-> $\forall (i,j) \quad \beta_{i,j} >0$
-            \item<5->{Affranchissement des $\alpha$: comme il s'agit de 
-                pondérations relatives, on peut fixer $\alpha=1$.}
+            \item<5-> $\forall (i,j) \quad \beta_{i,j} >0$
         \end{itemize}
 
         \onslide<6->{\textbf{Objectif:} mettre des poids plus élevés sur 
@@ -588,7 +588,8 @@
     \end{frame}
 
     \begin{frame}{Optimisation de paramètres: méthode de Karush-Kuhn-Tucker}
-        Extension de la méthode du multiplateur de Lagrange aux contraintes d'inégalités
+        Extension de la méthode du multiplateur de Lagrange aux contraintes 
+        d'inégalités\\
         $\rightarrow$ \textbf{méthode de Karush-Kuhn-Tucker (KKT)} [Kuhn1951]. 
 
         \begin{equation*}
@@ -818,7 +819,13 @@
     \end{frame}
 
     \begin{frame}{Reconstruction collaborative: définition}
-        \textbf{Objectif}: \textbf{Reconstruire localement} une approximation de l'individu manquant à partir des informations présentes dans \textbf{les vues externes}.
+        \textbf{Objectif 1}: \textbf{Reconstruire localement} une approximation 
+        de l'individu manquant à partir des informations présentes dans 
+        \textbf{les vues externes}.\\~\\
+        \textbf{Objectif 2}: Effectuer \textbf{une classification} des individus 
+        reconstruits et \textbf{comparer} avec les résultats obtenus sur les 
+        \textbf{données originales}.
+        \vspace{0.5cm}
         \begin{figure}[h]
             \centering
             \includegraphics[scale=.15]{missing}
@@ -960,16 +967,6 @@
     \end{frame}
 
     \begin{frame}{Reconstruction collaborative: combinaison}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[scale=.2]{mwm.png}
-            \caption{Pondération par masque (Masked Weighting Method
-                (MWM) en anglais).
-            }
-        \end{figure}
-    \end{frame}
-
-    \begin{frame}{Reconstruction collaborative: combinaison}
         \begin{itemize}
             \item Chaque vue possède $N-1$ masques, un par vue externe, utilisés 
                 pour \textbf{pondérer chaque représentation externe}.
@@ -980,6 +977,9 @@
         \begin{figure}[b]
             \centering
             \includegraphics[scale=.17]{mwm.png}
+            \caption{Pondération par masque (Masked Weighting Method
+                (\textbf{MWM}) en anglais).
+            }
         \end{figure}
     \end{frame}
 
@@ -1197,8 +1197,8 @@
             \begin{subfigure}[c]{0.18\textwidth}
                 \includegraphics[scale=.12]{9}
             \end{subfigure}
-            \caption{Échantillon d'images reconstruites de bonne qualité 
-            (~90\% des images reconstruites)}
+            \caption{Échantillon d'images reconstruites (~90\% des images 
+            reconstruites)}
         \end{figure}
     \end{frame}
 
@@ -1250,8 +1250,8 @@
             \begin{subfigure}[c]{0.18\textwidth}
                 \includegraphics[scale=.12]{99}
             \end{subfigure}
-            \caption{Échantillon d'images reconstruites de mauvaise qualité 
-            (~10\% des images reconstruites)}
+            \caption{Échantillon d'images reconstruites (~10\% des images 
+            reconstruites)}
         \end{figure}
     \end{frame}
 
@@ -1441,21 +1441,22 @@
     \appendix
     \begin{frame}{Descriptions des jeux de données}
         \begin{itemize}
-            \item WDBC
+            \item
+                \textbf{WDBC}
                 \begin{itemize}
                     \item 569
                     \item 3 $\times$ 10 descripteurs sur 1 type de cellule
                     \item description des caractéristiques physiques de chaque
                         cellule (rayon, texture, aire\ldots)
                 \end{itemize}
-            \item Waveform
+            \item \textbf{Waveform}
                 \begin{itemize}
                     \item 5000 individus
                     \item 40 attributs, 19 uniquement composés de bruits
                     \item les 21 attributs restants sont bruités et composés de
-                        2 des 3 ``wave'' de base.
+                        2 des 3 ``waves'' de base.
                 \end{itemize}
-            \item Isolet
+            \item \textbf{Isolet}
                 \begin{itemize}
                     \item 150 personnes ont prononcé chaque lettre de
                         l'alphabet deux fois.
@@ -1463,7 +1464,12 @@
                         spectrale utilisée dans les études d'analyse de la
                         voix (l'ordre a été perdu).
                 \end{itemize}
-            \item Spambase
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Descriptions des jeux de données}
+        \begin{itemize}
+            \item \textbf{Spambase}
                 \begin{itemize}
                     \item 4601 mails (spam et non spam)
                     \item les descripteurs sont majoritairement (46/57) des
@@ -1473,7 +1479,7 @@
                         caractéristiques propres aux séquences de lettres
                         écrites en capital.
                 \end{itemize}
-            \item MFD
+            \item \textbf{MFD}
                 \begin{itemize}
                     \item 2000 chiffres manuscrits
                     \item chaque vue décrit l'ensemble de chiffres à l'aide de
@@ -1482,55 +1488,89 @@
                         coefficients de Karhunen-Love, moyennes de pixels,
                     moments de Zernike et des descripteurs morphologiques).
                 \end{itemize}
-            \item Madelon
+            \item \textbf{Madelon}
                 \begin{itemize}
                     \item 4400 individus artificiels (NIPS 2003)
                     \item 32 clusters placés aux somments d'un cube à 5 dimensions.
                     \item ajout de 480 descripteurs de bruit.
                 \end{itemize}
-            \item VHR Strasbourg
-                \begin{itemize}
-                    \item Segments d'images satellitse en très haute résolution 
-                    \item 27 descripteurs décrivant les variations de couleur
-                        sur chaque canal (rouge, vert, bleu et infra-rouge).
-                \end{itemize}
         \end{itemize}
-        
     \end{frame}
 
-    \begin{frame}{Mise à jour d'une SOM}
-        
+    \begin{frame}{Descriptions des jeux de données}
+        \begin{itemize}
+            \item \textbf{VHR Strasbourg}
+                    \begin{itemize}
+                        \item Segments d'images satellitse en très haute résolution 
+                        \item 27 descripteurs décrivant les variations de couleur
+                            sur chaque canal (rouge, vert, bleu et infra-rouge).
+                    \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Mise à jour d'une SOM collaborative}
+        Mise à jour des prototypes d'une carte SOM
+
+        \begin{equation*}
+            \forall w_n \in W, \quad w_n^{new} = w_n^{old} + \sum_{x_i} 
+            K_{n,\chi(x_i)} \left( x_i - \chi(x_i) \right)
+        \end{equation*}
+
+        Définition des sous-critères locaux et collaboratifs
+
+        \begin{equation*}
+            Q_{local}^v = \alpha_v \sum_{x_i} \sum_{w_n \in W^v} 
+            K_{n,\chi(x_n)}^v\|x_i - w_n \|_2
+        \end{equation*}
+
+        \begin{equation*}
+            Q_{collab}^v = \sum_{v' \neq v}\beta_v^{v'} \sum_{x_i}\sum_{w_n \in 
+            W^v} \big(K^v_{n,\chi(x_i)} - K^{v'}_{n,\chi(x_i)}\big)\|x_i - w_n 
+        \|_2 \end{equation*}
+
+        \begin{equation*}
+            {w_n}^{new} = {w_n}^{old} - \epsilon \, \frac{\partial \left(  
+            Q^v_{local} + Q^v_{collab} \right) }{\partial w_n}
+        \end{equation*}
     \end{frame}
 
     \begin{frame}{Références}
         \begin{itemize}
-            \item [Deng2000] Da Deng and Nikola Kasabov. Esom: An algorithm to
+            \item \textbf{(Deng2000)} Da Deng and Nikola Kasabov. Esom: An algorithm to
                 evolve self-organizing maps from online data streams. In
                 \textit{Neural Networks}, volume-6, page 3-8. IEEE, 2000.
-            \item [Ghassany2012] Mohammad Ghassany, Nistor Grozavu, and Younès
+            \item \textbf{(Ghassany2012)} Mohammad Ghassany, Nistor Grozavu, and Younès
                 Bennani. Collaborative generative topographic mapping. In
                 \textit{Internation Conference on Neural Information
                 Processing}, pages 591-598. Springer, 2012.
-            \item [Grozavu2010] Nistor Grozavu and Younès Bennani. Topological
+            \item \textbf{(Grozavu2010)} Nistor Grozavu and Younès Bennani. Topological
                 collaborative clutering. \textit{Australian Journal of
                 Intelligent Information Processing Systems}, 12(2), 2010.
-            \item [Grozavu2011] Nistor Grozavu, Mohamad Ghassany, and Younès
+            \item \textbf{(Grozavu2011)} Nistor Grozavu, Mohamad Ghassany, and Younès
                 Bennani. Learning confidence exchange in collaborative
                 clustering. In \textit{Neural Networks (IJCNN), The 2011
                 International Joint Conference on}, pages 872 879. IEEE, 2011.
-            \item [Kuhn1951] Harold W. Kuhn and Albert W. Tucker. Nonlinear
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Références}
+        \begin{itemize}
+            \item \textbf{(Kuhn1951)} Harold W. Kuhn and Albert W. Tucker. Nonlinear
                 programming. In \textit{Proceeding of 2nd Berkeley Symposium},
                 pages 481-492. 1951.
-            \item [Paplinski2012] Andrew P.
+            \item \textbf{(Paplinski2012)} Andrew P.
                 Paplinski. Incremental self-organizing map (isom) in
                 categorization of visual objects. In \textit{ICONIP}, pages
                 125-132. Springer, 2012.
-            \item [Pedrycz2002] Witold Pedrycz.
+            \item \textbf{(Pedrycz2002)} Witold Pedrycz.
                 Collaborative fuzzy clustering. \textit{Pattern Recognition
                 Letters}, 23(14):1675-1686, 2002.
-            \item [Pedrycz2004] Witold
+            \item \textbf{(Pedrycz2004)} Witold
                 Pedrycz. Fuzzy clustering with a knowledge-based guidance.
                 \textit{Pattern Recognition Lettrs}, 25(4):469-480, 2004.
+            \item \textbf{(Kohonen1982)} Teuvo Kohonen. Self-Organized Formation of 
+                Topologically Correct Feature Maps. \textit{Biological 
+                Cybernetics}. 43(1):59-69, 1982.
         \end{itemize}
     \end{frame}
 
@@ -1538,21 +1578,33 @@
         On ne tient pas compte du coût de calcul des méthodes implémentées par le clustering collaboratif.
 
         \begin{itemize}
-            \item Complexité de chaque algorithme local
-            \item Bande passante nécessaire au transfert des résultats intermédiaires proportionnelle au nombre d'individus
-            \item Transferts répétés pour chaque itération
-        \end{itemize}
+            \item Complexité de \textbf{chaque algorithme local}
+            \item Bande passante nécessaire au transfert des résultats 
+                intermédiaires \textbf{proportionnelle au nombre d'individus} 
+        \item Transferts répétés pour \textbf{chaque itération}
+    \end{itemize}
 
         La reconstruction collaborative limite la quantité d'information transférées en ne les transférant qu'une seule fois.
 
         \begin{itemize}
-            \item Apprentissage de chaque autoencodeur
-            \item Par vue, apprentissage de $N-1$ perceptron multi-couches
-            \item Par vue, apprentissage de $N-1$ masques
+            \item Apprentissage de $\mathbf{N}$ autoencodeur
+            \item Par vue, apprentissage de $\mathbf{N-1}$ perceptron 
+                multi-couches
+            \item Par vue, apprentissage de $\mathbf{N-1}$ masques
         \end{itemize}
     \end{frame}
 
     \begin{frame}{Contexte générale}
-        
+        \begin{itemize}
+            \item Thèse \textbf{exploratoire}
+            \item Sujet initial plus orienté sur \textbf{l'analyse de données 
+                appliquée au profilage de joueur}.\\~\\
+            \item Difficultés liées à la \textbf{récupération des données}
+            \item Difficultés liées à la \textbf{définition et à la portée du 
+                sujet}
+            \item Orientation du sujet vers le clustering collaboratif suite 
+                \textbf{au premier comité de tiers parcours} sur conseil des 
+                membres du comité.
+        \end{itemize}
     \end{frame}
 \end{document}
