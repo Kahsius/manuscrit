@@ -9,8 +9,8 @@
 \usepackage[titlenumbered, ruled]{algorithm2e}
 
 \usetheme[progressbar=frametitle]{metropolis}           % Use metropolis theme
-\setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
-\setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
+%\setsansfont[Scale=0.8, BoldFont={FiraSans-Bold.ttf}]{FiraSans-Light.ttf}
+%\setmonofont[Scale=0.8, BoldFont={FiraMono-Bold.ttf}]{FiraMono-Regular.ttf}
 \DeclareGraphicsExtensions{.pdf,.png,.jpeg,.jpg}
 \graphicspath{{../img/sample/}{../img/moches/}{../img/original/}{../img/}}
 
@@ -30,7 +30,7 @@
                             & M. Antoine {\sc Cornu\'{e}jols} & Examinateur \\
                             & Mme. Pascale {\sc Kuntz} & Rapportrice \\
                             & M. Sylvain {\sc Lefebvre} & Encadrant \\
-                            & M. Christophe {\sc Marsala} & Pr\'{e}sident du jury \\
+                            & M. Christophe {\sc Marsala} & Examinateur \\
                             & M. Marcilio {\sc de Souto} & Examinateur \\
                             & M. J\'{e}r\'{e}mie {\sc Sublime} & Encadrant \\
                             & Mme. Rosanna {\sc Verde} & Rapportrice \\
@@ -81,178 +81,12 @@
 	\end{frame}
 
     \section{Introduction}
-    %\begin{frame}{Machine Learning}
-        %L'apprentissage machine (ou \textit{Machine Learning} en anglais) est le 
-        %domaine de recherche regroupant les algorithmes et les méthodes 
-        %permettant \textbf{d'apprendre automatiquement} un résultat à partir 
-        %d'un ensemble de données, aussi appelés \textbf{individus}.
-        %Les trois principales problématiques du Machine Learning sont:
-        %\begin{itemize}
-            %\item<2-> {\only<5>{\color{lightgray}}\textbf{La classification}: 
-                    %apprentissage des correspondances entre une donnée et son 
-                %label.}
-            %\item<3-> \textbf{Le clustering}: détection de groupes d'individus 
-                %similaires.
-            %\item<4-> {\only<5>{\color{lightgray}}\textbf{L'apprentissage par 
-                %renforcement}: apprentissage d'un comportement permettant à un 
-            %modèle de réagir à un environnement dynamique.}
-        %\end{itemize}
-    %\end{frame}
-
-    %\begin{frame}{Clustering}
-        %\begin{itemize}
-            %\item Tâche d'apprentissage \textbf{non supervisée} consistant à 
-                %rassembler des groupes d'individus (a.k.a. clusters) de sorte à 
-                %\textbf{maximiser la similarité intra-groupe} et à 
-                %\textbf{minimiser la similarité inter-groupes}.
-        %\end{itemize}
-
-        %\begin{figure}[b]
-            %\centering
-            %\includegraphics[scale=.25]{clustering}
-        %\end{figure}
-    %\end{frame}
-
-    %\begin{frame}{Clustering: similarité entre individus}
-        %\begin{itemize}
-            %\item La notion de \textbf{similarité} est souvent assimilée à la 
-                %notion de \textbf{distance}.
-            %\item La similarité doit être \textbf{adaptée à la nature des 
-                %données}.
-        %\end{itemize}
-
-        %\begin{table}[!h]
-            %\centering
-               %\begin{tabular}{cc}
-               %\hline
-               %Euclidienne & $ ||a - b ||_2  = \sqrt{ \sum_{i} (a_i - b_i)^2} $    \\	
-               %\hline
-               %Manhattan & $ ||a - b ||_1  = \sum_{i} |a_i - b_i|$    \\	
-               %\hline
-               %Maximum & $ ||a - b ||_{\infty}  = \mathop\mathrm{max}_{i} |a_i - b_i|$    \\	
-               %\hline 
-               %Mahalanobis & $ \sqrt{(a-b)^\top S^{-1}(a-b)}$    \\	
-               %\hline  
-               %Hamming & $ Hamming(a,b) = \sum_i  (1- \delta_{a_i,b_i}) $   \\	
-               %\hline           
-               %\end{tabular}
-               %\caption{Exemples de distances}
-           %\end{table}
-    %\end{frame}
-
-    %\begin{frame}{Clustering: types de partitions}
-        %Après un clustering, on obtient une partition de l'espace ainsi que les 
-        %appartenances des individus à chaque groupe de cette partition. Ces 
-        %appartenances peuvent être \textbf{dures}, \textbf{molles} ou 
-        %\textbf{floues}.
-
-        %\begin{table}[htbp]
-            %\centering
-            %\begin{subtable}{.3\textwidth}
-                %\centering
-                %\begin{tabular}{|c|c|c|c|}
-                    %\hline
-                          %& $c_1$       & $c_2$ & $c_3$ \\
-                    %\hline
-                    %\hline
-                    %$x_1$   & 1    &  0       &  0 \\
-                    %$x_2$   & 0    &  1       &  0 \\
-                    %$x_3$   & 0    &  0       &  1 \\
-                    %$x_4$   & 0    &  0       &  1 \\
-                    %\hline  
-                %\end{tabular}
-                %\caption{Clustering dur}
-            %\end{subtable}
-            %\begin{subtable}{.3\textwidth}
-                %\centering
-                %\begin{tabular}{|c|c|c|c|}
-                    %\hline
-                          %& $c_1$       & $c_2$ & $c_3$ \\
-                    %\hline
-                    %\hline
-                    %$x_1$   & 1    &  1       &  0 \\
-                    %$x_2$   & 0    &  1       &  1 \\
-                    %$x_3$   & 0    &  0       &  1 \\
-                    %$x_4$   & 0    &  0       &  1 \\
-                    %\hline
-                %\end{tabular}
-                %\caption{Clustering mou}
-            %\end{subtable}
-            %\begin{subtable}{.3\textwidth}
-                %\centering
-                %\begin{tabular}{|c|c|c|c|}
-                    %\hline
-                          %& $c_1$       & $c_2$ & $c_3$ \\
-                    %\hline
-                    %\hline
-                    %$x_1$   & 0.9    &  0.1       &  0 \\
-                    %$x_2$   & 0    &  0.8       &  0.2 \\
-                    %$x_3$   & 0    &  0.3       &  0.7 \\
-                    %$x_4$   & 0    &  0       &  1.0 \\
-                    %\hline
-                %\end{tabular}
-                %\caption{Clustering flou}
-            %\end{subtable}
-            %\caption{Les trois principaux types d'appartenances à des clusters}
-        %\end{table}
-    %\end{frame}
-
-    %\begin{frame}{Clustering: différentes approches}
-        %On peut regrouper les algorithmes de clustering en sous-catégories 
-        %suivant l'approche qu'ils utilisent:
-        %\begin{itemize}
-            %\item {\only<2>{\color{lightgray}}\textbf{Méthodes hiérarchiques}: 
-                    %création d'un arbre de correspondance entre les individus 
-                %(Agglomerative method).}
-            %\item \textbf{Méthodes de quantification de vecteurs}: définition 
-            %d'individus prototypes pour synthétiser les individus en entrée 
-            %(K-Means, SOM).
-            %\item {\only<2>{\color{lightgray}}\textbf{Méthodes de densité}: 
-                    %estimation des clusters suivant les zones les plus densément 
-                %peuplées de l'espace d'entrée (DBSCAN).}
-            %\item {\only<2>{\color{lightgray}}\textbf{Méthodes stochastiques}: 
-                    %création de modèles probabilistes définissant la probabilité 
-                %d'appartenance d'un individu à un cluster donné (GMM).}
-        %\end{itemize}
-    %\end{frame}
-
-    %\begin{frame}{Clustering: approche multi-vues}
-        %Nouvelle problématique pour le clustering: \textbf{un même ensemble 
-        %d'individu} est décrit dans plusieurs base de données indépendantes 
-        %appelées \textbf{vues}.
-
-        %\textbf{Problème}: comment obtenir un clustering de cet ensemble 
-        %d'individus ?
-
-        %Deux approches:
-        %\begin{itemize}
-            %\item<2-> {\only<4>{\color{lightgray}}\textbf{Coopérative}: chaque 
-                %vue effectue un clustering de ses données locales avant de 
-            %transférer ses résultats à une entité tiers qui devra fusionner les 
-        %résultats.}
-            %\item<3-> \textbf{Collaborative}: chaque vue effectue un premier 
-                %clustering local, puis le modifie en fonction des résultats 
-                %obtenus par les autres vues.
-        %\end{itemize}
-    %\end{frame}
-
-    %\begin{frame}{Clustering: approche multi-vues}
-        %Exemple multi-vues
-        %\begin{itemize}
-            %\item \textbf{Vue 1}: Ensemble des achats récent d'un individus 
-                %sur des sites d'e-commerce
-            %\item \textbf{Vue 2}: Salaire et régime alimentaire
-            %\item \textbf{Vue 3}: Contenu des derniers repas de chaque 
-                %individu
-        %\end{itemize}
-    %\end{frame}
-
     \begin{frame}{Clustering collaboratif: définition}
-        Le \textbf{clustering collaboratif} est un domaine récent désignant 
-        l'ensemble des méthodes permettant à \textbf{plusieurs algorithmes de 
-        clustering} opérant sur des \textbf{sources de données différentes et 
-        indépendantes} de collaborer pour \textbf{améliorer localement} leurs 
-        résultats.
+        Le \textbf{clustering collaboratif} est un domaine récent
+        ([Pedrycz2002]) désignant l'ensemble des méthodes permettant à
+        \textbf{plusieurs algorithmes de clustering} opérant sur des
+        \textbf{sources de données différentes et indépendantes} de collaborer
+        pour \textbf{améliorer localement} leurs résultats.
 
         \begin{figure}[b]
             \centering
@@ -269,12 +103,14 @@
             \item<+-> Description du \textbf{même ensemble d'individus} pour 
                 permettre l'analyse des \textbf{correspondances}:
             \item<+-> \textbf{\textit{N} algorithmes de clustering} 
-                (potentiellement différents) $\rightarrow$ 1 par vue.
+                (potentiellement différents)
+                $\rightarrow$ 1 par vue.
                 \begin{itemize}
-                    \item SOM, Fuzzy C-Means, GTM
+                    \item SOM [Grozavu2010], Fuzzy C-Means [Pedrycz2004], GTM
+                        [Ghassany2012]
                 \end{itemize}
             \item<+-> 2 phases d'apprentissage: la phase \textbf{locale} et la 
-                phase \textbf{collaborative}.
+                phase \textbf{collaborative}. [Pedrycz2002]
         \end{itemize}
 
         \onslide<+->{
@@ -332,7 +168,7 @@
                 et j.
             \item $\alpha_i$ et $\beta_j^i$ sont définis \textbf{à la main}.  
                 L'approximation $\forall j, \beta_j^i = \alpha_i^2$ est parfois 
-                utilisée car donnant de bons résultats en pratique.
+                utilisée car donnant de bons résultats en pratique [Grozavu2011].
         \end{itemize}
     \end{frame}
 
@@ -401,12 +237,12 @@
         \end{frame}
 
         \begin{frame}{Cartes Auto-Adaptatrices (SOM)}
-            Dans notre cas, utilisation des \textbf{cartes auto-adaptatrices de 
-            Kohonen} (ou Self-Organizing Maps (SOM) en anglais) comme méthode de 
-            clustering.
+            Dans notre cas, utilisation des \textbf{cartes auto-adaptatrices de
+            Kohonen} (ou Self-Organizing Maps (SOM) en anglais) [Kohonen1982]
+            comme méthode de clustering.
             \begin{itemize}
-                \item Méthode à base de \textbf{prototypes} (quantification de 
-                    vecteurs)
+                \item Méthode à base de \textbf{prototypes} utilisée pour le
+                    clustering collaboratif [Grozavu2010].
                 \item Permet la \textbf{visualisation} de données en hautes 
                     dimensions
                 \item Notion de \textbf{voisinage}: utilisation d'une 
@@ -542,8 +378,8 @@
                     \end{column}
                     \begin{column}{0.4\textwidth}
                         \begin{equation*}
-                            K_{i,j} = 
-                            \exp\left(-\frac{d^2_1(i,j)}{\lambda(t)}\right)
+                            \widetilde{K}_{i,j} = 
+                            \exp\left(-\frac{d^2_1(i,j)}{\widetilde{\lambda}(B, W)}\right)
                         \end{equation*}
                     \end{column}
                 \end{columns}
@@ -624,7 +460,7 @@
         \begin{frame}{Expérimentations: résultats sur Isolet}
             \begin{figure}[!h]
                 \centering
-                \caption{Évolution des puretés pour Isolet.  Les lignes rouges représentes les SOM incrémentales tandis que les lignes noires représentent les SOM incrémentales collaboratives.  Chaque itération correspond à l'arrivée d'une nouvelle donnée}
+                \caption{Évolution des puretés pour Isolet. Chaque itération correspond à l'arrivée d'un nouveau batch.}
                 \begin{subfigure}[b]{0.3\textwidth}
                     \centering
                     \includegraphics[width=0.7\textwidth, trim= 0cm 0.5cm 1cm 2cm, clip]{img/11.png}
@@ -656,6 +492,10 @@
                     %\caption{$N_{batch}=3$, View 3}
                 %\end{subfigure}
             \end{figure}
+            \begin{center}
+                {\color{red}SOM incrémentales} - \textbf{SOM incrémentales
+                collaboratives}
+            \end{center}
             \begin{itemize}
                 \item Les SOM incrémentales collaboratives \textbf{apprennent 
                     plus vite que les SOM incrémentales seules}:                 
@@ -735,7 +575,7 @@
                 \operatornamewithlimits{argmin}_{\beta}  \sum_{i \neq j}
         \beta_{i,j}  C _{i,j} $
             \item<3-> $\forall j \quad \prod_{i \neq j}^J \beta_{i,j} = 
-                1$
+                1$ (prise en compte des avis \textbf{divergents})
             \item<4-> $\forall (i,j) \quad \beta_{i,j} >0$
             \item<5->{Affranchissement des $\alpha$: comme il s'agit de 
                 pondérations relatives, on peut fixer $\alpha=1$.}
@@ -748,8 +588,8 @@
     \end{frame}
 
     \begin{frame}{Optimisation de paramètres: méthode de Karush-Kuhn-Tucker}
-        Critère + contrainte d'égalité + contrainte d'inégalité\\
-        $\rightarrow$ \textbf{méthode de Karush-Kuhn-Tucker (KKT)} 
+        Extension de la méthode du multiplateur de Lagrange aux contraintes d'inégalités
+        $\rightarrow$ \textbf{méthode de Karush-Kuhn-Tucker (KKT)} [Kuhn1951]. 
 
         \begin{equation*}
         L(\beta,\nu,\lambda)=\sum_{j=1}^J  \sum_{i \neq j}^J ( \beta_{i,j}  C_j^i
@@ -852,8 +692,8 @@
             %\end{subfigure}
             \begin{subfigure}[b]{0.32\textwidth}
                 \centering
-                \includegraphics[width=0.8\textwidth]{spambase_RD3.png}
-                \caption{Spambase}
+                \includegraphics[width=0.8\textwidth]{vhr_RD}
+                \caption{VHR Strasbourg}
             \end{subfigure}
             \begin{subfigure}[b]{0.32\textwidth}
                 \centering
@@ -862,8 +702,8 @@
             \end{subfigure}
             \begin{subfigure}[b]{0.32\textwidth}
                 \centering
-                \includegraphics[width=0.8\textwidth]{vhr_RD}
-                \caption{VHR Strasbourg}
+                \includegraphics[width=0.8\textwidth]{spambase_RD3.png}
+                \caption{Spambase}
             \end{subfigure}
         \end{figure}
 
@@ -914,7 +754,7 @@
             \item Proposition d'un \textbf{système de pondération automatique 
                 des vues externes} pour le clustering collaboratif.\\~\\
             \item \textbf{Amélioration} de la valeur du critère collaboratif
-            \item \textbf{Identification des vues bruitées}.
+            \item \textbf{Identification des vues bruitées}
             \item \textbf{(BONUS)} Apparition de \textbf{méta-clusters} de 
                 vues\\~\\
         \end{itemize}
@@ -978,23 +818,11 @@
     \end{frame}
 
     \begin{frame}{Reconstruction collaborative: définition}
-        Comment définir le problème de \textbf{reconstruction collaborative} ?
-        \begin{itemize}
-            \item Application du \textbf{paradigme collaboratif} à un autre 
-                problème
-            \item Le clustering collaboratif nécessite la \textbf{description 
-                d'un même individu dans chacune des vues}
-            \item En pratique, les données souvent sont \textbf{soit manquantes, 
-                soit incomplètes}.
-        \end{itemize}
+        \textbf{Objectif}: \textbf{Reconstruire localement} une approximation de l'individu manquant à partir des informations présentes dans \textbf{les vues externes}.
         \begin{figure}[h]
             \centering
             \includegraphics[scale=.15]{missing}
         \end{figure}
-
-        La reconstruction collaborative devrait permettre d'obtenir \textbf{une 
-        approximation} d'un individu dans une vue connaissant 
-        \textbf{l'information présente dans les autres vues}.
     \end{frame}
 
     \begin{frame}{Reconstruction collaborative: défis}
@@ -1136,7 +964,7 @@
             \centering
             \includegraphics[scale=.2]{mwm.png}
             \caption{Pondération par masque (Masked Weighting Method
-                en anglais).
+                (MWM) en anglais).
             }
         \end{figure}
     \end{frame}
@@ -1208,20 +1036,12 @@
         \end{itemize}
     \end{frame}
 
-    \begin{frame}{Reconstruction collaborative: entraînement}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[scale=.10]{sequence}
-            \caption{Apprentissage séquentiel des éléments du système}
-        \end{figure}
-    \end{frame}
-
     \begin{frame}{Reconstruction collaborative: expériences}
         \begin{itemize}
             \item Wisconsin Diagnostic Breast Cancer (WDBC)
                 \begin{itemize}
                     \item 569 individus
-                    \item 32 descripteurs répartis en 3 vues
+                    \item 30 descripteurs répartis en 3 vues
                 \end{itemize}
             \item Multi-Features Digital Dataset (MFDD)
                 \begin{itemize}
@@ -1378,7 +1198,7 @@
                 \includegraphics[scale=.12]{9}
             \end{subfigure}
             \caption{Échantillon d'images reconstruites de bonne qualité 
-            (~90\%)}
+            (~90\% des images reconstruites)}
         \end{figure}
     \end{frame}
 
@@ -1431,7 +1251,7 @@
                 \includegraphics[scale=.12]{99}
             \end{subfigure}
             \caption{Échantillon d'images reconstruites de mauvaise qualité 
-            (~10\%)}
+            (~10\% des images reconstruites)}
         \end{figure}
     \end{frame}
 
@@ -1473,7 +1293,7 @@
 
         \begin{itemize}
             \item Nouveau jeu de données \textbf{artificiel}: Cube
-            \item 100 individus décrits par 
+            \item 1000 individus décrits par 
                 3 descripteurs
             \item chaque vue est créée en \textbf{supprimant} une des dimensions
             \item \textbf{Objectif}: Tester la capacité de la méthode de 
@@ -1549,6 +1369,7 @@
         \begin{itemize}
             \item Scores \textbf{améliorables} en reconstruction.
             \item Reconstruction \textbf{conserve une information intrinsèque}.
+            \item \textbf{Sécurisation} des données
             \item Proof of concept, mais le système global doit être 
                 \textbf{amélioré}.
 
@@ -1573,10 +1394,13 @@
     \begin{frame}{Apports de la thèse}
         Les apports de la thèse concernent les deux domaines suivants:
         \begin{itemize}
-            \item Le clustering collaboratif
+            \item Le clustering collaboratif incrémental
                 \begin{itemize}
                     \item (article) ICONIP 2017
                     \item (article) EGC 2018
+                \end{itemize}
+            \item L'adaptation automatique de paramètres collaboratifs
+                \begin{itemize}
                     \item (article) IJCNN 2018
                 \end{itemize}
             \item La reconstruction collaborative
@@ -1593,10 +1417,11 @@
             \item Amélioration de chaque module utilisé pour le système de 
                 reconstruction collaborative, en particulier les liens 
                 permettant d'obtenir les reconstructions intermédiaires.\\~\\
-            \item Étude théorique et approfondissement du paradigme de 
-                reconstruction collaborative: définition des conditions de 
-                transférabilité des informations inter-vues, attestation de la 
-                qualité des individus reconstruits.
+            \item Étude théorique et approfondissement du paradigme de
+                reconstruction collaborative: définition des conditions de
+                transférabilité et de confidentialités des informations
+                inter-vues, attestation de la qualité des individus
+                reconstruits.
         \end{itemize}
     \end{frame}
 
@@ -1612,4 +1437,122 @@
         %\bibliography{./bib}
     %\end{frame}
 
+
+    \appendix
+    \begin{frame}{Descriptions des jeux de données}
+        \begin{itemize}
+            \item WDBC
+                \begin{itemize}
+                    \item 569
+                    \item 3 $\times$ 10 descripteurs sur 1 type de cellule
+                    \item description des caractéristiques physiques de chaque
+                        cellule (rayon, texture, aire\ldots)
+                \end{itemize}
+            \item Waveform
+                \begin{itemize}
+                    \item 5000 individus
+                    \item 40 attributs, 19 uniquement composés de bruits
+                    \item les 21 attributs restants sont bruités et composés de
+                        2 des 3 ``wave'' de base.
+                \end{itemize}
+            \item Isolet
+                \begin{itemize}
+                    \item 150 personnes ont prononcé chaque lettre de
+                        l'alphabet deux fois.
+                    \item les descripteurs sont des coefficients d'analyse
+                        spectrale utilisée dans les études d'analyse de la
+                        voix (l'ordre a été perdu).
+                \end{itemize}
+            \item Spambase
+                \begin{itemize}
+                    \item 4601 mails (spam et non spam)
+                    \item les descripteurs sont majoritairement (46/57) des
+                        fréquences d'apparitions de mots dans les messages. Les
+                        autres descripteurs sont soit des fréquences
+                        d'apparition de caractères (6/51) soit des
+                        caractéristiques propres aux séquences de lettres
+                        écrites en capital.
+                \end{itemize}
+            \item MFD
+                \begin{itemize}
+                    \item 2000 chiffres manuscrits
+                    \item chaque vue décrit l'ensemble de chiffres à l'aide de
+                        coefficients utilisés en descriptions de l'image
+                        (coefficients de Fourier, profile correlations,
+                        coefficients de Karhunen-Love, moyennes de pixels,
+                    moments de Zernike et des descripteurs morphologiques).
+                \end{itemize}
+            \item Madelon
+                \begin{itemize}
+                    \item 4400 individus artificiels (NIPS 2003)
+                    \item 32 clusters placés aux somments d'un cube à 5 dimensions.
+                    \item ajout de 480 descripteurs de bruit.
+                \end{itemize}
+            \item VHR Strasbourg
+                \begin{itemize}
+                    \item Segments d'images satellitse en très haute résolution 
+                    \item 27 descripteurs décrivant les variations de couleur
+                        sur chaque canal (rouge, vert, bleu et infra-rouge).
+                \end{itemize}
+        \end{itemize}
+        
+    \end{frame}
+
+    \begin{frame}{Mise à jour d'une SOM}
+        
+    \end{frame}
+
+    \begin{frame}{Références}
+        \begin{itemize}
+            \item [Deng2000] Da Deng and Nikola Kasabov. Esom: An algorithm to
+                evolve self-organizing maps from online data streams. In
+                \textit{Neural Networks}, volume-6, page 3-8. IEEE, 2000.
+            \item [Ghassany2012] Mohammad Ghassany, Nistor Grozavu, and Younès
+                Bennani. Collaborative generative topographic mapping. In
+                \textit{Internation Conference on Neural Information
+                Processing}, pages 591-598. Springer, 2012.
+            \item [Grozavu2010] Nistor Grozavu and Younès Bennani. Topological
+                collaborative clutering. \textit{Australian Journal of
+                Intelligent Information Processing Systems}, 12(2), 2010.
+            \item [Grozavu2011] Nistor Grozavu, Mohamad Ghassany, and Younès
+                Bennani. Learning confidence exchange in collaborative
+                clustering. In \textit{Neural Networks (IJCNN), The 2011
+                International Joint Conference on}, pages 872 879. IEEE, 2011.
+            \item [Kuhn1951] Harold W. Kuhn and Albert W. Tucker. Nonlinear
+                programming. In \textit{Proceeding of 2nd Berkeley Symposium},
+                pages 481-492. 1951.
+            \item [Paplinski2012] Andrew P.
+                Paplinski. Incremental self-organizing map (isom) in
+                categorization of visual objects. In \textit{ICONIP}, pages
+                125-132. Springer, 2012.
+            \item [Pedrycz2002] Witold Pedrycz.
+                Collaborative fuzzy clustering. \textit{Pattern Recognition
+                Letters}, 23(14):1675-1686, 2002.
+            \item [Pedrycz2004] Witold
+                Pedrycz. Fuzzy clustering with a knowledge-based guidance.
+                \textit{Pattern Recognition Lettrs}, 25(4):469-480, 2004.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Complexité algorithme du clustering collaboratif}
+        On ne tient pas compte du coût de calcul des méthodes implémentées par le clustering collaboratif.
+
+        \begin{itemize}
+            \item Complexité de chaque algorithme local
+            \item Bande passante nécessaire au transfert des résultats intermédiaires proportionnelle au nombre d'individus
+            \item Transferts répétés pour chaque itération
+        \end{itemize}
+
+        La reconstruction collaborative limite la quantité d'information transférées en ne les transférant qu'une seule fois.
+
+        \begin{itemize}
+            \item Apprentissage de chaque autoencodeur
+            \item Par vue, apprentissage de $N-1$ perceptron multi-couches
+            \item Par vue, apprentissage de $N-1$ masques
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Contexte générale}
+        
+    \end{frame}
 \end{document}
