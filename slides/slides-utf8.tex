@@ -74,164 +74,167 @@
     \maketitle
 
     \begin{frame}{Plan}
+        \setbeamertemplate{section in toc}{%
+            {\inserttocsectionnumber.}~\inserttocsection
+        }
         \tableofcontents[hideallsubsections]
 	\end{frame}
 
     \section{Introduction}
-    \begin{frame}{Machine Learning}
-        L'apprentissage machine (ou \textit{Machine Learning} en anglais) est le 
-        domaine de recherche regroupant les algorithmes et les méthodes 
-        permettant \textbf{d'apprendre automatiquement} un résultat à partir 
-        d'un ensemble de données, aussi appelés \textbf{individus}.
-        Les trois principales problématiques du Machine Learning sont:
-        \begin{itemize}
-            \item<2-> {\only<5>{\color{lightgray}}\textbf{La classification}: 
-                    apprentissage des correspondances entre une donnée et son 
-                label.}
-            \item<3-> \textbf{Le clustering}: détection de groupes d'individus 
-                similaires.
-            \item<4-> {\only<5>{\color{lightgray}}\textbf{L'apprentissage par 
-                renforcement}: apprentissage d'un comportement permettant à un 
-            modèle de réagir à un environnement dynamique.}
-        \end{itemize}
-    \end{frame}
+    %\begin{frame}{Machine Learning}
+        %L'apprentissage machine (ou \textit{Machine Learning} en anglais) est le 
+        %domaine de recherche regroupant les algorithmes et les méthodes 
+        %permettant \textbf{d'apprendre automatiquement} un résultat à partir 
+        %d'un ensemble de données, aussi appelés \textbf{individus}.
+        %Les trois principales problématiques du Machine Learning sont:
+        %\begin{itemize}
+            %\item<2-> {\only<5>{\color{lightgray}}\textbf{La classification}: 
+                    %apprentissage des correspondances entre une donnée et son 
+                %label.}
+            %\item<3-> \textbf{Le clustering}: détection de groupes d'individus 
+                %similaires.
+            %\item<4-> {\only<5>{\color{lightgray}}\textbf{L'apprentissage par 
+                %renforcement}: apprentissage d'un comportement permettant à un 
+            %modèle de réagir à un environnement dynamique.}
+        %\end{itemize}
+    %\end{frame}
 
-    \begin{frame}{Clustering}
-        \begin{itemize}
-            \item Tâche d'apprentissage \textbf{non supervisée} consistant à 
-                rassembler des groupes d'individus (a.k.a. clusters) de sorte à 
-                \textbf{maximiser la similarité intra-groupe} et à 
-                \textbf{minimiser la similarité inter-groupes}.
-        \end{itemize}
+    %\begin{frame}{Clustering}
+        %\begin{itemize}
+            %\item Tâche d'apprentissage \textbf{non supervisée} consistant à 
+                %rassembler des groupes d'individus (a.k.a. clusters) de sorte à 
+                %\textbf{maximiser la similarité intra-groupe} et à 
+                %\textbf{minimiser la similarité inter-groupes}.
+        %\end{itemize}
 
-        \begin{figure}[b]
-            \centering
-            \includegraphics[scale=.25]{clustering}
-        \end{figure}
-    \end{frame}
+        %\begin{figure}[b]
+            %\centering
+            %\includegraphics[scale=.25]{clustering}
+        %\end{figure}
+    %\end{frame}
 
-    \begin{frame}{Clustering: similarité entre individus}
-        \begin{itemize}
-            \item La notion de \textbf{similarité} est souvent assimilée à la 
-                notion de \textbf{distance}.
-            \item La similarité doit être \textbf{adaptée à la nature des 
-                données}.
-        \end{itemize}
+    %\begin{frame}{Clustering: similarité entre individus}
+        %\begin{itemize}
+            %\item La notion de \textbf{similarité} est souvent assimilée à la 
+                %notion de \textbf{distance}.
+            %\item La similarité doit être \textbf{adaptée à la nature des 
+                %données}.
+        %\end{itemize}
 
-        \begin{table}[!h]
-            \centering
-               \begin{tabular}{cc}
-               \hline
-               Euclidienne & $ ||a - b ||_2  = \sqrt{ \sum_{i} (a_i - b_i)^2} $    \\	
-               \hline
-               Manhattan & $ ||a - b ||_1  = \sum_{i} |a_i - b_i|$    \\	
-               \hline
-               Maximum & $ ||a - b ||_{\infty}  = \mathop\mathrm{max}_{i} |a_i - b_i|$    \\	
-               \hline 
-               Mahalanobis & $ \sqrt{(a-b)^\top S^{-1}(a-b)}$    \\	
-               \hline  
-               Hamming & $ Hamming(a,b) = \sum_i  (1- \delta_{a_i,b_i}) $   \\	
-               \hline           
-               \end{tabular}
-               \caption{Exemples de distances}
-           \end{table}
-    \end{frame}
+        %\begin{table}[!h]
+            %\centering
+               %\begin{tabular}{cc}
+               %\hline
+               %Euclidienne & $ ||a - b ||_2  = \sqrt{ \sum_{i} (a_i - b_i)^2} $    \\	
+               %\hline
+               %Manhattan & $ ||a - b ||_1  = \sum_{i} |a_i - b_i|$    \\	
+               %\hline
+               %Maximum & $ ||a - b ||_{\infty}  = \mathop\mathrm{max}_{i} |a_i - b_i|$    \\	
+               %\hline 
+               %Mahalanobis & $ \sqrt{(a-b)^\top S^{-1}(a-b)}$    \\	
+               %\hline  
+               %Hamming & $ Hamming(a,b) = \sum_i  (1- \delta_{a_i,b_i}) $   \\	
+               %\hline           
+               %\end{tabular}
+               %\caption{Exemples de distances}
+           %\end{table}
+    %\end{frame}
 
-    \begin{frame}{Clustering: types de partitions}
-        Après un clustering, on obtient une partition de l'espace ainsi que les 
-        appartenances des individus à chaque groupe de cette partition. Ces 
-        appartenances peuvent être \textbf{dures}, \textbf{molles} ou 
-        \textbf{floues}.
+    %\begin{frame}{Clustering: types de partitions}
+        %Après un clustering, on obtient une partition de l'espace ainsi que les 
+        %appartenances des individus à chaque groupe de cette partition. Ces 
+        %appartenances peuvent être \textbf{dures}, \textbf{molles} ou 
+        %\textbf{floues}.
 
-        \begin{table}[htbp]
-            \centering
-            \begin{subtable}{.3\textwidth}
-                \centering
-                \begin{tabular}{|c|c|c|c|}
-                    \hline
-                          & $c_1$       & $c_2$ & $c_3$ \\
-                    \hline
-                    \hline
-                    $x_1$   & 1    &  0       &  0 \\
-                    $x_2$   & 0    &  1       &  0 \\
-                    $x_3$   & 0    &  0       &  1 \\
-                    $x_4$   & 0    &  0       &  1 \\
-                    \hline  
-                \end{tabular}
-                \caption{Clustering dur}
-            \end{subtable}
-            \begin{subtable}{.3\textwidth}
-                \centering
-                \begin{tabular}{|c|c|c|c|}
-                    \hline
-                          & $c_1$       & $c_2$ & $c_3$ \\
-                    \hline
-                    \hline
-                    $x_1$   & 1    &  1       &  0 \\
-                    $x_2$   & 0    &  1       &  1 \\
-                    $x_3$   & 0    &  0       &  1 \\
-                    $x_4$   & 0    &  0       &  1 \\
-                    \hline
-                \end{tabular}
-                \caption{Clustering mou}
-            \end{subtable}
-            \begin{subtable}{.3\textwidth}
-                \centering
-                \begin{tabular}{|c|c|c|c|}
-                    \hline
-                          & $c_1$       & $c_2$ & $c_3$ \\
-                    \hline
-                    \hline
-                    $x_1$   & 0.9    &  0.1       &  0 \\
-                    $x_2$   & 0    &  0.8       &  0.2 \\
-                    $x_3$   & 0    &  0.3       &  0.7 \\
-                    $x_4$   & 0    &  0       &  1.0 \\
-                    \hline
-                \end{tabular}
-                \caption{Clustering flou}
-            \end{subtable}
-            \caption{Les trois principaux types d'appartenances à des clusters}
-        \end{table}
-    \end{frame}
+        %\begin{table}[htbp]
+            %\centering
+            %\begin{subtable}{.3\textwidth}
+                %\centering
+                %\begin{tabular}{|c|c|c|c|}
+                    %\hline
+                          %& $c_1$       & $c_2$ & $c_3$ \\
+                    %\hline
+                    %\hline
+                    %$x_1$   & 1    &  0       &  0 \\
+                    %$x_2$   & 0    &  1       &  0 \\
+                    %$x_3$   & 0    &  0       &  1 \\
+                    %$x_4$   & 0    &  0       &  1 \\
+                    %\hline  
+                %\end{tabular}
+                %\caption{Clustering dur}
+            %\end{subtable}
+            %\begin{subtable}{.3\textwidth}
+                %\centering
+                %\begin{tabular}{|c|c|c|c|}
+                    %\hline
+                          %& $c_1$       & $c_2$ & $c_3$ \\
+                    %\hline
+                    %\hline
+                    %$x_1$   & 1    &  1       &  0 \\
+                    %$x_2$   & 0    &  1       &  1 \\
+                    %$x_3$   & 0    &  0       &  1 \\
+                    %$x_4$   & 0    &  0       &  1 \\
+                    %\hline
+                %\end{tabular}
+                %\caption{Clustering mou}
+            %\end{subtable}
+            %\begin{subtable}{.3\textwidth}
+                %\centering
+                %\begin{tabular}{|c|c|c|c|}
+                    %\hline
+                          %& $c_1$       & $c_2$ & $c_3$ \\
+                    %\hline
+                    %\hline
+                    %$x_1$   & 0.9    &  0.1       &  0 \\
+                    %$x_2$   & 0    &  0.8       &  0.2 \\
+                    %$x_3$   & 0    &  0.3       &  0.7 \\
+                    %$x_4$   & 0    &  0       &  1.0 \\
+                    %\hline
+                %\end{tabular}
+                %\caption{Clustering flou}
+            %\end{subtable}
+            %\caption{Les trois principaux types d'appartenances à des clusters}
+        %\end{table}
+    %\end{frame}
 
-    \begin{frame}{Clustering: différentes approches}
-        On peut regrouper les algorithmes de clustering en sous-catégories 
-        suivant l'approche qu'ils utilisent:
-        \begin{itemize}
-            \item {\only<2>{\color{lightgray}}\textbf{Méthodes hiérarchiques}: 
-                    création d'un arbre de correspondance entre les individus 
-                (Agglomerative method).}
-            \item \textbf{Méthodes de quantification de vecteurs}: définition 
-            d'individus prototypes pour synthétiser les individus en entrée 
-            (K-Means, SOM).
-            \item {\only<2>{\color{lightgray}}\textbf{Méthodes de densité}: 
-                    estimation des clusters suivant les zones les plus densément 
-                peuplées de l'espace d'entrée (DBSCAN).}
-            \item {\only<2>{\color{lightgray}}\textbf{Méthodes stochastiques}: 
-                    création de modèles probabilistes définissant la probabilité 
-                d'appartenance d'un individu à un cluster donné (GMM).}
-        \end{itemize}
-    \end{frame}
+    %\begin{frame}{Clustering: différentes approches}
+        %On peut regrouper les algorithmes de clustering en sous-catégories 
+        %suivant l'approche qu'ils utilisent:
+        %\begin{itemize}
+            %\item {\only<2>{\color{lightgray}}\textbf{Méthodes hiérarchiques}: 
+                    %création d'un arbre de correspondance entre les individus 
+                %(Agglomerative method).}
+            %\item \textbf{Méthodes de quantification de vecteurs}: définition 
+            %d'individus prototypes pour synthétiser les individus en entrée 
+            %(K-Means, SOM).
+            %\item {\only<2>{\color{lightgray}}\textbf{Méthodes de densité}: 
+                    %estimation des clusters suivant les zones les plus densément 
+                %peuplées de l'espace d'entrée (DBSCAN).}
+            %\item {\only<2>{\color{lightgray}}\textbf{Méthodes stochastiques}: 
+                    %création de modèles probabilistes définissant la probabilité 
+                %d'appartenance d'un individu à un cluster donné (GMM).}
+        %\end{itemize}
+    %\end{frame}
 
-    \begin{frame}{Clustering: approche multi-vues}
-        Apparition d'un nouveau contexte: \textbf{un même ensemble d'individu} 
-        est décrit dans plusieurs base de données indépendantes appelées 
-        \textbf{vues}.
+    %\begin{frame}{Clustering: approche multi-vues}
+        %Nouvelle problématique pour le clustering: \textbf{un même ensemble 
+        %d'individu} est décrit dans plusieurs base de données indépendantes 
+        %appelées \textbf{vues}.
 
-        \textbf{Problème}: comment obtenir un clustering de cet ensemble 
-        d'individus ?
+        %\textbf{Problème}: comment obtenir un clustering de cet ensemble 
+        %d'individus ?
 
-        Deux approches:
-        \begin{itemize}
-            \item<2-> {\only<4>{\color{lightgray}}\textbf{Coopérative}: chaque 
-                vue effectue un clustering de ses données locales avant de 
-            transférer ses résultats à une entité tiers qui devra fusionner les 
-        résultats.}
-            \item<3-> \textbf{Collaborative}: chaque vue effectue un premier 
-                clustering local, puis le modifie en fonction des résultats 
-                obtenus par les autres vues.
-        \end{itemize}
-    \end{frame}
+        %Deux approches:
+        %\begin{itemize}
+            %\item<2-> {\only<4>{\color{lightgray}}\textbf{Coopérative}: chaque 
+                %vue effectue un clustering de ses données locales avant de 
+            %transférer ses résultats à une entité tiers qui devra fusionner les 
+        %résultats.}
+            %\item<3-> \textbf{Collaborative}: chaque vue effectue un premier 
+                %clustering local, puis le modifie en fonction des résultats 
+                %obtenus par les autres vues.
+        %\end{itemize}
+    %\end{frame}
 
     %\begin{frame}{Clustering: approche multi-vues}
         %Exemple multi-vues
@@ -247,15 +250,10 @@
     \begin{frame}{Clustering collaboratif: définition}
         Le \textbf{clustering collaboratif} est un domaine récent désignant 
         l'ensemble des méthodes permettant à \textbf{plusieurs algorithmes de 
-        clustering} opérant sur des \textbf{sources de données différentes} de 
-        collaborer pour \textbf{améliorer localement} leurs résultats.
+        clustering} opérant sur des \textbf{sources de données différentes et 
+        indépendantes} de collaborer pour \textbf{améliorer localement} leurs 
+        résultats.
 
-        \begin{itemize}
-            \item Les algorithmes utilisés peuvent être \textbf{différents}.
-            \item Les vues doivent partager soit leurs descripteurs (clustering 
-                vertical), soit \textbf{leurs individus} (clustering horizontal) 
-                pour pouvoir être comparées.
-        \end{itemize}
         \begin{figure}[b]
             \centering
             \includegraphics[scale=0.02]{hcc-min}
@@ -264,10 +262,39 @@
         \end{figure}
     \end{frame}
 
+    \begin{frame}{Clustering collaboratif: définition}
+        \begin{itemize}
+            \item<+-> $N$ bases de données $\rightarrow$ \textbf{\textit{N} 
+                vues}.
+            \item<+-> Description du \textbf{même ensemble d'individus} pour 
+                permettre l'analyse des \textbf{correspondances}:
+            \item<+-> \textbf{\textit{N} algorithmes de clustering} 
+                (potentiellement différents) $\rightarrow$ 1 par vue.
+                \begin{itemize}
+                    \item SOM, Fuzzy C-Means, GTM
+                \end{itemize}
+            \item<+-> 2 phases d'apprentissage: la phase \textbf{locale} et la 
+                phase \textbf{collaborative}.
+        \end{itemize}
+
+        \onslide<+->{
+            Avantages:
+            \begin{itemize}
+                \item Prise en compte \textbf{d'informations externes} dans les 
+                    résultats locaux
+                \item \textbf{Adaptation des méthodes de clustering} suivant la 
+                    source de données
+                \item Répartition de la \textbf{charge de calcul} sur l'ensemble des 
+                    vues.
+                \item \textbf{Sécurisation} des données transférées
+            \end{itemize}
+        }
+    \end{frame}
+
     \begin{frame}{Clustering collaboratif: processus}
         \begin{figure}[b]
             \centering
-            \includegraphics[scale=.70]{clusteringcoll}
+            \includegraphics[scale=.35]{cc_resume}
             \caption{Processus de clustering collaboratif}
         \end{figure}
     \end{frame}
@@ -300,12 +327,42 @@
                 l'algorithme local} à optimiser.
             \item $Q^i_{collab}$ se base sur \textbf{l'échange d'information 
                 entre vues}, typiquement les appartenances des individus aux 
-                clusters respectifs de chaque vue. $C_j^i$ représente \textbf{la 
-                dissimilarité} entre les vues i et j.
+                clusters respectifs de chaque vue.
+            \item $C_j^i$ représente \textbf{la dissimilarité} entre les vues i 
+                et j.
             \item $\alpha_i$ et $\beta_j^i$ sont définis \textbf{à la main}.  
                 L'approximation $\forall j, \beta_j^i = \alpha_i^2$ est parfois 
                 utilisée car donnant de bons résultats en pratique.
         \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Problématique}
+            \begin{center}
+                \fontsize{14pt}{15pt}
+                \textbf{Comment améliorer les communications opérées durant un 
+                apprentissage collaboratif ?}
+            \end{center}
+    \end{frame}
+
+    \begin{frame}{Contributions}
+        Réponse à la problématique suivant 3 axes:
+        \begin{enumerate}
+            \item<+(1)-> Rendre le clustering collaboratif \textbf{incrémental}.
+                \begin{itemize}
+                    \item (article) ICONIP 2017
+                    \item (article) EGC 2018
+                \end{itemize}
+            \item<+(1)-> \textbf{Détection automatique} des meilleures 
+                collaboration inter-vues.
+                \begin{itemize}
+                    \item (article) IJCNN 2018
+                \end{itemize}
+            \item<+(1)-> Ouverture du paradigme collaboratif au problème de la 
+                \textbf{reconstruction}.
+                \begin{itemize}
+                    \item (journal, en cours de soumission) KAIS
+                \end{itemize}
+        \end{enumerate}
     \end{frame}
 
     \section{Clustering collaboratif incrémental}
