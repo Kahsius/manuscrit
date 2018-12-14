@@ -38,7 +38,14 @@ $$\forall i \quad \prod_{j \neq i}^N \beta^j_i = 1$$
 
 $$\forall (i,j) \quad \beta^j_i >0 $$ 
 
-Note that we use a product constraint instead of a sum. While it may seem unusual, it has already been used in related works on multi-view clustering~\cite{CarvalhoML15}. Furthermore, in~\cite{Sublime2017} it has been demonstrated that the constraint $\sum_{j \neq i}^N \beta^j_i = 1$ would lead to an unsatisfying result and that an extra parameter $p$ (that needs to be learned) is needed to make it work with collaborative clustering. To simplify the presentation, in what follows we omit the dependency of $C^j_i$ to $w$ in our notations.
+Note that we use a product constraint instead of a sum. While it may seem 
+unusual, it has already been used in related works on multi-view 
+clustering~\cite{CarvalhoML15}. Furthermore, in~\cite{Sublime2017} it has been 
+demonstrated that the constraint $\sum_{j \neq i}^N \left( \beta^j_i \right)^p = 
+1$ would lead to an unsatisfying result and that an extra parameter $p$ (that 
+needs to be learned) is needed to make it work with collaborative clustering. To 
+simplify the presentation, in what follows we omit the dependency of $C^j_i$ to 
+$w$ in our notations.
 
 We use the Karush-Kuhn-Tucker method to solve the created optimization problem. In this demonstration, we will only consider one local view $i$ because the weights $\beta^j_i$ are computed and used locally.
 Given the $C^j_i$, we  optimize the matrix $\beta = {\left(\beta^j_i\right)}_{N \times N}$ as shown in the system below:
@@ -249,7 +256,17 @@ Several points can be mentioned concerning these images. First, as one can see c
 \end{table}
 
 \paragraph{Purity and QE analysis:}
-The last experiment consisted in the analysis of two criterion commonly met in the Kohonen's map literature, namely the purity and the quantization error. This analysis has been conducted in order to make sure that the collaborative phase and the $\beta$ weighting did not damage the final result of the learning. Table~\ref{tab:criterion} displays the mean values of each criterion for all the views, except the added noisy one. The results shows that our proposed weighting method, while succesful with unsupervised indexes has little to no impact on supervised criterions such as purity or quantization error. This result was to be expected since our proposed optimization does not bring any extra supervision compared to the original one, and it is therefore good already that it does not negatively impact supervised results.
+The last experiment consisted in the analysis of two criterion commonly found in 
+the Kohonen's map literature, namely the purity and the quantization error. This 
+analysis has been conducted in order to make sure that the collaborative phase 
+and the $\beta$ weighting did not damage the final result of the learning.  
+Table~\ref{tab:criterion} displays the mean values of each criterion for all the 
+views, except the added noisy one. The results shows that our proposed weighting 
+method, while succesful with unsupervised indexes has little to no impact on 
+supervised criterions such as purity or quantization error. This result was to 
+be expected since our proposed optimization does not bring any extra supervision 
+compared to the original one, and it is therefore good already that it does not 
+negatively impact supervised results.
 
 \begin{table}[!h]
 	\caption{Experimental results on different datasets}

@@ -16,10 +16,67 @@ The Collaborative Clustering paradigm is based on the prerequisite that each vie
 \section{Context}
 \label{sec:crs_context}
 
-The current proliferation of multi-view data in various domains such as marketing, bank administration or even survey analysis, has recently been accompanied by a global security awareness that questions which data should --or more often shouldn't-- be made available and shared. This awareness is based on the question of the link between one's intimacy and the processing that is made of one's data. This topic being beyond the scope of this thesis, it will not be further detailed, however it will be used as the fundation of the security constraint which is detailed hereafter. This security problem is particularly relevant in the case of multi-view learning, a speciality of Machine Learning in which algorithms are trained using databases distributed among several independent (but communicating) views. Some multi-view paradigms such as Collaborative Clustering are based on the hypothesis that different views share the same set of individuals, point which makes possible the inter-view results comparison, and so the training and the improvement of each local model. However, this hypothesis does not have to be verified in practice: the presence of an individual in a database does not guarantee its presence in all the other views. In real life cases, it is even more likely that an individual is present in a limited number of views, considering all these available. The question of the use of the available information to infer missing data on an individual may be asked.
+\subsection{Multi-view reconstruction}
+The current proliferation of multi-view data in various domains such as 
+marketing, bank administration or even survey analysis, has recently been 
+accompanied by a global security awareness that questions which data should --or 
+more often shouldn't-- be made available and shared. This awareness is based on 
+the question of the link between one's intimacy and the processing that is made 
+of one's data. This topic being beyond the scope of this thesis, it will not be 
+further detailed, however it will be used as the fundation of the security 
+constraint which is detailed hereafter. This security problem is particularly 
+relevant in the case of multi-view learning, a speciality of Machine Learning in 
+which algorithms are trained using databases distributed among several 
+independent (but communicating) views. Some multi-view paradigms such as 
+Collaborative Clustering are based on the hypothesis that different views share 
+the same set of individuals, point which makes possible the inter-view results 
+comparison, and so the training and the improvement of each local model. 
+However, this hypothesis does not have to be verified in practice: the presence 
+of an individual in a database does not guarantee its presence in all the other 
+views. In real life cases, it is even more likely that an individual is present 
+in a limited number of views, considering all these available. The question of 
+the use of the available information to infer missing data on an individual may 
+be asked.
 	
-Because of the security concern mentioned above, a solution to the missing data problem should at least be able to reconstruct missing data in the concerned views without sharing of the original data available in each local view.	Within this context, this chapter presents a solution to fill in missing pieces of information in a given view by using the data contained in the other views but without any data transfer that may breach security issues. While data reconstruction has already been studied using method such as Collaborative Filtering~\cite{koren2015advances}, the work presented here provides the extension of this problem to the multi-view context while also considering the problem of data security.
+Because of the security concern mentioned above, a solution to the missing data 
+problem should at least be able to reconstruct missing data in the concerned 
+views without sharing of the original data available in each local view.	
+Within this context, this chapter presents a solution to fill in missing pieces 
+of information in a given view by using the data contained in the other views 
+but without any data transfer that may breach security issues. While data 
+reconstruction has already been studied using method such as Collaborative 
+Filtering~\cite{koren2015advances}, the work presented here provides the 
+extension of this problem to the multi-view context while also considering the 
+problem of data security.
 
+\subsection{Data imputation and data reconstruction}
+Missing data is a problem which has already been extensively studied in the
+literature, and the field related to completing a partially sparse
+dataset is called data imputation. In this paradigm, several individuals are 
+missing part of their features (not necessarily the same), and the presented
+methods aim at filling these missing features to be able to use the individuals 
+a posteriori.
+
+The main methods used to perform data imputation are the mean substitution
+(define the missing value of a feature as the mean of its values), the
+linear regression (with an optimized version presented in
+\cite{resheff2015optimized}), k Nearest Neighbors imputation 
+\cite{troyanskaya2001missing}, fuzzy k-Means imputation \cite{li2004towards}, 
+Singular Values Decomposition imputation \cite{troyanskaya2001missing}, bayesian 
+Principal Components Analysis \cite{oba2003bayesian} and Multiple Imputation by 
+Chained Equations \cite{oba2003bayesian}. Several surveys and comparisons can be 
+found in the literature, as presented in \cite{schmitt2015comparison}, 
+\cite{rubin2004multiple} and \cite{van2018flexible}.
+
+It has to be noted that the goal of data imputation is to mitigate the
+impact of missing data on the results obtained using the sparse database. This
+differs from what we try to achieve here in that we present a method to get the
+best reconstructed individuals possible, the reconstruction being an end in
+itself.  Moreover, the imputation field does not consider the multi-view
+constraint: at every step of each method, the algorithm has access to
+the whole database to impute missing values.
+
+\subsection{Data security and data privacy}
 At this point, it is useful to note that the work presented in this chapter takes into account the difference between data privacy and data security. Data privacy is a whole research field which considers the problem of data sharing as well as the use which is done of this data. Currently, the specific field of differential privacy is the subfield of algorithmics which defines a theoretical context to estimate the privacy level of a semi-randomized mechanism~\cite{dwork2010differential}. On the other side, data security in the context of this thesis is defined as the constraint of not being able to access original data if it is not from its original view. The point of this constraint is to make sure that the reconstruction algorithm which is presented here does not rely either on the transfer of original information, or on the possibility for an external view to have access to the original data from another view. To sum up the difference between these two fields, data privacy ensures that no information on the original data can be retrieved, would it be the original data or labels that may be attached to it, while data security in the context of this thesis just ensures that the original data is available only in its local view.
 
 This point being clarified, the main difficulties of the solution lie in two points: how to transfer usable information in the local view without transferring the original external data, and how to reconstruct more or less reliable information from different sources to get the final result.
@@ -36,7 +93,18 @@ Neural Networks are a specific kind of Machine Learning algorithm based on an an
 
 \subsection{A neuron}
 
-A MLP is made of several layers of several neurons (see Figure~\ref{fig:neuron} and~\ref{fig:mlp}), each having a set a parameters which are trained during the MLP learning. To get the ouput of a neuron, each feature of the input vector is weighted by a set of parameters of the neuron, before being summed and put in an activation function to get the final output. Regarding the activation function, the first one which has been used is the sigmoid function, which definition can be found at Equation~\ref{eq:sigmoid}. There are many different activation functions which can be used, however the one which tends to be the most commonly met in recent research work is the Rectified Linear Unit (ReLU), which definition is simply $ReLU(x) = \max(0, x)$. The activation function being known. The backpropagation algorithm is applied to train the weighting coefficients of the neuron.
+A MLP is made of several layers of several neurons (see Figure~\ref{fig:neuron} 
+and~\ref{fig:mlp}), each having a set a parameters which are trained during the 
+MLP learning. To get the ouput of a neuron, each feature of the input vector is 
+weighted by a set of parameters of the neuron, before being summed and put in an 
+activation function to get the final output. Regarding the activation function, 
+the first one which has been used is the sigmoid function, which definition can 
+be found at Equation~\ref{eq:sigmoid}. There are many different activation 
+functions which can be used, however the one which tends to be the most commonly 
+found in recent research work is the Rectified Linear Unit (ReLU), which 
+definition is simply $ReLU(x) = \max(0, x)$. The activation function being 
+known. The backpropagation algorithm is applied to train the weighting 
+coefficients of the neuron.
 
 
     \begin{figure}[h]
@@ -48,7 +116,7 @@ A MLP is made of several layers of several neurons (see Figure~\ref{fig:neuron} 
 
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=.6]{mlp}
+        \includegraphics[scale=.25]{mlp}
         \caption{An example of Multi Layer Perceptron. In this case, the network has two hidden layers, the first one is made of 3 neurons, while the second one is made of 2 neurons. The smaller circles stand for the input (4 feature) and the output (2 features).}
 \label{fig:mlp}
     \end{figure}
@@ -181,7 +249,7 @@ The coefficients can be learned using two methods: Gradient Descent on the recon
 		
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=\textwidth]{img/mwm.pdf}
+        \includegraphics[width=\textwidth]{img/mwm.png}
         \caption{The Masked Weighting Method. View 2 has got the reconstructed
         individuals from Views 1 and 3, and it uses the masks previously trained
         to get the final weighted result.}
@@ -302,11 +370,21 @@ To test the usability of the reconstructed vectors, they have been tested in a c
 	
 The error considered here is the mean difference between the classification scores obtained in each view on their test datasets with the original data and the ones obtained with the reconstructed individuals. For the remainder of the thesis, we will name this error the Classification Difference. Contrary to the two previous ones, this error is not intended to determine the difference between a vector and its reconstruction, but rather to look at the impact of the reconstruction process on later data processing (such as a classification task). Even with mitigated reconstruction scores (MSE and MRD), a low Classification Difference would mean that the reconstructed individuals can be used in further applications. This score is presented along with the classification scores of each view. The Random Forest classifiers have been trained using the entropy cost function, with 50 estimators and with a max depth of 5.\\
 
-Finally, to ensure the efficiency of the Masked Weighting Method when it comes to favor subparts of reconstructed vectors depending on the source external view, we simply have analyzed the vectors values of these masks for the Cube dataset. This dataset is particular because the projection performed to obtain a view entails the overlap of 2 clusters around the point $(0,0)$. Moreover, projecting according to a specific axis, which is equivalent to supress a column in the original 3-dimensional dataset, prevents the local view to have any information on this axis, while its pairs will need this information to reconstruct their local individuals. If the Masked Weighting Method works as intended, a huge difference between the values of the mask should be observed. This process is illustrated in Figure~\ref{fig:process_mwm}.
+Finally, to ensure the efficiency of the Masked Weighting Method when it comes 
+to favor subparts of reconstructed vectors depending on the source external 
+view, we simply have analyzed the vectors values of these masks for the Cube 
+dataset. This dataset is particular because the projection performed to obtain a 
+view entails the overlap of 2 clusters around the point $(0,0)$. Moreover, 
+projecting according to a specific axis, which is equivalent to supress a column 
+in the original 3-dimensional dataset, prevents the local view to have any 
+information on this axis, while its pairs will need this information to 
+reconstruct their local individuals. If the Masked Weighting Method works as 
+intended, a huge difference between the values of the mask should be observed. 
+This process is illustrated in Figure~\ref{fig:process_mwm}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=.38]{img/process_mwm}
+    \includegraphics[scale=.3]{img/process_mwm.png}
     \caption{The combination of two partially good reconstructions into a good one. In this example, each view has enough information to reconstruct only one feature out of the two in the local view (doted lines). The Masked Weighted Method is designed to favor the best reconstructed part of each partial reconstruction, hence the $\times 0$ and $\times 1$ in the masks.}
 \label{fig:process_mwm}
 \end{figure}
@@ -368,16 +446,16 @@ To better analyze the quality of the reconstructed individuals, we have used a s
 
 \begin{figure}[h]
     \centering
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o0}}
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o1}}
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o2}}
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o3}}
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o4}}\\
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o5}}
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o6}}
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o7}}
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o8}}
-    \subfloat[][]{\includegraphics[scale=.15]{img/sample_original/o9}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o0}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o1}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o2}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o3}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o4}}\\
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o5}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o6}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o7}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o8}}
+    \subfloat[][]{\includegraphics[scale=.15]{img/original/o9}}
     \caption{Sample of the original images available in the MFDD dataset}
 \label{fig:num_original}
 \end{figure}

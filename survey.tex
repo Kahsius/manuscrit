@@ -3,7 +3,7 @@
 % Last Change: ven. mai 18 02:00  2018 C
 %
 \chapter{State of the Art}
-This section first gives the definition of clustering along with its use cases and its main difficulties. Then several commonly met methods are presented along with the category of algorithms they belong to. Eventually we focus on the specific subfield of multi-view clustering, giving a definition and a state of the art of the research works which are conducted on it.
+This section first gives the definition of clustering along with its use cases and its main difficulties. Then several commonly found methods are presented along with the category of algorithms they belong to. Eventually we focus on the specific subfield of multi-view clustering, giving a definition and a state of the art of the research works which are conducted on it.
 
     \section{Definition of clustering}
     Every day, exabytes of data of various format are generated: videos, texts, audio, activities on social networks\ldots Since its creation, clustering has become an active field of research because of the possibilities it offers when applied to such a variety of data. Using clustering, it becomes possible to better understand the underlying structures of a dataset. These structures can then be used for further real-world applications such as market study, advertisement targeting, product improvement and recommendation.
@@ -13,7 +13,7 @@ This section first gives the definition of clustering along with its use cases a
     The first two clustering algorithms found in the literature are Hierarchical Clustering~\cite{ward1963hierarchical} and K-means~\cite{macqueen1967some} respectively defined in 1963 and 1967. Those algorithms define two of the main clustering subfields: the methods based on a hierarchical classification of the input, and the methods based on its partition. The different clustering subfields will be described later in this section.
 
     \section{Results analysis}
-    Clustering in itself is a very broad field, and it might be difficult to analyze the results of a training process depending on its context. Criterions usually met to analyze a clustering are detailed in this section: the similarity measures along with how they are related to data typology, then quality measures.
+    Clustering in itself is a very broad field, and it might be difficult to analyze the results of a training process depending on its context. Criterions usually found to analyze a clustering are detailed in this section: the similarity measures along with how they are related to data typology, then quality measures.
     
     \subsection{Similarity measures}
     The second problem related to clustering lies in the similarity measures used for each algorithm. Clustering relies on the idea that similar individuals must belong to the same cluster while dissimilar ones should not. Therefore, one of clustering challenges is to define the criterion that allows to compare two individuals. Problems such as point clustering in ``physical'' space can be adressed using distance measures among which the most well-known is the euclidean distance, a.k.a.\ the $l2$-norm and defined as follow: 
@@ -32,7 +32,31 @@ This section first gives the definition of clustering along with its use cases a
 \label{sec:quality_measures}
     Another problem appears when one has applied the selected clustering method on its dataset: how can one measures the quality of a clustering? With a supervised problem such as classification, it is easy to determine the quality of the result by simply considering criterion such as the percentage of object well classified. You can even use this criterion during the learning phase to deduce update rules as in~\cite{vincent2010stacked}. However, the problem is different for clustering: most of the time you do not have access to a criterion which you can optimize during the learning process. If the problem only involves data in a visualizable space (between 1 and 3 dimensions), it is easy to visualize the data and to see if the created clusters are intuitively good. However, most of the time the problem involved have a dimensionality that is far higher than 3, making it hard to visualize graphically the content of each cluster. Some methods such as Principal Component Analysis~\cite{wold1987principal} and Locally Linear Embedding~\cite{roweis2000nonlinear} allow to give an estimated projection of the data (and of their corresponding clusters) in a visualizable space. Some work in the literature are solely dedicated to the definition of a clustering quality, like in~\cite{ben2009measures}.
 
-    However, even if it is hard to give an intuitive measure of the quality of a clustering, two criteria are intuitively studied to get an idea of the clustering quality: its compactness, namely how close are the individuals from a same cluster, and its separability, namely how far are the individuals from different clusters.\ some measures allow to compare two clustering one to each other. Among these measures, the most commonly met are the Dunn index~\cite{dunn1973fuzzy}, the Davies-Bouldin index~\cite{davies1979cluster}, the Silhouette index~\cite{rousseeuw1987silhouettes} the Wemmert-Gancarski Index~\cite{wemmert2000classification}. Some measures even allow to compare two clusterings, namely the Rand index~\cite{rand1971objective} and its Adjusted version~\cite{hubert1985comparing}. The four first measures are based on the idea that clustering should minimize the distance between members of a same cluster (compactness) while maximizing distance between members of different clusters (separability), which corresponds to the intuitive goal that one may want to achieve when performing clustering.  While the four first make it possible to say that one clustering is ``better'' than the other, the two last only define the similarity between two clustering, without telling which one is the best. Each one is detailed in the following paragraphs.
+However, even if it is hard to give an intuitive measure of the quality of a 
+clustering, two criteria are intuitively studied to get an idea of the 
+clustering quality: its compactness, namely how close are the individuals from a 
+same cluster, and its separability, namely how far are the individuals from 
+different clusters. Some measures allow to compare two clustering one to each 
+other. Among these measures, the most commonly found are the Dunn 
+index~\cite{dunn1973fuzzy}, the Davies-Bouldin index~\cite{davies1979cluster}, 
+the Silhouette index~\cite{rousseeuw1987silhouettes} and the Wemmert-Gancarski 
+Index~\cite{wemmert2000classification}. Some measures even allow to compare two 
+clusterings, namely the Rand index~\cite{rand1971objective} and its Adjusted 
+version~\cite{hubert1985comparing}. The four first measures are based on the 
+idea that clustering should minimize the distance between members of a same 
+cluster (compactness) while maximizing distance between members of different 
+clusters (separability), which corresponds to the intuitive goal that one may 
+want to achieve when performing clustering.  While the four first make it 
+possible to say that one clustering is ``better'' than the other, the two last 
+only define the similarity between two clustering, without telling which one is 
+the best.
+
+There also exists two quality measures used especially for prototype based
+methods such as SOM and K-Means, namely the purity index and the Quantization 
+Error. These measures take advantage on the defined prototypes to define 
+measures based on these prototypes.
+
+Each quality measure is detailed in the following paragraphs.
 
     \subsubsection{Dunn index}
     The Dunn index is defined as the ratio between an inter-cluster measure $D$ and a measure of scatter $\Delta_i$. It is defined as follow:
@@ -77,10 +101,17 @@ DB = \frac{1}{|C|}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
         \label{eq:db_index}
     \end{equation}
 
-    With $C$ the clustering and $|C|$ the corresponding number of clusters, $\Delta_i$ a measure of scatter for the $i$-th cluster and $D(c_i, c_j)$ a distance measure as defined for the Dunn index. The most commonly met version of the Davies Bouldin index in the one based on the third line of Table~\ref{tab:all_dunn_index}.
+    With $C$ the clustering and $|C|$ the corresponding number of clusters, $\Delta_i$ a measure of scatter for the $i$-th cluster and $D(c_i, c_j)$ a distance measure as defined for the Dunn index. The most commonly found version of the Davies Bouldin index in the one based on the third line of Table~\ref{tab:all_dunn_index}.
 
     \subsubsection{Silhouette index}
-    The Silhouette index (SI) can also be used to assess the compactness of the clusters as well as their separation. However, the main difference between this index and the Dunn or Dabies-Bouldin ones is that it can be computed either for a given individual $x$, or for a cluster $c_i$, or for the whole clustering. For an individual $x$, $a_x$ is defined as the mean distance between $x$ and the elements belonging to its cluster, and $b_x$ is defined as the mean distance between $x$ and the elements which do not belong to its cluster. Then, the Silhouette index in defined as follow:
+    The Silhouette index (SI) can also be used to assess the compactness of the 
+    clusters as well as their separation. However, the main difference between 
+    this index and the Dunn or Dabies-Bouldin ones is that it can be computed 
+    either for a given individual $x$, or for a cluster $c_i$, or for the whole 
+    clustering. For an individual $x$, $a_x$ is defined as the mean distance 
+    between $x$ and the elements membership to its cluster, and $b_x$ is defined 
+    as the mean distance between $x$ and the elements which do not belong to its 
+    cluster. Then, the Silhouette index in defined as follow:
 
     \begin{equation}
         SI(x) = \frac{b_x - a_x}{\max(a_x, b_x)}
@@ -135,7 +166,11 @@ DB = \frac{1}{|C|}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
     \end{equation}
 
     \subsubsection{Rand index}
-    To compare two clustering, the Rand index considers the peers of elements which are clustered together (or not) in each clustering. Four sets are defined ($a$, $b$, $c$, and $d$), the union of which contain all the peers of elements of the dataset studied. The belonging of a pair to a set follows Table~\ref{tab:rand_index}.
+    To compare two clustering, the Rand index considers the peers of elements 
+    which are clustered together (or not) in each clustering. Four sets are 
+    defined ($a$, $b$, $c$, and $d$), the union of which contain all the peers 
+    of elements of the dataset studied. The membership of a pair to a set 
+    follows Table~\ref{tab:rand_index}.
     
     \vspace{0.8cm}
 
@@ -172,9 +207,46 @@ DB = \frac{1}{|C|}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
 
     This multiplicity of criteria brings to light that there are several challenges to address while performing clustering, and there is to date no method which can tackle all of them at once. Thus, the methods which have emerged have their own strengths and weaknesses. The next section presents an overview of the most well-known clustering algorithms used today with their specificities.
 
-    \section{Popular clustering methods}
 
-    This section presents a non-exhaustive selection of clustering algorithms which are the most commonly met in practice. Since the creation of the field, many methods have been proposed, and some of them share basic ideas which are then developed in different ways. Thus this section will be divided following the main categories of existing algorithms with at least one example for each kind. These categories are the following:
+    \subsubsection{Purity index}
+    \label{survey_purity}
+
+    The purity of prototype based model is the average purity of its prototypes, 
+    with the purity of a prototype being the proportion of the most represented 
+    class among the individuals belonging to this prototype. It has to be noted 
+    that, unlike the previously presented index, the purity requires the 
+    original labels of the considered individuals to be computed.
+
+    It can therefore be defined using the following formula:
+
+    \begin{equation}
+        purity = \frac{1}{N_p}\sum_{k=1}^{N_p} \max_{i \in \left[ 1..C  
+        \right]}\left( P_k(i) \right)
+    \end{equation}
+
+    With $N_p$ the number of prototypes, $C$ the number of classes and $P_k(i)$ the 
+    proportion of the class $i$ among the individuals belonging to the prototype 
+    $k$.
+
+    \subsubsection{Quantization Error}
+    \label{sec:survey_qe}
+
+    The Quantization Error (QE) is defined as the Mean Squared Error between the 
+    prototypes of the models and their respectives individuals. It can be 
+    defined using the following formula:
+
+    \begin{equation}
+\label{eq:som_qe}
+    qe = \frac{1}{N}\sum_{i=1}^{N}\|x_i - w_{\chi(x_i)}\|^2
+	\end{equation}
+    
+    With $N$ the number of individuals, $x_i$ the $i$-th individual, $w_k$ the 
+    $k$-th prototype of the model, and $\chi(x_i)$ the function returning the 
+    index of the prototype to which $x_i$ belongs.
+
+\section{Popular clustering methods}
+
+    This section presents a non-exhaustive selection of clustering algorithms which are the most commonly found in practice. Since the creation of the field, many methods have been proposed, and some of them share basic ideas which are then developed in different ways. Thus this section will be divided following the main categories of existing algorithms with at least one example for each kind. These categories are the following:
 
     \begin{itemize}
         \item Hierarchical methods
@@ -184,13 +256,13 @@ DB = \frac{1}{|C|}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
         \item Other methods 
     \end{itemize}
 
-    The categorization presented here only pretends to give to the reader an overview of the most commonly met clustering algorithms. Some other categorization may be found in the literature, as the one presented in~\cite{jain1999data}, in~\cite{xu2005survey} and most recently in~\cite{fahad2014survey}.
+    The categorization presented here only pretends to give to the reader an overview of the most commonly found clustering algorithms. Some other categorization may be found in the literature, as the one presented in~\cite{jain1999data}, in~\cite{xu2005survey} and most recently in~\cite{fahad2014survey}.
 
     \subsection{Hierarchical methods}
 
     This kind of algorithm is the first to appear in 1963 with the method presented in~\cite{ward1963hierarchical}. Its core idea is to build a hierarchy of clusters by joining existing clusters (agglomerative methods, each individual starts in its own cluster) or by separating them (divise methods, all the dataset belongs to the same initial cluster). The principle of the method is to iteratively build a dendrogram by looking at a specific criterion. A method is defined both by the way the dendrogram is built and by the criterion used to pair or divise the clusters. One can either applies the method until all points belong to the same cluster and graphically determining the best number of clusters, or applies the method until a specific criterion is reached (number of clusters or inter-cluster distance for example).
 
-    The first most commonly met hierarchical clustering method is the Agglomerative method presented in~\cite{ward1963hierarchical} which pairs clusters by considering a criterion to optimize. The variations of the algorithm depends on the criterion which is used to pair the clusters. The most used criterions are the Ward's function (defined in~\cite{ward1963hierarchical}) which aims at minimizing the intra-cluster variance at each step, and the linkage functions which consider a specific distance inter-cluster to minimize. These latter can be either the maximum or the minimum or the mean distance between points of two clusters (respectively called the complete-linkage, the single-linkage and the average linkage clusterings). There exists some other criterion which are not detailed here, however the interested reader can refer to~\cite{murtagh1983survey} which establishes a detailed survey on the criterion used for Agglomerative clustering. A general framework for an agglomerative hierarchical clustering algorithm is presented in Algorithm~\ref{alg:hierarch}.\\
+    The first most commonly found hierarchical clustering method is the Agglomerative method presented in~\cite{ward1963hierarchical} which pairs clusters by considering a criterion to optimize. The variations of the algorithm depends on the criterion which is used to pair the clusters. The most used criterions are the Ward's function (defined in~\cite{ward1963hierarchical}) which aims at minimizing the intra-cluster variance at each step, and the linkage functions which consider a specific distance inter-cluster to minimize. These latter can be either the maximum or the minimum or the mean distance between points of two clusters (respectively called the complete-linkage, the single-linkage and the average linkage clusterings). There exists some other criterion which are not detailed here, however the interested reader can refer to~\cite{murtagh1983survey} which establishes a detailed survey on the criterion used for Agglomerative clustering. A general framework for an agglomerative hierarchical clustering algorithm is presented in Algorithm~\ref{alg:hierarch}.\\
 
     \begin{algorithm}[H]
         \caption{General framework of a hierarchical agglomerative clustering algorithm}
@@ -207,12 +279,19 @@ DB = \frac{1}{|C|}\sum_{i=1}^{|C|} \max_{j \neq i} \frac{\Delta_i + \Delta_j}{D(
 
     \vspace{0.8cm}
 
-    The second most commonly met Hierarchical method is the Balanced Iterative Reducing and Clustering using Hierarchies (BIRCH) one~\cite{zhang1997birch}. This method has been defined in a context of growing interest for data mining of large dataset, and its main claim is to reduce the consumption of ressources used during the clustering, as it presents a compact representation of a dataset and only requires a single pass through the dataset to create the tree.
+    The second most commonly found Hierarchical method is the Balanced Iterative Reducing and Clustering using Hierarchies (BIRCH) one~\cite{zhang1997birch}. This method has been defined in a context of growing interest for data mining of large dataset, and its main claim is to reduce the consumption of ressources used during the clustering, as it presents a compact representation of a dataset and only requires a single pass through the dataset to create the tree.
 
     \subsection{Vector quantization methods}
 \label{sec:cluster_vector_quantization}
 
-    Vector quantization methods are based on the idea that a clustering can be summarized by a set of prototype vectors, thus the belonging of an individual to one cluster is determined by comparing it to the set of existing prototypes. There are two main kinds of Vector Quantization methods: these based on deterministic belongings for which an individual belong to one and only one cluster, and these based on stochastic belongings for which belongings are expressed as a set of probabilities, one per prototype. 
+    Vector quantization methods are based on the idea that a clustering can be 
+    summarized by a set of prototype vectors, thus the membership of an 
+    individual to one cluster is determined by comparing it to the set of 
+    existing prototypes.  There are two main kinds of Vector Quantization 
+    methods: these based on deterministic memberships for which an individual 
+    belong to one and only one cluster, and these based on stochastic 
+    memberships for which memberships are expressed as a set of probabilities, 
+    one per prototype. 
 
     The Deterministic Vector Quantization methods are historically the first ones that have been created. The very first method, still used today, is the K-means algorithm~\cite{macqueen1967some}. This method is based on a pair of steps done iteratively until convergence of the prototypes. First a set of $K$ prototypes is randomly generated in the feature space, then each individual is associated with its closest prototype (in terms of a distance criterion). When all the dataset has been processed, the prototypes are updated as the means of their associated individuals: they become the ``center'', also called ``centroid'',  of the cluster they represent. The last two steps are repeated until the prototypes updates norms are sufficiently small to be considered as negligeable. The k-means algorithm is illustrated in Algorithm~\ref{alg:kmeans}.
 
@@ -276,9 +355,23 @@ A SOM is defined by a temperature function $\lambda$ which itself defines a neig
         }
     \end{algorithm}
 
- Deterministic Vector Quantization ideas have been adapted in a stochastic context: now, an individual does not belong to a single cluster, but rather is defined by a set of $K$ belonging probabilities, with $K$ the total number of clusters. The belongings are told to be ``fuzzy''. A comparision can be made between the two learning steps used by K-means and the Expectation-Maximization (EM) algorithm defined in~\cite{dempster1977maximum} for which the update of parameters are performed using the likelihood of data being generated by the model using these parameters. In the first case, the method optimizes the variance of the distance between the prototypes and its associated points, in the second case the method optimizes the likelihood of the dataset being generated by the clustering model. The EM method thus makes it possible to define a stochastic counterpart to K-means called Gaussian Mixture Model. In this method, data have been generated by a set of Gaussian functions. The EM method here make it possible to learn the mean, the variance and, in the multidimensional case, the covariance matrix of the functions.
+ Deterministic Vector Quantization ideas have been adapted in a stochastic 
+ context: now, an individual does not belong to a single cluster, but rather is 
+ defined by a set of $K$ membership probabilities, with $K$ the total number of 
+ clusters.  The memberships are told to be ``fuzzy''. A comparision can be made 
+ between the two learning steps used by K-means and the Expectation-Maximization 
+ (EM) algorithm defined in~\cite{dempster1977maximum} for which the update of 
+ parameters are performed using the likelihood of data being generated by the 
+ model using these parameters. In the first case, the method optimizes the 
+ variance of the distance between the prototypes and its associated points, in 
+ the second case the method optimizes the likelihood of the dataset being 
+ generated by the clustering model. The EM method thus makes it possible to 
+ define a stochastic counterpart to K-means called Gaussian Mixture Model. In 
+ this method, data have been generated by a set of Gaussian functions. The EM 
+ method here make it possible to learn the mean, the variance and, in the 
+ multidimensional case, the covariance matrix of the functions.
     
- Considering fuzzy belongings, it is also possible to draw some links between deterministic clustering methods and their stochastic variants. Thus, Fuzzy C-Means~\cite{bezdek1984fcm} can be viewed as the stochastic variant of K-means for which the optimized criterion uses weighting coefficients equals to the fuzzy belongings defined by the method. Beside, the Generative Topographic Maps (GTM)~\cite{bishop1998gtm} can be viewed as the SOM stochastic variant. However, while Fuzzy C-Means (FCM) only added the stochastic belongings to the initial model, GTM uses the concept of latent space to define the prototype map, map which is then mapped into the feature space using a transformation which parameters are trained using the EM method (cf. Figure~\ref{fig:gtm}). A detailed description of the FCM algorithm can be found in Algorithm~\ref{alg:fcm}
+ Considering fuzzy memberships, it is also possible to draw some links between deterministic clustering methods and their stochastic variants. Thus, Fuzzy C-Means~\cite{bezdek1984fcm} can be viewed as the stochastic variant of K-means for which the optimized criterion uses weighting coefficients equals to the fuzzy memberships defined by the method. Beside, the Generative Topographic Maps (GTM)~\cite{bishop1998gtm} can be viewed as the SOM stochastic variant. However, while Fuzzy C-Means (FCM) only added the stochastic memberships to the initial model, GTM uses the concept of latent space to define the prototype map, map which is then mapped into the feature space using a transformation which parameters are trained using the EM method (cf. Figure~\ref{fig:gtm}). A detailed description of the FCM algorithm can be found in Algorithm~\ref{alg:fcm}
 
         \vspace{0.8cm}
    
@@ -315,7 +408,7 @@ These methods are further developed in Section~\ref{sec:soa_cc} when Collaborati
 
 Even though hierarchical and vector quantization methods have been investigated since the emergence of clustering, the problem of the initialy defined number of cluster remains because it has to be defined manually by the user. The density-based methods presented in this section present alternative solutions to this problem by using the density of individuals in the feature space to automatically determine the optimal number of clusters during the learning process (w.r.t.\ the optimized criterion). This kind of method can also be seen as an intuitive answer to the clustering problem given the definition of a cluster: these methods are based on the finding of dense zones in the middle of less dense zones.
 
-The most commonly met density based method is called Density-based spatial clustering of applications with noise (DBSCAN)~\cite{ester1996density}. Its core idea is to consider the density around each individual, namely their numbers of neighbors, because a cluster can also be seen as a densely populated point in the feature space. To do so, the method requires two parameters: a distance $varepsilon$ which determines if two points are neighbors, and $minPts$ which determines if an individual should be considered as a core sample (intuitively, a sample near the cluster center) or a non-core sample (at the fringe of the cluster, where the space is less densely populated). Starting from a random point, then iteratively: if it has at least $minPts$ neighbors, it is considered as a core point and all individuals such as their distances to the original point is less than $varepsilon$ are analyzed. If it has less than $minPts$ neighbors: either it has a core sample in its neighborhood, in which case it is considered a non-core sample belonging to the same cluster as its core neighbor, or in the opposite case, it is considered as an outlier belonging to no cluster. By doing so, the method defines its own number of clusters depending on $varepsilon$ and $minPts$. A description of the DBSCAN algorithm can be found in Algorithm~\ref{alg:dbscan}. The OPTICS algorithm~\cite{ankerst1999optics} can be seen as an improvement of the DBSCAN algorithm. This algorithm is based on both the ordering of the individuals in such a way that spatially close points become neighbors in the ordering and on the storage in each point of a distance used to define same cluster belongings. These points are used to address one of DBSCAN's weaknesses: the problem of detecting meaningful clusters in data of varying density.
+The most commonly found density based method is called Density-based spatial clustering of applications with noise (DBSCAN)~\cite{ester1996density}. Its core idea is to consider the density around each individual, namely their numbers of neighbors, because a cluster can also be seen as a densely populated point in the feature space. To do so, the method requires two parameters: a distance $varepsilon$ which determines if two points are neighbors, and $minPts$ which determines if an individual should be considered as a core sample (intuitively, a sample near the cluster center) or a non-core sample (at the fringe of the cluster, where the space is less densely populated). Starting from a random point, then iteratively: if it has at least $minPts$ neighbors, it is considered as a core point and all individuals such as their distances to the original point is less than $varepsilon$ are analyzed. If it has less than $minPts$ neighbors: either it has a core sample in its neighborhood, in which case it is considered a non-core sample belonging to the same cluster as its core neighbor, or in the opposite case, it is considered as an outlier belonging to no cluster. By doing so, the method defines its own number of clusters depending on $varepsilon$ and $minPts$. A description of the DBSCAN algorithm can be found in Algorithm~\ref{alg:dbscan}. The OPTICS algorithm~\cite{ankerst1999optics} can be seen as an improvement of the DBSCAN algorithm. This algorithm is based on both the ordering of the individuals in such a way that spatially close points become neighbors in the ordering and on the storage in each point of a distance used to define same cluster memberships. These points are used to address one of DBSCAN's weaknesses: the problem of detecting meaningful clusters in data of varying density.
 
 \begin{algorithm}
     \caption{DBSCAN algorithm}
@@ -367,7 +460,7 @@ The most commonly met density based method is called Density-based spatial clust
     \end{algorithm}
 
 
-    The second most commonly met density based algorithm is the Mean-shift method defined in~\cite{cheng1995mean}. The core idea of the method is to consider individuals as mobile points which will then be attracted iteratively by high-density zones in the feature space. It is based on a kernel function $K$ which will define the attraction of a point on its neighborhood. At each iteration, each individual will be updated as the mean of its neighbors weighted by their respective attractions (defined by $K$). The method is entirely defined by the kernel function and by its parameters.
+    The second most commonly found density based algorithm is the Mean-shift method defined in~\cite{cheng1995mean}. The core idea of the method is to consider individuals as mobile points which will then be attracted iteratively by high-density zones in the feature space. It is based on a kernel function $K$ which will define the attraction of a point on its neighborhood. At each iteration, each individual will be updated as the mean of its neighbors weighted by their respective attractions (defined by $K$). The method is entirely defined by the kernel function and by its parameters.
 
     \subsection{Special case: Spectral clustering}
 

@@ -83,17 +83,11 @@
 
 	During our experiments, each of those datasets has been normalized and divided in 3 views each containing a third of the original variables. We suppose here that one has enough information on each variable to allow its normalization at the time it appears, for example by knowing its bounds. Each view will stand for an individual ``site'' which will collaborate with its peers.
 	
-	The quality measures used during those experiments are the quantization error and the purity index commonly used to analyze SOM.\@
+    The quality measures used during those experiments are the quantization 
+    error \ref{sec:survey_qe} and the purity index \ref{sec:survey_som} commonly 
+    used to analyze SOM.\@
 	
-	The quantization error can be defined in our case by the following expression:
-	\begin{equation}
-\label{eq:som_qe}
-	qe = \frac{1}{N_{batch}}\sum_{i=1}^{N_{batch}}\|x_i - w_{\chi(x_i)}\|^2
-	\end{equation}
-	
-	The purity of a neuron is defined by the proportion of the most represented class, and the purity of a map is equal to the average purity of its neurons. 
-		
-	\subsection{Experiments}
+    \subsection{Experiments}
 	In this section we present the results obtained on the four datasets. For these experiments, a 10$\times$10 SOM has been used, with $\lambda_{\min}=0.3$, $\lambda_{\max}=3$, $\epsilon=0.5$ (while it is usually time-dependent for classical SOM), $N_{batch}=10$ and the local step of Collaborative Clustering has been performed for the first 10 batches. The models have been trained using only the 30 first batches in order to test the early convergence of the model and because it appears that the results do not change a lot on the long term. The methods have been coded in R v3.2.3.
 	
 	\begin{table}[!h]
